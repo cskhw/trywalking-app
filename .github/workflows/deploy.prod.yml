@@ -1,0 +1,64 @@
+name: CI-CD prod
+
+on:
+  push:
+    branches: [main]
+
+env:
+  S3_BUCKET_NAME: dl-orderhero-settlement-cicd
+  CODE_DEPLOY_APPLICATION_NAME: dl-orderhero-deploy
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: dl-orderhero-settlement
+
+jobs:
+  # s3에 zip으로 업로드한 후 codedeploy로 ec2에 배포
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Make zip file
+        run: zip -r ./$GITHUB_SHA.zip .
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
+
+      - name: Code Deploy
+        run: |
+          aws deploy create-deployment \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
+
+  # test:
+  #   needs: build # build 후에 실행되도록 정의
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Run vitest
+  #       run: |
+  #         npm install
+  #         npm run vitest
+
+  deploy:
+    needs: build # build 후에 실행되도록 정의
+    runs-on: [cicd-prod] # AWS ./configure에서 사용할 label명
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run deploy.sh
+        run: |
+          cd /home/ec2-user/dl-orderhero-settlement
+          sudo chmod 777 ./deploy.sh
+          ./deploy.sh

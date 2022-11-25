@@ -1,0 +1,48 @@
+<template>
+  <!-- GlobalError -->
+  <NuxtErrorBoundary @error="GlobalErrorLogger">
+    <!-- You use the default slot to render your content -->
+    <QLayout view="hhh lpr fff">
+      <NuxtLayout :name="appStore.layout">
+        <NuxtPage />
+      </NuxtLayout>
+    </QLayout>
+    <!-- 글로벌 에러 처리 -->
+    <template #error="error">
+      <Error :error="error" />
+    </template>
+  </NuxtErrorBoundary>
+</template>
+<script setup lang="ts">
+import useAppStore from "@/stores/useAppStore";
+
+const appStore = useAppStore();
+const router = useRouter();
+
+/**자동로그인 처리 */
+if (cookies.has(COOKIE_AUTO_LOGIN)) {
+  //TODO: refresh토큰 유효성 체크 후 access토큰 재발급
+  router.push("/");
+}
+
+// 자동로그인 쿠키 없으면 브라우저 종료 전에 토큰 삭제
+window.onbeforeunload = () => {
+  if (!cookies.has(COOKIE_AUTO_LOGIN)) {
+    cookies.remove(COOKIE_ACCESS_TOKEN);
+    cookies.remove(COOKIE_REFRESH_TOKEN);
+  }
+};
+
+// 글로벌 로거
+const GlobalErrorLogger = (e: any) => {
+  log(e);
+};
+</script>
+<style lang="scss">
+.app-header {
+  color: black;
+  background-color: white;
+  .app-toolbar {
+  }
+}
+</style>
