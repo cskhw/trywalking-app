@@ -40,19 +40,19 @@ jobs:
           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
           --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
 
-  # test:
-  #   needs: build # build 후에 실행되도록 정의
-  #   runs-on: ubuntu-latest
+  test:
+    needs: build # build 후에 실행되도록 정의
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Run vitest
-  #       run: |
-  #         npm install
-  #         npm run vitest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run vitest
+        run: |
+          npm install
+          npm run vitest
 
   deploy:
-    needs: build # build 후에 실행되도록 정의
+    needs: test # build 후에 실행되도록 정의
     runs-on: [cicd-prod] # AWS ./configure에서 사용할 label명
 
     steps:
