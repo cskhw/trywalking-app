@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/ec2-user/dl-orderhero-settlement
+cd /home/ec2-user/dl-orderhero-admin-checklist
 
 DOCKER_APP_NAME=vue
 
