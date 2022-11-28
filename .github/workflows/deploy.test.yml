@@ -5,9 +5,9 @@ on:
     branches: [test]
 
 env:
-  S3_BUCKET_NAME: dl-orderhero-settlement-cicd
-  CODE_DEPLOY_APPLICATION_NAME: dl-orderhero-deploy-test
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: dl-orderhero-settlement-test
+  S3_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+  CODE_DEPLOY_APPLICATION_NAME: ${{ secrets.AWS_CODEDEPLOY_NAME }}
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ${{ secrets.AWS_CODEDEPLOY_GROUP_NAME }}
 
 jobs:
   # s3에 zip으로 업로드한 후 codedeploy로 ec2에 배포
