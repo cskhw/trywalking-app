@@ -26,7 +26,8 @@ if [ -z "$EXIST_BLUE" ]; then
 	docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml down
 	docker image prune -af # 사용하지 않는 이미지 삭제
 
-# blue가 실행중이면 green up
+	# blue가 실행중이면 green up
+	echo "blue up complete"
 else
 	echo "green up"
 	docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml up -d --build
@@ -36,6 +37,6 @@ else
 	echo "blue down"
 	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml down
 	docker image prune -af
-fi
 
-echo "deploy complete"
+	echo "green up complete"
+fi
