@@ -43,7 +43,6 @@ jobs:
   test:
     needs: build # build 후에 실행되도록 정의
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: Run vitest
