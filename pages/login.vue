@@ -6,7 +6,7 @@
         class="row items-center justify-center q-pa-lg text-weight-bolder font-size-32"
         style="flex: 3; padding-bottom: 48px"
       >
-        오더히어로 정산관리 배포 테스트 11/28 #2
+        오더히어로 정산관리 배포 테스트 11/28 #3
       </div>
 
       <!-- 사업자 번호 인풋 -->
