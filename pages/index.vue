@@ -4,7 +4,7 @@
     <QPage>
       <!-- 홈 고객 정보 배너 -->
       <HomeBanner />
-      무중단 테스트 4
+      무중단 테스트 5
       <QBtn @click="$router.push('login')">로그인</QBtn>
     </QPage>
   </QPageContainer>
