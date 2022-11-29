@@ -20,6 +20,7 @@ if [ -z "$EXIST_BLUE" ]; then
 	echo "blue up"
 	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
 
+	echo "sleep 10"
 	sleep 10
 
 	echo "green down"
@@ -32,6 +33,7 @@ else
 	echo "green up"
 	docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml up -d --build
 
+	echo "sleep 10"
 	sleep 10
 
 	echo "blue down"
