@@ -6,23 +6,21 @@ DOCKER_APP_NAME=vue
 
 # 실행중인 blue가 있는지
 EXIST_BLUE=$(docker ps | grep vue-blue)
-echo $EXIST_BLUE
-
+# 실행중인 nginx가 있는지
 EXIST_NGINX=$(docker ps | grep nginx)
-echo $EXIST_NGINX
-
-echo $IDLE_PORT
 
 health_check() {
-	RESPONSE=$(curl -s http://127.0.0.1:${IDLE_PORT})
+	RESPONSE=$(curl -s http://127.0.0.1:$2)
 	# 헬스 체크
+	echo "$3 health check: $IDLE_PORT count: $1... "
+	echo $RESPONSE
 	if [ -n "$RESPONSE" ]; then
-		echo "green down"
-		docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml down
+		echo "$3 down"
+		docker-compose -p ${DOCKER_APP_NAME}-$3 -f docker-compose.green.yml down
 		docker image prune -af # 사용하지 않는 이미지 삭제
-		return
+		echo "$3 down complete"
+		exit
 	fi
-	echo "$1...  health check: $IDLE_PORT"
 	sleep 3
 }
 
@@ -35,26 +33,22 @@ fi
 if [ -z "$EXIST_BLUE" ]; then
 	echo "blue up"
 	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
-
-	echo "run health check 10 times"
+	IDLE_PORT=5201
+	echo "blue up complete"
 
 	for RETRY_COUNT in {1..10}; do
-		health_check $RETRY_COUNT
+		health_check $RETRY_COUNT $IDLE_PORT "green"
 	done
 
-	echo "blue up complete"
-	# blue가 실행중이면 green up
+# blue가 실행중이면 green up
 else
 	echo "green up"
 	docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml up -d --build
+	IDLE_PORT=5202
+	echo "green up complete"
 
 	for RETRY_COUNT in {1..10}; do
-		health_check $RETRY_COUNT
+		health_check $RETRY_COUNT $IDLE_PORT "blue"
 	done
 
-	echo "blue down"
-	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml down
-	docker image prune -af
-
-	echo "green up complete"
 fi

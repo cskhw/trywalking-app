@@ -89,4 +89,5 @@ jobs:
         run: |
           cd /home/ec2-user/dl-orderhero-admin-checklist 
           sudo chmod 777 ./deploy.sh
+          sudo chmod 777 ./down.sh
           ./deploy.sh
