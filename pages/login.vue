@@ -6,7 +6,7 @@
         class="row items-center justify-center q-pa-lg text-weight-bolder font-size-32"
         style="flex: 3; padding-bottom: 48px"
       >
-        오더히어로 정산관리 11/30 베포 테스트: 캐싱 #2 20221129:17:39 {{ date }}
+        오더히어로 정산관리 11/30 베포 테스트: 캐싱 #3 20221129:17:39 {{ date }}
       </div>
 
       <!-- 사업자 번호 인풋 -->
