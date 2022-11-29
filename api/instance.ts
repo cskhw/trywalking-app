@@ -11,7 +11,7 @@ const baseURL = "http://localhost:3000" + getBaseUrl();
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: baseURL,
-  timeout: 20000,
+  timeout: 180000,
 });
 
 // 요청 인터셉터

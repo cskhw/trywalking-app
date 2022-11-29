@@ -1,5 +1,3 @@
-import { ONE_MB, ONE_KB } from "@/utils/common";
-
 /* method list
 
 getDate             오늘 날짜를 2022-03-07 형태로 반환
@@ -11,9 +9,6 @@ checkFileSize       파일 1개의 크기 체크(바이트 단위)
 checkUploadFilesSize   파일 한개 혹은 여러개의 크기 체크(바이트 단위)
 checkFileTypes       주어진 파일의 확장자 체크
 logger              시간을 붙여서 로그 찍음
-setJosa             구성요소 명칭과, 현재 사용된 조사를 던져주면, 그에 대응되는 종성에 맞는 정상 조사 반환
-toJPHalfWidth       알파벳, 숫자 일본어 반각 전환
-toJPFullWidth       알파벳, 숫자 일본어 전각 전환
 
 openInfoModal       Information 모달 표시
 openAlertModal      Alert 모달 표시
@@ -23,7 +18,6 @@ getUserName         사용자 이름 리턴
 getTimeZone         사용하는 시간대 가져오기
 getColor            키값에 맞는 테마 코드 색상 리턴
 getSettingValue     사용자의 환경설정값 가져오기
-getIdiomData        관용어구값 가져오기
 // getLocaleTimeFromTo       From의 시간 String을 To의 시간으로
 // getTimeFromTo       From의 시간 String을 To의 시간 객체로
 getUserTime         UTC 시간을 사용자의 timezone 시간 객체로
@@ -35,7 +29,6 @@ getAddCommaString   숫자에 세 자리 마다 컴마 추가해서 반환
 dataURItoBlob       dataURI를 Blob로 변환
 dataURLtoFile       dataURI를 File로 변환
 getThumbImgFile     이미지 썸네일 생성
-getCodeFromLang     언어 약자에 맞는 코드를 반환
 
 // css
 rgbToRgba           rgb를 rgba 스트링으로 변환
@@ -226,80 +219,6 @@ export function logger(...args: any[]) {
   console.log(getTimeStamp(), "---->", args);
 }
 
-// 설명:            구성요소 명칭과, 현재 사용된 조사를 던져주면, 그에 대응되는 종성에 맞는 정상 조사 반환
-// Arguement:       checkTxt -> 종성이 있는지 체크할 문자, josaTxt -> 현재의 조사
-// Return:          정상 조사
-
-export function setJosa(checkTxt: string, josaTxt: string) {
-  checkTxt = checkTxt + "";
-  // 한글, 숫자, 알파벳 발음에 종성이 있는가?
-  const hasFinal =
-    (/[가-힣]$/.test(checkTxt) &&
-      (checkTxt.substr(-1).charCodeAt(0) - 0xac00) % 28 > 0) ||
-    /[가-힣]\d*[013678]$/.test(checkTxt) ||
-    /[a-z]\d*[1789]$/i.test(checkTxt) ||
-    /[013678]$/.test(checkTxt) || // 원래 소스에서 추가함. 숫자만 있는 것 조사 체크
-    /([clmnp]|[blnt](e)|[co](k)|[aeiou](t)|mb|ng|lert)$/i.test(checkTxt);
-
-  // console.log(checkTxt, josaTxt, hasFinal);
-
-  // 받침이 있는 경우
-  if (hasFinal) {
-    // 받침이 'ㄹ'로 끝난 경우
-    // if ((checkTxt.substr(-1).charCodeAt(0) - 0xac00) % 28 == 8) { // 기존 소스. 1, 7, 8 리을로 끝나는것 때문에 아래 추가
-    if (
-      (checkTxt.substr(-1).charCodeAt(0) - 0xac00) % 28 == 8 ||
-      checkTxt.substr(-1) === "1" ||
-      checkTxt.substr(-1) === "7" ||
-      checkTxt.substr(-1) === "8"
-    ) {
-      //조사가 잘못 쓰인 상황으로, 대응되는 조사 반환
-      if (notLiulJosa.indexOf(josaTxt) > -1)
-        return liulJosa[notLiulJosa.indexOf(josaTxt)];
-      //조사가 정상적으로 쓰인 상황이거나, 매칭되는 조사가 없는 경우
-      else return josaTxt;
-    }
-    // 받침이 'ㄹ'이 아닌 경우
-    else {
-      //조사가 잘못 쓰인 상황으로, 대응되는 조사 반환
-      if (notJongJosa.indexOf(josaTxt) > -1)
-        return jongJosa[notJongJosa.indexOf(josaTxt)];
-      //조사가 정상적으로 쓰인 상황이거나, 매칭되는 조사가 없는 경우
-      else return josaTxt;
-    }
-  }
-  // 받침이 없는 경우
-  else {
-    //조사가 잘못 쓰인 상황으로, 대응되는 조사 반환
-    if (jongJosa.indexOf(josaTxt) > -1)
-      return notJongJosa[jongJosa.indexOf(josaTxt)];
-    //조사가 정상적으로 쓰인 상황이거나, 매칭되는 조사가 없는 경우
-    else return josaTxt;
-  }
-}
-
-// 설명:            알파벳, 숫자 일본어 반각 전환
-// Arguement:       jpTxt -> 변환하고자 하는 텍스트
-// Return:          반각으로 전환된 텍스트
-export function toJPHalfWidth(jpTxt: any) {
-  //숫자인 경우 문자로 변환
-  jpTxt = jpTxt + "";
-  return jpTxt.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s: any) {
-    return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
-  });
-}
-
-// 설명:            알파벳, 숫자 일본어 전각 전환
-// Arguement:       jpTxt -> 변환하고자 하는 텍스트
-// Return:          전각으로 전환된 텍스트
-export function toJPFullWidth(jpTxt: any) {
-  //숫자인 경우 문자로 변환
-  jpTxt = jpTxt + "";
-  return jpTxt.replace(/[A-Za-z0-9]/g, function (s: any) {
-    return String.fromCharCode(s.charCodeAt(0) + 0xfee0);
-  });
-}
-
 // 설명:            첫글자를 대문자로 변환
 // Arguement:       originalTxt -> 변환하고자 하는 텍스트
 // Return:          첫글자가 대문자로 변환된 텍스트
@@ -363,179 +282,6 @@ export function sortObjectArray(
         return a[key] - b[key];
       });
     }
-  }
-}
-
-// 설명:            구성요소 자동완성 태그 생성
-// Arguement:       element -> 구성요소 항목, format -> 유형, autocomplete_type -> 자동완성 유형, tagID -> 해당 태그의 고유 key,
-//                  isShiftKey -> shitfkey 눌렸는지 여부, isFirstWordInSentence -> 문장의 처음인지 여부
-// Return:          자동완성 태그
-export function makeAutocompleteTag(
-  element: any,
-  format: string,
-  autocomplete_type: string,
-  tagID: string,
-  isShiftKey: boolean,
-  isFirstWordInSentence: boolean
-) {
-  // 자동완성될 텍스트
-  let autocompleteTxt = "";
-  // 해당 태그의 첫글자가 자동으로 대문자로 변경되었는지 여부
-  let firstCharacterCapital = "F";
-  // 해당 태그의 자동완성 텍스트의 단복수 상태가 전환되었는지 여부
-  let changePlural = "F";
-
-  // USPTO 이고 shift키가 눌려 있으면 단복수 전환한 것으로 자동완성 텍스트 생성
-  if (format == "FORMAT/USPTO" && isShiftKey == true) {
-    autocompleteTxt = makeAutocompleteTxt(
-      element,
-      format,
-      autocomplete_type,
-      true
-    );
-    changePlural = "T";
-  } else {
-    autocompleteTxt = makeAutocompleteTxt(
-      element,
-      format,
-      autocomplete_type,
-      false
-    );
-  }
-
-  // USPTO이고, 문장의 첫단어이면, 첫글자를 대문자로 변환해줌
-  if (format == "FORMAT/USPTO" && isFirstWordInSentence) {
-    autocompleteTxt = makeFirstCharacterUpperCase(autocompleteTxt);
-    firstCharacterCapital = "T";
-  }
-
-  // 자동완성 태그 반환
-  return autocompleteFormat
-    .replace("{autocompleteText}", autocompleteTxt)
-    .replace("{tagID}", tagID)
-    .replace("{elementName}", element.name.replace(/<(\/?)p>/gi, ""))
-    .replace("{elementNumber}", element.number.replace(/<(\/?)p>/gi, ""))
-    .replace(/{elementId}/gi, element.elementId)
-    .replace("{firstCharacterCapital}", firstCharacterCapital)
-    .replace("{changePlural}", changePlural);
-}
-
-// 설명:            구성요소 자동완성 태그 생성
-// Arguement:       element -> 구성요소 항목, format -> 유형, autocompleteType -> 자동완성 유형, autocompeleteColor -> 자동완성 색상, autocompeleteWeight -> 자동완성 굵기
-// Return:          자동완성 태그
-export function setUpTitleInIdiom(
-  stores: any,
-  format: string,
-  idiomText: string
-) {
-  const elementList = stores.ws.caseData.elements.list;
-  try {
-    // 발명의 명칭에 대응되는 구성요소 추출
-    const titleElement = elementList.filter(function (data: any) {
-      return data.inputOrder === 0;
-    });
-
-    // 명칭 구성요소가 안튀어나왔으면 그냥 리턴
-    if (titleElement.length < 1) return "";
-
-    // 자동완성 태그에 사용할 tagID. 고유해야 하므로 랜덤값을 추가해줌. 태그가 들어갈때마다 생성해야 함
-    let tagID = "";
-
-    // KIPO인 경우 조사 변경
-    if (format == "FORMAT/KIPO") {
-      const textArray = idiomText.split(" ");
-      textArray.forEach((item) => {
-        if (item.indexOf("[TITLE]") >= 0) {
-          const currentJosa = item.substring(
-            item.indexOf("[TITLE]") + 7,
-            item.length
-          );
-          // console.log(
-          //   "|" + titleElement[0].name.replace(/<(\/?)p>/gi, "") + "|",
-          //   "|" + currentJosa + "|"
-          // );
-          const rightJosa = setJosa(
-            titleElement[0].name.replace(/<(\/?)p>/gi, ""),
-            currentJosa
-          );
-          // console.log(rightJosa);
-          tagID =
-            titleElement[0].elementId +
-            "-" +
-            getTimeStamp() +
-            "-" +
-            Math.random().toString(36).substring(2, 11);
-          idiomText = idiomText.replace(
-            "[TITLE]" + currentJosa,
-            makeAutocompleteTag(
-              titleElement[0],
-              format,
-              getSettingValue(stores, "SETTING/EDITOR/AUTOCOMPLETE_FORMAT"),
-              tagID,
-              false,
-              false
-            ) + rightJosa
-          );
-        }
-      });
-    }
-
-    // USPTO인 경우 첫글자 대문자로
-    if (format == "FORMAT/USPTO") {
-      // 구두점 뒤 띄어쓰기 2개까지 대응
-      tagID =
-        titleElement[0].elementId +
-        "-" +
-        getTimeStamp() +
-        "-" +
-        Math.random().toString(36).substring(2, 11);
-      idiomText = idiomText.replace(
-        /. {2}\[TITLE\]/gi,
-        ".  " +
-          makeAutocompleteTag(
-            titleElement[0],
-            format,
-            getSettingValue(stores, "SETTING/EDITOR/AUTOCOMPLETE_FORMAT"),
-            tagID,
-            false,
-            true
-          )
-      );
-      idiomText = idiomText.replace(
-        /. \[TITLE\]/gi,
-        ". " +
-          makeAutocompleteTag(
-            titleElement[0],
-            format,
-            getSettingValue(stores, "SETTING/EDITOR/AUTOCOMPLETE_FORMAT"),
-            tagID,
-            false,
-            true
-          )
-      );
-    }
-
-    tagID =
-      titleElement[0].elementId +
-      "-" +
-      getTimeStamp() +
-      "-" +
-      Math.random().toString(36).substring(2, 11);
-    // 자동완성 태그로 변경
-    return idiomText.replace(
-      /\[TITLE\]/gi,
-      makeAutocompleteTag(
-        titleElement[0],
-        format,
-        getSettingValue(stores, "SETTING/EDITOR/AUTOCOMPLETE_FORMAT"),
-        tagID,
-        false,
-        false
-      )
-    );
-  } catch (e: any) {
-    console.log(e);
-    return e?.message;
   }
 }
 
@@ -778,19 +524,6 @@ export function getThumbImgFile(image: HTMLImageElement, file: File): File {
   canvas.getContext("2d")?.drawImage(image, 0, 0, width, height);
   const blob = dataURItoBlob(canvas.toDataURL("image/png"));
   return new File([blob], file.name, { type: file.type });
-}
-
-export function getCodeFromLang(lang: string) {
-  lang = lang.toLowerCase();
-  if (lang.includes("ko")) {
-    return "UI_LANGUAGE/KO";
-  } else if (lang.includes("ja")) {
-    return "UI_LANGUAGE/JA";
-  } else if (lang.includes("en")) {
-    return "UI_LANGUAGE/EN";
-  } else {
-    return "UI_LANGUAGE/EN";
-  }
 }
 
 export function removePTag(data: string) {
