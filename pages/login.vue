@@ -6,7 +6,7 @@
         class="row items-center justify-center q-pa-lg text-weight-bolder font-size-32"
         style="flex: 3; padding-bottom: 48px"
       >
-        오더히어로 검수표 롤백 테스트 #2
+        오더히어로 정산관리 배포 테스트 11/28 #3
       </div>
 
       <!-- 사업자 번호 인풋 -->
@@ -77,9 +77,12 @@
 import api from "@/api/api";
 import useAppStore from "@/stores/useAppStore";
 import { asyncDebounce } from "@/utils/asyncDebounce";
+import axios from "axios";
 
 const appStore = useAppStore();
 const router = useRouter();
+
+axios.create;
 
 const isAutoLogin = ref(false);
 const loginForm = reactive({
