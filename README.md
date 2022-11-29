@@ -31,6 +31,12 @@ docker-compose down
 docker-compose -f docker-compose.prod.yml up --build -d
 ```
 
+> ## Coding Convention
+
+- AirBnB의 eslint + prettier를 사용
+- 선정 이유: 일반적으로 제일 많이 사용됨(AirBnB, Naver, )
+- 참고 링크: https://github.com/naver/eslint-config-naver/blob/master/STYLE_GUIDE.md
+
 > ## Commit Convention
 
 # 1. Commit Type
