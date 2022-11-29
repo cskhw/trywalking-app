@@ -10,14 +10,6 @@ checkUploadFilesSize   파일 한개 혹은 여러개의 크기 체크(바이트
 checkFileTypes       주어진 파일의 확장자 체크
 logger              시간을 붙여서 로그 찍음
 
-openInfoModal       Information 모달 표시
-openAlertModal      Alert 모달 표시
-getI18NTxt          키값에 맞는 언어 텍스트 리턴(서버에서 가져온 데이터 사용, appStore.lang 사용)
-getLocaleTxt        draft 홈에서 키값에 맞는 언어 텍스트 리턴(vue i18n 라이브러리 사용)
-getUserName         사용자 이름 리턴
-getTimeZone         사용하는 시간대 가져오기
-getColor            키값에 맞는 테마 코드 색상 리턴
-getSettingValue     사용자의 환경설정값 가져오기
 // getLocaleTimeFromTo       From의 시간 String을 To의 시간으로
 // getTimeFromTo       From의 시간 String을 To의 시간 객체로
 getUserTime         UTC 시간을 사용자의 timezone 시간 객체로
@@ -33,55 +25,6 @@ getThumbImgFile     이미지 썸네일 생성
 // css
 rgbToRgba           rgb를 rgba 스트링으로 변환
 */
-
-// 한글 조사 변환용 배열(받침 있는 경우)
-const jongJosa = [
-  "은",
-  "을",
-  "이",
-  "과",
-  "으로",
-  "으로서",
-  "으로써",
-  "으로부터",
-  "으로는",
-];
-// 한글 조사 변환용 배열(받침 없는 경우)
-const notJongJosa = [
-  "는",
-  "를",
-  "가",
-  "와",
-  "로",
-  "로서",
-  "로써",
-  "로부터",
-  "로는",
-];
-// 한글 조사 변환용 배열(ㄹ받침일 때 잘못 쓰는 경우)
-const liulJosa = [
-  "은",
-  "을",
-  "이",
-  "과",
-  "로",
-  "로서",
-  "로써",
-  "로부터",
-  "로는",
-];
-// 한글 조사 변환용 배열(ㄹ받침일 때 잘못 쓰는 경우)
-const notLiulJosa = [
-  "는",
-  "를",
-  "가",
-  "와",
-  "으로",
-  "으로서",
-  "으로써",
-  "으로부터",
-  "으로부터",
-];
 
 // 설명:            오늘 날짜를 2022-03-07 형태로 반환
 // Arguement:       -
@@ -343,21 +286,6 @@ export function getImgUrlByCardType(cardType: string) {
 
 export function getImgUrl(url: string) {
   return new URL(`../images/${url}`, import.meta.url).href;
-}
-
-// 설명:            I18N 텍스트 전달
-// Arguement:       stores -> pinia store 포함하고 있는 객체. as: appStore, is: i18nStore 필수
-//                  key -> i18n 키값, category -> i18n데이터 구분. 기본 contents. 그 외 setting_titles / setting_descs
-//                  yesFunc -> 확인 버튼 함수에 넣을 기능. 없으면 null
-// Return:          사용자 언어 설정에 맞는 I18N 데이터
-export function getI18NTxt(stores: any, key: string, category = "contents") {
-  try {
-    // return stores.is[category][stores.us.getLang][key];
-    return stores.is[category]["UI_LANGUAGE/" + stores.as.lang][key];
-  } catch (e) {
-    console.log(e);
-    return "NULLI18N";
-  }
 }
 
 // 설명:            UTC 시간을 사용자의 timezone 시간 객체로
