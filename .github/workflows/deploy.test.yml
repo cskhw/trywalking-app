@@ -10,7 +10,35 @@ env:
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ${{ secrets.AWS_CODEDEPLOY_GROUP_TEST_NAME }}
 
 jobs:
+  # 의존성 빌드 테스트
   build:
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+
+    - name: Cache dependencies
+      id: cache
+      uses: actions/cache@v3
+      with:
+        path: "**/node_modules"
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install Dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+  # vitest 테스트 코드 실행
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,16 +61,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Run vitest
-        run: |
-          npm install
-          npm run vitest
+      - name: Run Vitest
+        run: npm run vitest
 
   # s3에 zip으로 업로드한 후 codedeploy로 ec2에 배포
   deploy:
