@@ -62,7 +62,7 @@
           @click="onClickTestRequestBtn"
           >60초 딜레이 테스트</QBtn
         >
-        test 20221129:17:11 #1
+        test 20221129:17:11 #2
 
         <!-- 로그인 메뉴 -->
         <QItem class="q-gutter-sm row justify-center items-center"
