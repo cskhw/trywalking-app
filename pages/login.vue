@@ -77,15 +77,26 @@
 import api from "@/api/api";
 import useAppStore from "@/stores/useAppStore";
 import { asyncDebounce } from "@/utils/asyncDebounce";
+import axios from "axios";
 
 const appStore = useAppStore();
 const router = useRouter();
+
+axios.create;
 
 const isAutoLogin = ref(false);
 const loginForm = reactive({
   username: "",
   password: "",
 });
+
+async function refresh(rt: string) {
+  return "";
+}
+
+async function isRefreshTokenVaild(rt: string) {
+  return true;
+}
 
 const onClickLogin = asyncDebounce(login);
 
