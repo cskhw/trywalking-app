@@ -10,8 +10,36 @@ env:
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ${{ secrets.AWS_CODEDEPLOY_GROUP_TEST_NAME }}
 
 jobs:
-  # s3에 zip으로 업로드한 후 codedeploy로 ec2에 배포
   build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run vitest
+        run: |
+          npm install
+          npm run vitest
+
+  # s3에 zip으로 업로드한 후 codedeploy로 ec2에 배포
+  deploy:
+    needs: [build, test] # build 후에 실행되도록 정의
     runs-on: ubuntu-latest
 
     steps:
@@ -40,18 +68,8 @@ jobs:
           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
           --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
 
-  test:
-    needs: build # build 후에 실행되도록 정의
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run vitest
-        run: |
-          npm install
-          npm run vitest
-
-  deploy:
-    needs: test # build 후에 실행되도록 정의
+  run:
+    needs: deploy # build 후에 실행되도록 정의
     runs-on: [cicd-test] # AWS ./configure에서 사용할 label명
 
     steps:
