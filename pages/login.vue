@@ -55,6 +55,14 @@
           >로그인</QBtn
         >
 
+        <QBtn
+          class="q-mt-md full-width bg-light-blue text-white text-weight-bolder"
+          flat
+          size="1rem"
+          @click="onClickTestRequestBtn"
+          >180초 딜레이 테스트</QBtn
+        >
+
         <!-- 로그인 메뉴 -->
         <QItem class="q-gutter-sm row justify-center items-center"
           ><QBtn flat>비밀번호 찾기 </QBtn>
@@ -91,6 +99,17 @@ const loginForm = reactive({
 });
 
 const onClickLogin = asyncDebounce(login);
+
+async function onClickTestRequestBtn() {
+  try {
+    const res = await axios.get(
+      "https://eaed5e51-7e78-4177-ba49-66e094bba04c.mock.pstmn.io/TEST"
+    );
+    alert(`요청 성공!: ${res}`);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 async function login() {
   router.push("/");
