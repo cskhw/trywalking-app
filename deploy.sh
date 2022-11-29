@@ -11,6 +11,22 @@ echo $EXIST_BLUE
 EXIST_NGINX=$(docker ps | grep nginx)
 echo $EXIST_NGINX
 
+echo $IDLE_PORT
+
+health_check() {
+	RESPONSE=$(curl -s http://127.0.0.1:${IDLE_PORT})
+	# 헬스 체크
+	if [ -n "$RESPONSE" ]; then
+		echo "green down"
+		docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml down
+		docker image prune -af # 사용하지 않는 이미지 삭제
+		return
+	fi
+	echo "$1...  health check: $IDLE_PORT"
+	sleep 3
+}
+
+# nginx 콘테이너가 없으면 빌드
 if [ -z "$EXIST_NGINX" ]; then
 	docker-compose -p nginx -f docker-compose.nginx.yml up --build -d
 fi
@@ -20,19 +36,21 @@ if [ -z "$EXIST_BLUE" ]; then
 	echo "blue up"
 	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
 
-	sleep 10
+	echo "run health check 10 times"
 
-	echo "green down"
-	docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml down
-	docker image prune -af # 사용하지 않는 이미지 삭제
+	for RETRY_COUNT in {1..10}; do
+		health_check $RETRY_COUNT
+	done
 
-	# blue가 실행중이면 green up
 	echo "blue up complete"
+	# blue가 실행중이면 green up
 else
 	echo "green up"
 	docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml up -d --build
 
-	sleep 10
+	for RETRY_COUNT in {1..10}; do
+		health_check $RETRY_COUNT
+	done
 
 	echo "blue down"
 	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml down
