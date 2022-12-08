@@ -6,70 +6,69 @@
         class="row items-center justify-center q-pa-lg text-weight-bolder font-size-32"
         style="flex: 3; padding-bottom: 48px"
       >
-        오더히어로 정산관리 11/30 배포 테스트: nginx 헬스체크 추가 #2
+        <div style="cursor: pointer" @click="$router.push('/')">
+          오더히어로 검수확인서 관리자
+        </div>
       </div>
 
       <!-- 사업자 번호 인풋 -->
-      <QForm style="flex: 4">
-        <QInput
-          class="q-pb-sm"
-          v-model="loginForm.username"
-          :rules="[
-            (val, rules) =>
-              val.length > 10 || '사업자 번호를 정확하게 입력해주세요',
-          ]"
-          mask=""
-          label="사업자 번호를 입력해주세요."
-          clearable
-          autofocus
-          no-error-icon
-          outlined
-          hide-bottom-space
-        ></QInput>
-        <!-- 비밀번호 인풋 -->
-        <QInput
-          class="q-pb-sm"
-          type="password"
-          v-model="loginForm.password"
-          :rules="[
-            (val, rules) =>
-              (val.length >= 8 && val.length <= 20) ||
-              '비밀번호는 8자 이상 20자 이하로 입력해주세요',
-          ]"
-          clearable
-          no-error-icon
-          label="비밀번호를 입력해주세요."
-          outlined
-          hide-bottom-space
-        ></QInput>
-        <!-- 자동로그인 체크박스 -->
-        <QItem class="q-pa-none">
-          <QCheckbox v-model="isAutoLogin" label="로그인 상태 유지"></QCheckbox>
-        </QItem>
-        <!-- 로그인 버튼 -->
-        <QBtn
-          class="q-mt-md full-width bg-light-blue text-white text-weight-bolder"
-          flat
-          size="1rem"
-          @click="onClickLogin"
-          >로그인</QBtn
-        >
+      <div class="row items-center justify-center">
+        <QForm class="login-form shadow-1">
+          <QInput
+            class="q-pb-sm"
+            v-model="loginForm.username"
+            :rules="[
+              (val, rules) =>
+                val.length > 10 || '사업자 번호를 정확하게 입력해주세요',
+            ]"
+            mask=""
+            label="사업자 번호를 입력해주세요."
+            clearable
+            autofocus
+            no-error-icon
+            outlined
+            hide-bottom-space
+          ></QInput>
+          <!-- 비밀번호 인풋 -->
+          <QInput
+            class="q-pb-sm"
+            type="password"
+            v-model="loginForm.password"
+            :rules="[
+              (val, rules) =>
+                (val.length >= 8 && val.length <= 20) ||
+                '비밀번호는 8자 이상 20자 이하로 입력해주세요',
+            ]"
+            clearable
+            no-error-icon
+            label="비밀번호를 입력해주세요."
+            outlined
+            hide-bottom-space
+          ></QInput>
+          <!-- 자동로그인 체크박스 -->
+          <QItem class="q-pa-none">
+            <QCheckbox
+              v-model="isAutoLogin"
+              label="로그인 상태 유지"
+            ></QCheckbox>
+          </QItem>
+          <!-- 로그인 버튼 -->
+          <QBtn
+            class="q-mt-md full-width bg-light-blue text-white text-weight-bolder"
+            flat
+            size="1rem"
+            @click="onClickLogin"
+            >로그인</QBtn
+          >
 
-        <QBtn
-          class="q-mt-md full-width bg-light-blue text-white text-weight-bolder"
-          flat
-          size="1rem"
-          @click="onClickTestRequestBtn"
-          >60초 딜레이 테스트</QBtn
-        >
-
-        <!-- 로그인 메뉴 -->
-        <QItem class="q-gutter-sm row justify-center items-center"
-          ><QBtn flat>비밀번호 찾기 </QBtn>
-          <div class="vertical-center font-size-6">|</div>
-          <QBtn flat> 회원가입</QBtn></QItem
-        >
-      </QForm>
+          <!-- 로그인 메뉴 -->
+          <QItem class="q-gutter-sm row justify-center items-center"
+            ><QBtn flat>비밀번호 찾기 </QBtn>
+            <div class="vertical-center font-size-6">|</div>
+            <QBtn flat> 회원가입</QBtn></QItem
+          >
+        </QForm>
+      </div>
       <!-- 로그인 푸터 -->
       <QItem class="column items-center" style="flex: 3">
         <div>DELIVERLY LAB | 주식회사 딜리버리랩</div>
@@ -133,3 +132,13 @@ async function login() {
   // }
 }
 </script>
+<style lang="scss" scoped>
+.login-form {
+  flex: 4;
+  max-width: 400px;
+
+  border: 1px solid $grey-4;
+  border-radius: 4px;
+  padding: 1rem;
+}
+</style>

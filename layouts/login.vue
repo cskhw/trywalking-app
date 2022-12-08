@@ -6,14 +6,6 @@
     bordered
   >
     <QToolbar class="row">
-      <QBtn
-        color="black"
-        :icon="mdiChevronLeft"
-        flat
-        round
-        @click="$router.go(-1)"
-      >
-      </QBtn>
       <QToolbarTitle class="q-pa-none absolute-center font-size-16">
         로그인
       </QToolbarTitle>

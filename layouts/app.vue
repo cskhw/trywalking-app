@@ -5,7 +5,7 @@
     color="white"
   >
     <QToolbar>
-      <QToolbarTitle> 오더히어로 정산관리 어드민 </QToolbarTitle>
+      <QToolbarTitle> 오더히어로 검수확인서 관리자 </QToolbarTitle>
       <QBtn color="grey" round flat :icon="mdiBell"> </QBtn>
       <QBtn color="grey" round flat :icon="mdiCart"> </QBtn>
     </QToolbar>

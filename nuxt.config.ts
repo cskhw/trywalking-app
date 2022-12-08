@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   app: {
     // pageTransition: { name: "page", mode: "out-in" },
     head: {
-      title: "오더히어로-정산관리",
+      title: "오더히어로 검수확인서 어드민",
       meta: [
         // <meta name="description" content="My amazing site">
         { name: "description", content: "Orderhero settlement admin." },

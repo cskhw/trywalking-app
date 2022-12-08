@@ -19,12 +19,6 @@ import useAppStore from "@/stores/useAppStore";
 const appStore = useAppStore();
 const router = useRouter();
 
-/**자동로그인 처리 */
-if (cookies.has(COOKIE_AUTO_LOGIN)) {
-  //TODO: refresh토큰 유효성 체크 후 access토큰 재발급
-  router.push("/");
-}
-
 // 자동로그인 쿠키 없으면 브라우저 종료 전에 토큰 삭제
 window.onbeforeunload = () => {
   if (!cookies.has(COOKIE_AUTO_LOGIN)) {
