@@ -60,6 +60,7 @@
             @click="onClickLogin"
             >로그인</QBtn
           >
+          testettes
 
           <!-- 로그인 메뉴 -->
           <QItem class="q-gutter-sm row justify-center items-center"
