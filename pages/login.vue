@@ -62,11 +62,6 @@
           @click="onClickTestRequestBtn"
           >60초 딜레이 테스트</QBtn
         >
-<<<<<<< HEAD
-        test1
-=======
-        test 20221129:17:11 #2
->>>>>>> 0d7137dfdfa9dfdfe9a7f423f4e98d06003e93bc
 
         <!-- 로그인 메뉴 -->
         <QItem class="q-gutter-sm row justify-center items-center"
