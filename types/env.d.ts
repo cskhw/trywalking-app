@@ -4,6 +4,7 @@
 interface ImportMetaEnv {
   VITE_MODE: string;
   VITE_PREFIX_URL: string;
+  VITE_BASE_URL: string;
 }
 
 interface ImportMeta {

@@ -25,9 +25,13 @@ export default defineNuxtPlugin(() => {
     "global",
     (to, from) => {
       log(`to: ${to.path} from: ${from.path}`);
+
       /**각 페이지에서 필요한 처리해줌 */
       if (to.path === "/login") {
         appStore.layout = "login";
+        return true;
+      } else if (to.path === "/signup") {
+        appStore.layout = "signup";
         return true;
       } else {
         appStore.layout = "app";

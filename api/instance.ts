@@ -7,11 +7,13 @@ import axios, {
 import { getBaseUrl } from "@/api/utils";
 import { extractError } from "./error";
 
-const baseURL = "http://localhost:3000" + getBaseUrl();
+const baseURL = import.meta.env.VITE_BASE_URL + getBaseUrl();
+console.log(import.meta.env.VITE_BASE_URL);
+console.log(baseURL);
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: baseURL,
-  timeout: 180000,
+  timeout: 20000,
 });
 
 // 요청 인터셉터
@@ -42,7 +44,6 @@ async function authWrapper<
   try {
     result = await fn();
   } catch (e) {
-    console.log(e);
     const error = extractError(e);
     console.log(error);
   } finally {

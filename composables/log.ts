@@ -1,3 +1,3 @@
-export default (message?: any, ...optionalParams: any[]) =>
-  import.meta.env.MODE === "production" ||
-  console.log(message, ...optionalParams);
+export default import.meta.env.MODE === "production"
+  ? (...args: any[]) => {}
+  : console.log;

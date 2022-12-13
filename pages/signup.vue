@@ -7,7 +7,7 @@
         style="flex: 3; padding-bottom: 48px"
       >
         <div style="cursor: pointer" @click="$router.push('/')">
-          오더히어로 검수확인서 관리자
+          오더히어로 검수확인서 관리자 회원가입
         </div>
       </div>
 
@@ -18,10 +18,11 @@
             class="q-pb-sm"
             v-model="loginForm.username"
             :rules="[
-              (val, rules) => val.length > 10 || '아읻 정확하게 입력해주세요',
+              (val, rules) =>
+                val.length > 10 || '아이디를 정확하게 입력해주세요',
             ]"
             mask=""
-            label="아이디를 입력해주세요"
+            label="아이디를 입력해주세요."
             clearable
             autofocus
             no-error-icon
@@ -44,27 +45,29 @@
             outlined
             hide-bottom-space
           ></QInput>
-          <!-- 자동로그인 체크박스 -->
-          <QItem class="q-pa-none">
-            <QCheckbox
-              v-model="isAutoLogin"
-              label="로그인 상태 유지"
-            ></QCheckbox>
-          </QItem>
+          <!-- 권한 선택 셀렉트 -->
+          <QSelect
+            v-model="loginForm.role"
+            :options="roleSelectOptions"
+            outlined
+            input-style="transition: all 10s ease-in-out !important"
+          >
+          </QSelect>
+
           <!-- 로그인 버튼 -->
           <QBtn
             class="q-mt-md full-width bg-light-blue text-white text-weight-bolder"
             flat
             size="1rem"
             @click="onClickLogin"
-            >로그인</QBtn
+            >회원가입</QBtn
           >
 
           <!-- 로그인 메뉴 -->
           <QItem class="q-gutter-sm row justify-center items-center"
             ><QBtn flat>비밀번호 찾기 </QBtn>
             <div class="vertical-center font-size-6">|</div>
-            <QBtn @click="$router.push('/signup')" flat> 회원가입</QBtn></QItem
+            <QBtn @click="$router.push('/login')" flat> 로그인</QBtn></QItem
           >
         </QForm>
       </div>
@@ -77,33 +80,64 @@
 import api from "@/api/api";
 import useAppStore from "@/stores/useAppStore";
 import { asyncDebounce } from "@/utils/asyncDebounce";
+import axios from "axios";
 
 const appStore = useAppStore();
 const router = useRouter();
 
+const date = new Date().toLocaleTimeString();
+
 const isAutoLogin = ref(false);
+
 const loginForm = reactive({
   username: "",
   password: "",
+  role: { label: "권한을 선택해주세요.", value: null },
 });
+
+const roleSelectOptions = ref([
+  { label: "권한을 선택해주세요.", value: null },
+  { label: "admin", value: "admin" },
+  { label: "normal", value: "normal" },
+]);
 
 const onClickLogin = asyncDebounce(login);
 
 async function login() {
-  router.push("/");
   try {
-    //TODO: 로그인 로직 필요
-    const res = await api.auth.login(loginForm);
-    if (
-      loginForm.username === "choonsik" &&
-      loginForm.password === "asdf1234!"
-    ) {
+    // 로그인 폼 유효성 체크
+    log(loginForm);
+    for (const props in loginForm) {
+      // @ts-ignore
+      if (loginForm[props] === null) {
+        alert("모든 값을 입력해주세요.");
+        return;
+      }
+      // @ts-ignore
+      log(props);
+      if (loginForm[props]?.value === null) {
+        alert("권한을 선택해주세요.");
+        return;
+      }
+    }
+
+    const form = {
+      username: loginForm.username,
+      password: loginForm.username,
+      role: loginForm.role.value as unknown as string,
+    };
+
+    const res = await api.auth.signup(form);
+
+    console.log(res);
+
+    if (res?.status === 200) {
       cookies.set(COOKIE_ACCESS_TOKEN, "at-test");
       cookies.set(COOKIE_REFRESH_TOKEN, "rt-test");
       // 자동 로그인 쿠키 저장
       if (isAutoLogin.value) cookies.set(COOKIE_AUTO_LOGIN, "true");
       else cookies.remove(COOKIE_AUTO_LOGIN);
-      await router.push("/");
+      // await router.push("/");
     } else {
       alert("아이디 혹은 비밀번호를 확인해주세요");
     }

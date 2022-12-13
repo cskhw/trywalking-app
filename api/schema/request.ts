@@ -1,20 +1,13 @@
 /** auth api 리스트
  * register: 회원가입
  * login: 이메일 로그인
- * refresh: 리
-
+ * refresh: 토큰 재발급
  */
 
-export interface RegisterRequest {
-  name: string;
-  email: string;
-  photo?: string;
+export interface SignupRequest {
+  username: string;
   password: string;
-  user_id: string;
-  confirm_password: string;
-  verification_code: string;
-  role?: string;
-  is_active: boolean;
+  role: string;
 }
 
 export interface LoginRequest {
