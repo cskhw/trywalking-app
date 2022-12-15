@@ -83,14 +83,14 @@ const instance = {
     data?: any,
     config?: AxiosRequestConfig | undefined
   ): Promise<AxiosResponse<any>> {
-    return axiosInstance.put(url, data, config);
+    return authWrapper(() => axiosInstance.put(url, data, config));
   },
 
   delete: async function (
     url: string,
     config?: AxiosRequestConfig | undefined
   ): Promise<AxiosResponse<any>> {
-    return axiosInstance.delete(url, config);
+    return authWrapper(() => axiosInstance.delete(url, config));
   },
 };
 

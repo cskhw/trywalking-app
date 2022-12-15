@@ -16,7 +16,7 @@
         <QForm class="login-form shadow-1">
           <QInput
             class="q-pb-sm"
-            v-model="loginForm.username"
+            v-model="signupForm.username"
             :rules="[
               (val, rules) =>
                 val.length > 10 || '아이디를 정확하게 입력해주세요',
@@ -33,7 +33,7 @@
           <QInput
             class="q-pb-sm"
             type="password"
-            v-model="loginForm.password"
+            v-model="signupForm.password"
             :rules="[
               (val, rules) =>
                 (val.length >= 8 && val.length <= 20) ||
@@ -47,7 +47,7 @@
           ></QInput>
           <!-- 권한 선택 셀렉트 -->
           <QSelect
-            v-model="loginForm.role"
+            v-model="signupForm.role"
             :options="roleSelectOptions"
             outlined
             input-style="transition: all 10s ease-in-out !important"
@@ -59,7 +59,7 @@
             class="q-mt-md full-width bg-light-blue text-white text-weight-bolder"
             flat
             size="1rem"
-            @click="onClickLogin"
+            @click="onClickSignup"
             >회원가입</QBtn
           >
 
@@ -80,7 +80,6 @@
 import api from "@/api/api";
 import useAppStore from "@/stores/useAppStore";
 import { asyncDebounce } from "@/utils/asyncDebounce";
-import axios from "axios";
 
 const appStore = useAppStore();
 const router = useRouter();
@@ -89,7 +88,7 @@ const date = new Date().toLocaleTimeString();
 
 const isAutoLogin = ref(false);
 
-const loginForm = reactive({
+const signupForm = reactive({
   username: "",
   password: "",
   role: { label: "권한을 선택해주세요.", value: null },
@@ -97,48 +96,50 @@ const loginForm = reactive({
 
 const roleSelectOptions = ref([
   { label: "권한을 선택해주세요.", value: null },
-  { label: "admin", value: "admin" },
-  { label: "normal", value: "normal" },
+  { label: "USER", value: "ROLE_USER" },
+  { label: "MODERATOR", value: "ROLE_MODERATOR" },
+  { label: "ADMIN", value: "ROLE_ADMIN" },
 ]);
 
-const onClickLogin = asyncDebounce(login);
+const onClickSignup = asyncDebounce(signup);
 
-async function login() {
+async function signup() {
   try {
     // 로그인 폼 유효성 체크
-    log(loginForm);
-    for (const props in loginForm) {
+    for (const props in signupForm) {
       // @ts-ignore
-      if (loginForm[props] === null) {
+      if (signupForm[props] === null) {
         alert("모든 값을 입력해주세요.");
         return;
       }
       // @ts-ignore
-      log(props);
-      if (loginForm[props]?.value === null) {
+      if (signupForm[props]?.value === null) {
         alert("권한을 선택해주세요.");
         return;
       }
     }
 
     const form = {
-      username: loginForm.username,
-      password: loginForm.username,
-      role: loginForm.role.value as unknown as string,
+      username: signupForm.username,
+      password: signupForm.password,
+      role: signupForm.role.value as unknown as string,
     };
 
     const res = await api.auth.signup(form);
 
     console.log(res);
 
+    // 회원가입 요청 성공하면
     if (res?.status === 200) {
-      cookies.set(COOKIE_ACCESS_TOKEN, "at-test");
-      cookies.set(COOKIE_REFRESH_TOKEN, "rt-test");
+      // 토큰 설정해줌
+      cookies.set(COOKIE_ACCESS_TOKEN, "DL-AT");
+      cookies.set(COOKIE_REFRESH_TOKEN, "DL-RT");
       // 자동 로그인 쿠키 저장
       if (isAutoLogin.value) cookies.set(COOKIE_AUTO_LOGIN, "true");
       else cookies.remove(COOKIE_AUTO_LOGIN);
-      // await router.push("/");
+      await router.push("/");
     } else {
+      console.log(res);
       alert("아이디 혹은 비밀번호를 확인해주세요");
     }
   } catch (e: any) {

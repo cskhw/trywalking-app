@@ -1,6 +1,21 @@
+/** log api 리스트
+ * LogCreateRequest: 로그 생성
+ * LogReadRequest: 로그 가져오기
+ * LogReadAllRequest: 로그 모두 가져오기
+ */
+
+export interface LogReadRequest {}
+
+export interface LogReadAllRequest {}
+
+export interface LogCreateRequest {
+  msg: string;
+  path: string;
+}
+
 /** auth api 리스트
- * register: 회원가입
- * login: 이메일 로그인
+ * signup: 회원가입
+ * signin: 이메일 로그인
  * refresh: 토큰 재발급
  */
 
@@ -10,7 +25,7 @@ export interface SignupRequest {
   role: string;
 }
 
-export interface LoginRequest {
+export interface SigninRequest {
   username: string;
   password: string;
 }

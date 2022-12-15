@@ -1,4 +1,6 @@
+import api from "@/api/api";
 import useAppStore from "@/stores/useAppStore";
+import { mdiConsoleNetworkOutline } from "@mdi/js";
 
 function checkAuth() {
   const appStore = useAppStore();
@@ -23,8 +25,23 @@ export default defineNuxtPlugin(() => {
   // 글로벌 라우터 미들웨어
   addRouteMiddleware(
     "global",
-    (to, from) => {
+    async (to, from) => {
       log(`to: ${to.path} from: ${from.path}`);
+      console.log(to.fullPath);
+
+      /**access log 보내고 콘솔 */
+      const accessLogRes = await api.log.create({
+        path: to.fullPath,
+        msg: "access log",
+      });
+
+      if (accessLogRes?.status === 200) {
+        log("=========== access log ==========");
+        for (const props in accessLogRes.data) {
+          log(`${props}: ${accessLogRes.data[props]}`);
+        }
+        log("========= access log end ========");
+      }
 
       /**각 페이지에서 필요한 처리해줌 */
       if (to.path === "/login") {

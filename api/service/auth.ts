@@ -1,6 +1,6 @@
 import instance from "@/api/instance";
 import type {
-  LoginRequest,
+  SigninRequest,
   SignupRequest,
   RequestEmailRequest,
   VerifyEmailRequest,
@@ -9,16 +9,11 @@ import type { LoginResponse, SimpleResponse } from "@/api/schema/response";
 import type { AxiosResponse } from "axios";
 
 export default {
-  signup: (params: SignupRequest): Promise<AxiosResponse<SimpleResponse>> =>
-    instance.post("/auth/signup", params),
-  requestEmailCode: (
-    params: RequestEmailRequest
-  ): Promise<AxiosResponse<SimpleResponse>> =>
-    instance.post("/auth/request_email_code", params),
-  verifyEmailCode: (
-    params: VerifyEmailRequest
-  ): Promise<AxiosResponse<SimpleResponse>> =>
-    instance.post("/auth/verify_email_code", params),
-  login: (params: LoginRequest): Promise<AxiosResponse<LoginResponse>> =>
+  check: (): Promise<AxiosResponse<SimpleResponse>> => instance.get("/auth"),
+  signup: (body: SignupRequest): Promise<AxiosResponse<SimpleResponse>> =>
+    instance.post("/auth/signup", body),
+  signin: (params?: SigninRequest): Promise<AxiosResponse<LoginResponse>> =>
     instance.post("/auth/signin", params),
+  refresh: (params?: SigninRequest): Promise<AxiosResponse<LoginResponse>> =>
+    instance.post("/auth/refresh", params),
 };

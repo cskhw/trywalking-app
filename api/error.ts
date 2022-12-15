@@ -1,4 +1,4 @@
-import type { AxiosError } from "axios";
+import type { AxiosError, AxiosResponse } from "axios";
 import axios from "axios";
 interface IHttpError {
   /**
@@ -42,8 +42,9 @@ interface IHttpError {
    * 999: Max Error Code
    */
   error: Error | AxiosError;
-  message: string;
+  statusName: number;
   status: number;
+  data: any;
 }
 
 type errorMessageType = {
@@ -231,26 +232,23 @@ export const errorMessages: errorMessageType = {
 
 export function extractError(e: AxiosError | Error | any): IHttpError {
   const status = e.response?.status ? e.response?.status : 0;
-  let msg = "";
+  let statusName = e.response?.data ? e.response?.data : "";
 
   if (axios.isAxiosError(e)) {
     // 에러 메시지 정의
-    if (import.meta.env.VITE_MODE === "prod") {
-      msg = "Not defined error in 'prod' environment";
+    if (import.meta.env.MODE === "production") {
+      statusName = "Not defined error in 'prod' environment";
     } else {
       // 일단 영어로 에러 메시지 리턴
-      if (errorMessages[status]["KO"]) msg = errorMessages[status]["KO"];
-      else msg = "Undefined error";
+      if (errorMessages[status]["KO"]) statusName = errorMessages[status]["KO"];
+      else statusName = "Undefined error";
     }
   }
 
-  // TODO: 로거 라이브러리 사용해야함
-  // console.log(e);
-  // console.log(status, msg);
-
   return {
-    error: e,
-    message: msg ? msg : "Frontend error",
     status: status,
+    statusName: statusName ? statusName : "Frontend error",
+    error: e,
+    data: e?.response?.data,
   };
 }

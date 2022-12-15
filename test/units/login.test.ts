@@ -5,7 +5,7 @@ import type { LoginResponse } from "@/api/schema/response";
 
 describe.skip("pages/index.vue", () => {
   it("choonsik login", async () => {
-    const res = await api.auth.login({
+    const res = await api.auth.signin({
       username: "choonsik",
       password: "asdf1234!",
     });
@@ -14,6 +14,6 @@ describe.skip("pages/index.vue", () => {
     // expect가 성공했는지 검사
     expect(res.status).toBe(200);
     // access_token의 타입이 string인지 검사
-    expect(res.data.body.access_token).toBeTypeOf("string");
+    expect(res.data.accessToken).toBeTypeOf("string");
   });
 });

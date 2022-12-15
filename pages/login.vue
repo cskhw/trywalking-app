@@ -75,8 +75,10 @@
 </template>
 <script setup lang="ts">
 import api from "@/api/api";
+import instance from "@/api/instance";
 import useAppStore from "@/stores/useAppStore";
 import { asyncDebounce } from "@/utils/asyncDebounce";
+import { AxiosRequestConfig } from "axios";
 
 const appStore = useAppStore();
 const router = useRouter();
@@ -90,19 +92,37 @@ const loginForm = reactive({
 const onClickLogin = asyncDebounce(login);
 
 async function login() {
-  router.push("/");
   try {
     //TODO: 로그인 로직 필요
-    const res = await api.auth.login(loginForm);
-    if (
-      loginForm.username === "choonsik" &&
-      loginForm.password === "asdf1234!"
-    ) {
-      cookies.set(COOKIE_ACCESS_TOKEN, "at-test");
-      cookies.set(COOKIE_REFRESH_TOKEN, "rt-test");
+    const res = await api.auth.signin(loginForm);
+    if (res?.status === 200) {
+      console.log(res.data);
+
+      // 자동 로그인 쿠키 설정
+      if (isAutoLogin.value) {
+        cookies.set(COOKIE_ACCESS_TOKEN, res.data.accessToken);
+        cookies.set(COOKIE_REFRESH_TOKEN, res.data.refreshToken);
+      } else {
+        cookies.remove(COOKIE_AUTO_LOGIN);
+        cookies.remove(COOKIE_ACCESS_TOKEN);
+        cookies.remove(COOKIE_REFRESH_TOKEN);
+      }
+
+      // 인증 토큰 인터셉터에 설정
+      instance.interceptors.request.use(
+        function (config: AxiosRequestConfig) {
+          config.headers = config.headers ? config.headers : {};
+          config.headers.Authorization = "Bearer " + res.data.accessToken;
+          return config;
+        },
+        function (error) {
+          console.log(error);
+          return Promise.reject(error);
+        }
+      );
+
       // 자동 로그인 쿠키 저장
-      if (isAutoLogin.value) cookies.set(COOKIE_AUTO_LOGIN, "true");
-      else cookies.remove(COOKIE_AUTO_LOGIN);
+
       await router.push("/");
     } else {
       alert("아이디 혹은 비밀번호를 확인해주세요");
