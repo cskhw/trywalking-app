@@ -6,6 +6,7 @@ import axios, {
 
 import { getBaseUrl } from "@/api/utils";
 import { extractError } from "./error";
+import api from "./api";
 
 const baseURL = import.meta.env.VITE_BASE_URL + getBaseUrl();
 console.log(import.meta.env.VITE_BASE_URL);
@@ -37,11 +38,20 @@ axiosInstance.interceptors.response.use(
   }
 );
 
+async function logging(msg: string) {
+  const route = useRoute();
+  await api.log.create({
+    msg: msg,
+    path: route.fullPath,
+  });
+}
+
 async function authWrapper<
   F extends (...args: any[]) => Promise<AxiosResponse<any>>
->(fn: F): Promise<AxiosResponse<any>> {
+>(fn: F, islogging?: boolean): Promise<AxiosResponse<any>> {
   let result: any;
   try {
+    if (islogging) logging(fn.name);
     result = await fn();
   } catch (e) {
     const error = extractError(e);
@@ -56,41 +66,46 @@ const instance = {
 
   get: async function (
     url: string,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging?: boolean
   ): Promise<AxiosResponse<any>> {
-    return authWrapper(() => axiosInstance.get(url, config));
+    return authWrapper(() => axiosInstance.get(url, config), isLoggging);
   },
 
   getNaiveUrl: async function (
     url: string,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging?: boolean
   ): Promise<AxiosResponse<any>> {
     config = config ? config : {};
     config.baseURL = "";
-    return axiosInstance.get(url, config);
+    return authWrapper(() => axiosInstance.get(url, config), isLoggging);
   },
 
   post: async function (
     url: string,
     data?: any,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging?: boolean
   ): Promise<AxiosResponse<any>> {
-    return authWrapper(() => axiosInstance.post(url, data, config));
+    return authWrapper(() => axiosInstance.post(url, data, config), isLoggging);
   },
 
   put: async function (
     url: string,
     data?: any,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging?: boolean
   ): Promise<AxiosResponse<any>> {
-    return authWrapper(() => axiosInstance.put(url, data, config));
+    return authWrapper(() => axiosInstance.put(url, data, config), isLoggging);
   },
 
   delete: async function (
     url: string,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging?: boolean
   ): Promise<AxiosResponse<any>> {
-    return authWrapper(() => axiosInstance.delete(url, config));
+    return authWrapper(() => axiosInstance.delete(url, config), isLoggging);
   },
 };
 

@@ -100,12 +100,12 @@ async function login() {
 
       // 자동 로그인 쿠키 설정
       if (isAutoLogin.value) {
-        cookies.set(COOKIE_ACCESS_TOKEN, res.data.accessToken);
-        cookies.set(COOKIE_REFRESH_TOKEN, res.data.refreshToken);
+        sessionStorage.setItem(COOKIE_ACCESS_TOKEN, res.data.accessToken);
+        sessionStorage.setItem(COOKIE_REFRESH_TOKEN, res.data.refreshToken);
       } else {
-        cookies.remove(COOKIE_AUTO_LOGIN);
-        cookies.remove(COOKIE_ACCESS_TOKEN);
-        cookies.remove(COOKIE_REFRESH_TOKEN);
+        sessionStorage.removeItem(COOKIE_AUTO_LOGIN);
+        sessionStorage.removeItem(COOKIE_ACCESS_TOKEN);
+        sessionStorage.removeItem(COOKIE_REFRESH_TOKEN);
       }
 
       // 인증 토큰 인터셉터에 설정
