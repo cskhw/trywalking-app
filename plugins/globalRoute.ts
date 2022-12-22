@@ -1,18 +1,23 @@
 import api from "@/api/api";
 import useAppStore from "@/stores/useAppStore";
-import { mdiConsoleNetworkOutline } from "@mdi/js";
 
-function checkAuth() {
+async function checkAuth() {
   const appStore = useAppStore();
 
+  const rt = sessionStorage.getItem(COOKIE_REFRESH_TOKEN);
+
   // 인증 체크
-  if (cookies.has(COOKIE_ACCESS_TOKEN)) {
-    // 인증 토큰, 리프레시 토큰
-    const at = cookies.get(COOKIE_ACCESS_TOKEN);
-    const rt = cookies.get(COOKIE_REFRESH_TOKEN);
-    // TODO: 세션 확인 및 토큰 발급 로직 필요
-    // const res = await api.auth.refresh(rt)
-    // log(res)
+  if (rt) {
+    // 토큰 유효성 확인
+    console.log("start valid");
+    const res = await api.auth.valid({ refreshToken: rt });
+
+    // 토큰이 유효하지 않으면 로그인 화면으로 보냄
+    if (!res) {
+      alert("세션이 없음");
+      return navigateTo("/login");
+    }
+
     return true;
   } else {
     appStore.layout = "login";
@@ -29,15 +34,16 @@ export default defineNuxtPlugin(() => {
       log(`to: ${to.path} from: ${from.path}`);
       console.log(to.fullPath);
 
-      /**access log 보내고 콘솔 */
+      /**access log 보내고 콘솔 찍어줌 */
       const accessLogRes = await api.log.create({
-        path: to.fullPath,
         msg: "access log",
+        path: to.fullPath,
       });
 
       if (accessLogRes?.status === 200) {
         log("=========== access log ==========");
         for (const props in accessLogRes.data) {
+          // @ts-ignore
           log(`${props}: ${accessLogRes.data[props]}`);
         }
         log("========= access log end ========");
@@ -55,7 +61,7 @@ export default defineNuxtPlugin(() => {
       }
 
       // 인증 체크
-      return checkAuth();
+      return await checkAuth();
     },
     { global: true }
   );

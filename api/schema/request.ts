@@ -14,9 +14,9 @@ export interface LogCreateRequest {
 }
 
 /** auth api 리스트
- * signup: 회원가입
- * signin: 이메일 로그인
- * refresh: 토큰 재발급
+ * SignupRequest: 회원가입
+ * SigninRequest: 로그인
+ * RefreshTokenRequest: 토큰 재발급
  */
 
 export interface SignupRequest {
@@ -28,6 +28,10 @@ export interface SignupRequest {
 export interface SigninRequest {
   username: string;
   password: string;
+}
+
+export interface RefreshTokenRequest {
+  refreshToken: string;
 }
 
 export interface LogoutRequest {}

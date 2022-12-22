@@ -11,9 +11,10 @@
         </div>
       </div>
 
-      <!-- 사업자 번호 인풋 -->
+      <!-- 로그인 폼 -->
       <div class="row items-center justify-center">
         <QForm class="login-form shadow-1">
+          <!-- 아이디 인풋 -->
           <QInput
             class="q-pb-sm"
             v-model="loginForm.username"
@@ -44,13 +45,7 @@
             outlined
             hide-bottom-space
           ></QInput>
-          <!-- 자동로그인 체크박스 -->
-          <QItem class="q-pa-none">
-            <QCheckbox
-              v-model="isAutoLogin"
-              label="로그인 상태 유지"
-            ></QCheckbox>
-          </QItem>
+
           <!-- 로그인 버튼 -->
           <QBtn
             class="q-mt-md full-width bg-light-blue text-white text-weight-bolder"
@@ -78,12 +73,12 @@ import api from "@/api/api";
 import instance from "@/api/instance";
 import useAppStore from "@/stores/useAppStore";
 import { asyncDebounce } from "@/utils/asyncDebounce";
+import { mdiConsoleNetworkOutline } from "@mdi/js";
 import { AxiosRequestConfig } from "axios";
 
 const appStore = useAppStore();
 const router = useRouter();
 
-const isAutoLogin = ref(false);
 const loginForm = reactive({
   username: "",
   password: "",
@@ -94,19 +89,13 @@ const onClickLogin = asyncDebounce(login);
 async function login() {
   try {
     //TODO: 로그인 로직 필요
-    const res = await api.auth.signin(loginForm);
+    const res = await api.auth.signin(loginForm, true);
     if (res?.status === 200) {
       console.log(res.data);
 
       // 자동 로그인 쿠키 설정
-      if (isAutoLogin.value) {
-        sessionStorage.setItem(COOKIE_ACCESS_TOKEN, res.data.accessToken);
-        sessionStorage.setItem(COOKIE_REFRESH_TOKEN, res.data.refreshToken);
-      } else {
-        sessionStorage.removeItem(COOKIE_AUTO_LOGIN);
-        sessionStorage.removeItem(COOKIE_ACCESS_TOKEN);
-        sessionStorage.removeItem(COOKIE_REFRESH_TOKEN);
-      }
+      sessionStorage.setItem(COOKIE_ACCESS_TOKEN, res.data.accessToken);
+      sessionStorage.setItem(COOKIE_REFRESH_TOKEN, res.data.refreshToken);
 
       // 인증 토큰 인터셉터에 설정
       instance.interceptors.request.use(
@@ -120,8 +109,6 @@ async function login() {
           return Promise.reject(error);
         }
       );
-
-      // 자동 로그인 쿠키 저장
 
       await router.push("/");
     } else {
