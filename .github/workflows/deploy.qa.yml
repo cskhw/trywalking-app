@@ -1,11 +1,11 @@
-name: CI-CD test
+name: CI-CD qa
 
 on:
   push:
-    branches: [test]
+    branches: [qa]
 
 env:
-  S3_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+  S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
   CODE_DEPLOY_APPLICATION_NAME: ${{ secrets.AWS_CODEDEPLOY_TEST_NAME }}
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ${{ secrets.AWS_CODEDEPLOY_GROUP_TEST_NAME }}
 
