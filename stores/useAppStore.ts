@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 
 export default defineStore("app", {
   state: () => ({
+    // axios interceptor id
+    interceptorId: -1,
     isLoading: false,
     isAuth: false,
     layout: "app",

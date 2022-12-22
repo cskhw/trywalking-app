@@ -9,7 +9,7 @@ import type { AxiosResponse } from "axios";
 
 export default {
   valid: (
-    body?: RefreshTokenRequest,
+    body: RefreshTokenRequest,
     isLogging?: boolean
   ): Promise<AxiosResponse<LoginResponse>> =>
     instance.post("/auth/valid", body, isLogging),

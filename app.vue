@@ -15,6 +15,7 @@
 </template>
 <script setup lang="ts">
 import useAppStore from "@/stores/useAppStore";
+import api from "./api/api";
 
 const appStore = useAppStore();
 const router = useRouter();
@@ -24,6 +25,20 @@ window.onbeforeunload = () => {
   if (!cookies.has(COOKIE_AUTO_LOGIN)) {
     cookies.remove(COOKIE_ACCESS_TOKEN);
     cookies.remove(COOKIE_REFRESH_TOKEN);
+  }
+};
+
+// 클릭할 때 마다 세션 갱신해줌
+window.onclick = async () => {
+  const rt = sessionStorage.getItem(COOKIE_REFRESH_TOKEN);
+  if (rt) {
+    const refreshRes = await api.auth.refresh({
+      refreshToken: rt,
+    });
+
+    if (refreshRes) {
+      updateAt(refreshRes.data.accessToken);
+    }
   }
 };
 

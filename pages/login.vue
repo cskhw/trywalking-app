@@ -70,13 +70,8 @@
 </template>
 <script setup lang="ts">
 import api from "@/api/api";
-import instance from "@/api/instance";
-import useAppStore from "@/stores/useAppStore";
 import { asyncDebounce } from "@/utils/asyncDebounce";
-import { mdiConsoleNetworkOutline } from "@mdi/js";
-import { AxiosRequestConfig } from "axios";
 
-const appStore = useAppStore();
 const router = useRouter();
 
 const loginForm = reactive({
@@ -84,31 +79,21 @@ const loginForm = reactive({
   password: "",
 });
 
+// 함수 등록
 const onClickLogin = asyncDebounce(login);
 
 async function login() {
   try {
     //TODO: 로그인 로직 필요
-    const res = await api.auth.signin(loginForm, true);
-    if (res?.status === 200) {
-      console.log(res.data);
+    const signinRes = await api.auth.signin(loginForm, true);
 
-      // 자동 로그인 쿠키 설정
-      sessionStorage.setItem(COOKIE_ACCESS_TOKEN, res.data.accessToken);
-      sessionStorage.setItem(COOKIE_REFRESH_TOKEN, res.data.refreshToken);
+    if (signinRes?.status === 200) {
+      // 토큰 세션에 저장
+      sessionStorage.setItem(COOKIE_ACCESS_TOKEN, signinRes.data.accessToken);
+      sessionStorage.setItem(COOKIE_REFRESH_TOKEN, signinRes.data.refreshToken);
 
-      // 인증 토큰 인터셉터에 설정
-      instance.interceptors.request.use(
-        function (config: AxiosRequestConfig) {
-          config.headers = config.headers ? config.headers : {};
-          config.headers.Authorization = "Bearer " + res.data.accessToken;
-          return config;
-        },
-        function (error) {
-          console.log(error);
-          return Promise.reject(error);
-        }
-      );
+      // accessToken 갱신
+      updateAt(signinRes.data.accessToken);
 
       await router.push("/");
     } else {
