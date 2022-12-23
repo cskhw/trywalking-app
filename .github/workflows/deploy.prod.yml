@@ -61,6 +61,12 @@ jobs:
         run: zip -r ./$GITHUB_SHA.zip .
         shell: bash
 
+      - name: Make .env
+        run: |
+          touch ./.env
+          echo "${{ secrets.DOTENV }}" > ./.env
+        shell: bash
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
@@ -87,7 +93,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run deploy.sh
         run: |
-          cd /home/ec2-user/dl-orderhero-admin-checklist 
+          cd /home/ec2-user/dl-orderhero-admin-inspection 
           sudo chmod 777 ./deploy.sh
           sudo chmod 777 ./down.sh
           ./deploy.sh

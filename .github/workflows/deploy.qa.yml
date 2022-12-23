@@ -61,6 +61,12 @@ jobs:
         run: zip -r ./$GITHUB_SHA.zip .
         shell: bash
 
+      - name: Make .env
+        run: |
+          touch ./.env
+          echo "${{ secrets.DOTENV }}" > ./.env
+        shell: bash
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
