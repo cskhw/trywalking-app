@@ -36,7 +36,7 @@ if [ -z "$EXIST_BLUE" ]; then
 	IDLE_PORT=5201
 	echo "blue up complete"
 
-	for RETRY_COUNT in {1..10}; do
+	for RETRY_COUNT in {1..20}; do
 		health_check $RETRY_COUNT $IDLE_PORT "green"
 	done
 
@@ -49,7 +49,7 @@ else
 	IDLE_PORT=5202
 	echo "green up complete"
 
-	for RETRY_COUNT in {1..10}; do
+	for RETRY_COUNT in {1..20}; do
 		health_check $RETRY_COUNT $IDLE_PORT "blue"
 	done
 

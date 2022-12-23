@@ -7,7 +7,7 @@
         style="flex: 3; padding-bottom: 48px"
       >
         <div style="cursor: pointer" @click="$router.push('/')">
-          오더히어로 검수확인서 관리자 1
+          오더히어로 검수확인서 관리자 2
         </div>
       </div>
 
