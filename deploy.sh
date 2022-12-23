@@ -40,6 +40,8 @@ if [ -z "$EXIST_BLUE" ]; then
 		health_check $RETRY_COUNT $IDLE_PORT "green"
 	done
 
+	echo "Failed to health check. Please check docker container is running."
+
 # blue가 실행중이면 green up
 else
 	echo "green up"
@@ -51,4 +53,5 @@ else
 		health_check $RETRY_COUNT $IDLE_PORT "blue"
 	done
 
+	echo "Failed to health check. Please check docker container is running."
 fi
