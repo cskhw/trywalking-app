@@ -7,7 +7,7 @@
         style="flex: 3; padding-bottom: 48px"
       >
         <div style="cursor: pointer" @click="$router.push('/')">
-          오더히어로 검수확인서 관리자 2
+          오더히어로 검수확인서 관리자
         </div>
       </div>
 
@@ -70,7 +70,6 @@
 </template>
 <script setup lang="ts">
 import api from "@/api/api";
-import { asyncDebounce } from "@/utils/asyncDebounce";
 
 const router = useRouter();
 

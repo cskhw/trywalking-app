@@ -78,15 +78,8 @@
 </template>
 <script setup lang="ts">
 import api from "@/api/api";
-import useAppStore from "@/stores/useAppStore";
-import { asyncDebounce } from "@/utils/asyncDebounce";
 
-const appStore = useAppStore();
 const router = useRouter();
-
-const date = new Date().toLocaleTimeString();
-
-const isAutoLogin = ref(false);
 
 const signupForm = reactive({
   username: "",
