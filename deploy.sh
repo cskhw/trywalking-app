@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/ec2-user/dl-orderhero-admin-inspection
+cd /home/ec2-user/orderhero-admin-inspection
 
 DOCKER_APP_NAME=vue
 
