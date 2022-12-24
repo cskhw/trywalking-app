@@ -131,16 +131,13 @@ async function signup() {
 
     // 회원가입 요청 성공하면
     if (res?.status === 200) {
-      // 토큰 설정해줌
-      cookies.set(COOKIE_ACCESS_TOKEN, "DL-AT");
-      cookies.set(COOKIE_REFRESH_TOKEN, "DL-RT");
       // 자동 로그인 쿠키 저장
-      if (isAutoLogin.value) cookies.set(COOKIE_AUTO_LOGIN, "true");
-      else cookies.remove(COOKIE_AUTO_LOGIN);
+
+      alert("회원가입 성공!");
       await router.push("/");
     } else {
       console.log(res);
-      alert("아이디 혹은 비밀번호를 확인해주세요");
+      alert("아이디, 비밀번호, 권한을 확인해주세요.");
     }
   } catch (e: any) {
     log(e);

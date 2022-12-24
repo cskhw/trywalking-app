@@ -18,7 +18,6 @@ import useAppStore from "@/stores/useAppStore";
 import api from "./api/api";
 
 const appStore = useAppStore();
-const router = useRouter();
 
 // 자동로그인 쿠키 없으면 브라우저 종료 전에 토큰 삭제
 window.onbeforeunload = () => {
@@ -31,10 +30,10 @@ window.onbeforeunload = () => {
 // 클릭할 때 마다 세션 갱신해줌
 window.onclick = async () => {
   const rt = sessionStorage.getItem(COOKIE_REFRESH_TOKEN);
+  const refreshDebounced = asyncDebounce(api.auth.refresh);
+
   if (rt) {
-    const refreshRes = await api.auth.refresh({
-      refreshToken: rt,
-    });
+    const refreshRes = await refreshDebounced({ refreshToken: rt });
 
     if (refreshRes) {
       updateAt(refreshRes.data.accessToken);
