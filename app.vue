@@ -30,7 +30,7 @@ window.onbeforeunload = () => {
 // 클릭할 때 마다 세션 갱신해줌
 window.onclick = async () => {
   const rt = sessionStorage.getItem(COOKIE_REFRESH_TOKEN);
-  const refreshDebounced = asyncDebounce(api.auth.refresh);
+  const refreshDebounced = asyncDebounce(api.auth.refresh, 1000);
 
   if (rt) {
     const refreshRes = await refreshDebounced({ refreshToken: rt });
