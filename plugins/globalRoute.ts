@@ -9,7 +9,6 @@ async function checkAuth() {
   // 인증 체크
   if (rt) {
     // 토큰 유효성 확인
-    console.log("start valid");
     const res = await api.auth.valid({ refreshToken: rt });
 
     // 토큰이 유효하지 않으면 로그인 화면으로 보냄
