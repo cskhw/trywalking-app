@@ -3,10 +3,11 @@ import api from "./api";
 export function getBaseUrl(): string {
   const config = import.meta.env;
   try {
-    const mode = config.VITE_MODE;
+    // const mode = config.VITE_MODE;
     const prefix = config.VITE_PREFIX_URL;
     // const subfix = config.VITE_SUBFIX_URL;
-    const baseURL = mode + prefix;
+    // const baseURL = mode + prefix;
+    const baseURL = prefix;
     log("baseURL: ", baseURL);
     console.log("url: ", baseURL);
     return baseURL;

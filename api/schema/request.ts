@@ -22,7 +22,7 @@ export interface LogCreateRequest {
 export interface SignupRequest {
   username: string;
   password: string;
-  role: string;
+  role: string[];
 }
 
 export interface SigninRequest {

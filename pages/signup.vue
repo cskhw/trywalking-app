@@ -115,7 +115,7 @@ async function signup() {
     const form = {
       username: signupForm.username,
       password: signupForm.password,
-      role: signupForm.role.value as unknown as string,
+      role: [signupForm.role.value as unknown as string],
     };
 
     const res = await api.auth.signup(form);
