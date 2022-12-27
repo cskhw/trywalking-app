@@ -19,7 +19,8 @@
             class="q-pb-sm"
             v-model="loginForm.username"
             :rules="[
-              (val, rules) => val.length > 10 || '아읻 정확하게 입력해주세요',
+              (val, rules) =>
+                val.length > 10 || '아이디를 정확하게 입력해주세요',
             ]"
             mask=""
             label="아이디를 입력해주세요"
