@@ -2,7 +2,7 @@ import instance from "@/api/instance";
 import type {
   SigninRequest,
   SignupRequest,
-  RefreshTokenRequest,
+  AccessTokenRequest,
 } from "@/api/schema/request";
 import type { LoginResponse, SimpleResponse } from "@/api/schema/response";
 import type { AxiosResponse } from "axios";
@@ -10,7 +10,7 @@ import { IHttpError } from "../error";
 
 export default {
   valid: (
-    body: RefreshTokenRequest,
+    body: AccessTokenRequest,
     isLogging?: boolean
   ): Promise<AxiosResponse<LoginResponse>> =>
     instance.post("/auth/valid", body, isLogging),
@@ -25,7 +25,7 @@ export default {
   ): Promise<AxiosResponse<LoginResponse>> =>
     instance.post("/auth/signin", body, isLogging),
   refresh: (
-    body?: RefreshTokenRequest,
+    body?: AccessTokenRequest,
     isLogging?: boolean
   ): Promise<AxiosResponse<LoginResponse>> =>
     instance.post("/auth/refresh", body, isLogging),

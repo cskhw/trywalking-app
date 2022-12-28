@@ -13,7 +13,5 @@
   </QHeader>
   <slot />
 </template>
-<script setup lang="ts">
-import { mdiChevronLeft } from "@mdi/js";
-</script>
+<script setup lang="ts"></script>
 <style lang="scss"></style>

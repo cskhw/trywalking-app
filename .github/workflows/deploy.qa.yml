@@ -94,4 +94,6 @@ jobs:
       - name: Run docker-compose
         run: |
           cd /home/ec2-user/orderhero-admin-inspection 
-          docker-compose -f ./docker-compose.test.yml up --build -d
+          sudo chmod 777 ./deploy.sh
+          sudo chmod 777 ./down.sh
+          ./deploy.sh

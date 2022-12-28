@@ -90,7 +90,6 @@ async function signin() {
     if (signinRes?.status === 200) {
       // 토큰 세션에 저장
       sessionStorage.setItem(COOKIE_ACCESS_TOKEN, signinRes.data.accessToken);
-      sessionStorage.setItem(COOKIE_REFRESH_TOKEN, signinRes.data.refreshToken);
 
       // accessToken 갱신
       updateAt(signinRes.data.accessToken);

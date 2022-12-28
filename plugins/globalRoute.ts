@@ -5,22 +5,22 @@ import useUserStore from "@/stores/useUserStore";
 async function checkAuth() {
   const appStore = useAppStore();
 
-  const rt = sessionStorage.getItem(COOKIE_REFRESH_TOKEN);
+  const at = sessionStorage.getItem(COOKIE_ACCESS_TOKEN);
 
   // 인증 체크
-  if (rt) {
+  if (at) {
     // 토큰 유효성 확인
-    const res = await api.auth.valid({ refreshToken: rt });
+    const res = await api.auth.valid({ accessToken: at });
 
     // 토큰이 유효하지 않으면 로그인 화면으로 보냄
-    if (!res) {
-      alert("세션이 없음");
+    if (res.status !== 200) {
+      alert("세션 만료");
       return navigateTo("/signin");
     }
 
     return true;
   } else {
-    appStore.layout = "login";
+    appStore.layout = "signin";
     return navigateTo("/signin");
   }
 }
@@ -35,9 +35,9 @@ export default defineNuxtPlugin(() => {
     async (to, from) => {
       log(`to: ${to.path} from: ${from.path}`);
 
-      const logData = userStore.user?.id
-        ? userStore.user?.id.toString()
-        : "none";
+      const logData = `userId: ${
+        userStore.user?.id ? userStore.user?.id.toString() : "none"
+      }`;
 
       try {
         /**access log 보내고 콘솔 찍어줌 */
@@ -60,7 +60,7 @@ export default defineNuxtPlugin(() => {
 
       /**각 페이지에서 필요한 처리해줌 */
       if (to.path === "/signin") {
-        appStore.layout = "login";
+        appStore.layout = "signin";
         return true;
       } else if (to.path === "/signup") {
         appStore.layout = "signup";

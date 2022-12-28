@@ -135,6 +135,8 @@ async function signup() {
         } else if (errorMsg.includes("Username is already taken")) {
           alert("아이디, 비밀번호, 권한을 확인해주세요.");
         }
+      } else {
+        alert("서버 에러");
       }
     }
   } catch (e: any) {
