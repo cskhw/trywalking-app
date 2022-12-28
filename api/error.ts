@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosResponse } from "axios";
 import axios from "axios";
-interface IHttpError {
+export interface IHttpError {
   /**
    * 클라이언트 에러
    *
@@ -41,10 +41,10 @@ interface IHttpError {
    * 0: Init Code
    * 999: Max Error Code
    */
-  error: Error | AxiosError;
-  statusName: number;
-  status: number;
   data: any;
+  error: Error | AxiosError;
+  status: number;
+  statusName: number;
 }
 
 type errorMessageType = {

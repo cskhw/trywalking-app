@@ -41,7 +41,7 @@
 
 export const BAD_REQUEST = createError({
   statusCode: 400,
-  statusMessage: "Request is Invaild. Please check the request",
+  statusMessage: "Request is Invalid. Please check the request",
 });
 
 export const UNAUTHORIZED = createError({
@@ -54,7 +54,7 @@ export const CONFLICT = createError({
   statusMessage: "Already exist data.",
 });
 
-export const Invaild = createError({
+export const Invalid = createError({
   statusCode: 422,
   statusMessage: "Plase check the data",
 });

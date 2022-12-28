@@ -9,7 +9,6 @@ export function getBaseUrl(): string {
     // const baseURL = mode + prefix;
     const baseURL = prefix;
     log("baseURL: ", baseURL);
-    console.log("url: ", baseURL);
     return baseURL;
   } catch (e) {
     console.log(e);

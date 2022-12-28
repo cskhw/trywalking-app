@@ -1,5 +1,6 @@
 import api from "@/api/api";
 import useAppStore from "@/stores/useAppStore";
+import useUserStore from "@/stores/useUserStore";
 
 async function checkAuth() {
   const appStore = useAppStore();
@@ -14,42 +15,51 @@ async function checkAuth() {
     // 토큰이 유효하지 않으면 로그인 화면으로 보냄
     if (!res) {
       alert("세션이 없음");
-      return navigateTo("/login");
+      return navigateTo("/signin");
     }
 
     return true;
   } else {
     appStore.layout = "login";
-    return navigateTo("/login");
+    return navigateTo("/signin");
   }
 }
 
 export default defineNuxtPlugin(() => {
   const appStore = useAppStore();
+  const userStore = useUserStore();
+
   // 글로벌 라우터 미들웨어
   addRouteMiddleware(
     "global",
     async (to, from) => {
       log(`to: ${to.path} from: ${from.path}`);
-      console.log(to.fullPath);
 
-      /**access log 보내고 콘솔 찍어줌 */
-      const accessLogRes = await api.log.create({
-        msg: "access log",
-        path: to.fullPath,
-      });
+      const logData = userStore.user?.id
+        ? userStore.user?.id.toString()
+        : "none";
 
-      if (accessLogRes?.status === 200) {
-        log("=========== access log ==========");
-        for (const props in accessLogRes.data) {
-          // @ts-ignore
-          log(`${props}: ${accessLogRes.data[props]}`);
+      try {
+        /**access log 보내고 콘솔 찍어줌 */
+        const accessLogRes = await api.log.create({
+          msg: logData,
+          path: to.fullPath,
+        });
+
+        if (accessLogRes?.status === 200) {
+          log("=========== access log ==========");
+          for (const props in accessLogRes.data) {
+            // @ts-ignore
+            log(`${props}: ${accessLogRes.data[props]}`);
+          }
+          log("========= access log end ========");
         }
-        log("========= access log end ========");
+      } catch (e) {
+        log("서버 에러: ", e);
       }
 
       /**각 페이지에서 필요한 처리해줌 */
-      if (to.path === "/login") {
+      if (to.path === "/signin") {
         appStore.layout = "login";
         return true;
       } else if (to.path === "/signup") {

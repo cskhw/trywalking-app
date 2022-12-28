@@ -67,7 +67,7 @@
           <QItem class="q-gutter-sm row justify-center items-center"
             ><QBtn flat>비밀번호 찾기 </QBtn>
             <div class="vertical-center font-size-6">|</div>
-            <QBtn @click="$router.push('/login')" flat> 로그인</QBtn></QItem
+            <QBtn @click="$router.push('/signin')" flat> 로그인</QBtn></QItem
           >
         </QForm>
       </div>
@@ -78,6 +78,7 @@
 </template>
 <script setup lang="ts">
 import api from "@/api/api";
+import type { IHttpError } from "@/api/error";
 
 const router = useRouter();
 
@@ -120,8 +121,6 @@ async function signup() {
 
     const res = await api.auth.signup(form);
 
-    console.log(res);
-
     // 회원가입 요청 성공하면
     if (res?.status === 200) {
       // 자동 로그인 쿠키 저장
@@ -129,8 +128,14 @@ async function signup() {
       alert("회원가입 성공!");
       await router.push("/");
     } else {
-      console.log(res);
-      alert("아이디, 비밀번호, 권한을 확인해주세요.");
+      const errorMsg = res.data as unknown as string;
+      if (res?.status === 400) {
+        if (errorMsg.includes("Username is already taken")) {
+          alert("이미 가입된 아이디입니다.");
+        } else if (errorMsg.includes("Username is already taken")) {
+          alert("아이디, 비밀번호, 권한을 확인해주세요.");
+        }
+      }
     }
   } catch (e: any) {
     log(e);

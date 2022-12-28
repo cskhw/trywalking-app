@@ -1,10 +1,7 @@
 export interface IUser {
   id: number;
-  email: string;
+  username: string;
   password: string;
-  name: string;
-  nickname: string;
-  posts: IPost[];
   created_at: string;
   updated_at: string;
 }

@@ -6,6 +6,7 @@ import type {
 } from "@/api/schema/request";
 import type { LoginResponse, SimpleResponse } from "@/api/schema/response";
 import type { AxiosResponse } from "axios";
+import { IHttpError } from "../error";
 
 export default {
   valid: (

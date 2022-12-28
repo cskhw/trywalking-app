@@ -6,10 +6,10 @@ export default defineEventHandler(async (event) => {
   const body = await useBody(event);
   const username = body.username;
   const password = body.password;
-  console.log(body);
+  log(body);
 
   if (username === "choonsik" && password === "asdf1234!") {
-    console.log("success");
+    log("success");
     return {
       status: 200,
       body: {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       },
     };
   } else {
-    console.log("fail");
+    log("fail");
     const authError = createError({
       statusCode: 404,
       statusMessage: "Please check username or password.",

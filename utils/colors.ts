@@ -17,7 +17,7 @@ export default {
   iconColor: "rgba(0,0,0,0.8)",
   borderColor: "#e0e0e0",
   danawaBlue: "#2964e0",
-  inVaildColor: "#e53b38",
+  inValidColor: "#e53b38",
   disabledColor: "",
   disabled: "#eeeeee",
 };

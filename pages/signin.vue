@@ -52,7 +52,7 @@
             class="q-mt-md full-width bg-light-blue text-white text-weight-bolder"
             flat
             size="1rem"
-            @click="onClickLogin"
+            @click="onClickSigninBtn"
             >로그인</QBtn
           >
 
@@ -74,17 +74,17 @@ import api from "@/api/api";
 
 const router = useRouter();
 
-const loginForm = reactive({
+const loginForm = reactive<ILoginForm>({
   username: "",
   password: "",
 });
 
 // 함수 등록
-const onClickLogin = asyncDebounce(login);
+const onClickSigninBtn = asyncDebounce(signin);
 
-async function login() {
+// 로그인 하고 세션 갱신
+async function signin() {
   try {
-    //TODO: 로그인 로직 필요
     const signinRes = await api.auth.signin(loginForm, true);
 
     if (signinRes?.status === 200) {

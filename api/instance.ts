@@ -1,36 +1,29 @@
 import axios, {
   AxiosInstance,
+  type AxiosError,
   type AxiosRequestConfig,
   type AxiosResponse,
 } from "axios";
 
 import { getBaseUrl } from "@/api/utils";
-import { extractError } from "./error";
+import { extractError, IHttpError } from "./error";
 import api from "./api";
 
 const baseURL = import.meta.env.VITE_BASE_URL + getBaseUrl();
 
-const axiosInstance: AxiosInstance = axios.create({
-  baseURL: baseURL,
-  timeout: 20000,
-});
+const axiosConfig = { baseURL: baseURL, timeout: 20000 };
 
-export const logInstance: AxiosInstance = axios.create({
-  baseURL: baseURL,
-  timeout: 20000,
-});
+const axiosInstance: AxiosInstance = axios.create(axiosConfig);
+export const logInstance: AxiosInstance = axios.create(axiosConfig);
 
 // 로깅 함수
 async function logging(data: any) {
   const route = useRoute();
-  console.log("fullpath: ", route.fullPath);
 
   const params = {
     msg: data ? data : "Msg is empty.",
     path: route.fullPath,
   };
-
-  console.log("params: ", params);
 
   await api.log.create(params);
 }
@@ -41,7 +34,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   function (error) {
-    console.log(error);
+    log(error);
     return Promise.reject(error);
   }
 );
@@ -67,12 +60,11 @@ async function reqWrapper<
     if (isLogging) logging(fn.name);
 
     result = await fn();
-  } catch (e) {
-    const error = extractError(e);
-    console.log(error);
-  } finally {
-    return result;
+  } catch (e: AxiosError & any) {
+    log(e);
+    return e;
   }
+  return result;
 }
 
 const instance = {
