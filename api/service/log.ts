@@ -4,7 +4,8 @@ import type { AxiosResponse } from "axios";
 import { LogCreateRequest } from "@/api/schema/request";
 
 export default {
-  check: (): Promise<AxiosResponse<UsersMeResponse>> => logInstance.get("/log"),
+  check: (): Promise<AxiosResponse<UsersMeResponse>> =>
+    logInstance.get("/log/check"),
   read: (id: number): Promise<AxiosResponse<UsersMeResponse>> =>
     logInstance.get(`/log/${id}`),
   readAll: (): Promise<AxiosResponse<UsersMeResponse>> =>

@@ -3,5 +3,5 @@ import type { UsersMeResponse } from "@/api/schema/response";
 import type { AxiosResponse } from "axios";
 
 export default {
-  me: (): Promise<AxiosResponse<UsersMeResponse>> => instance.get("/users/me"),
+  me: (): Promise<AxiosResponse<UsersMeResponse>> => instance.post("/users/me"),
 };
