@@ -78,8 +78,6 @@
 </template>
 <script setup lang="ts">
 import api from "@/api/api";
-import type { IHttpError } from "@/api/error";
-
 const router = useRouter();
 
 const signupForm = reactive({

@@ -64,44 +64,23 @@
           >
         </QForm>
       </div>
+
       <!-- 로그인 푸터 -->
       <QItem class="column items-center" style="flex: 3"> </QItem>
     </QPage>
   </QPageContainer>
 </template>
 <script setup lang="ts">
-import api from "@/api/api";
+import useAuthStore from "@/stores/useAuthStore";
 
-const router = useRouter();
-
+const authStore = useAuthStore();
 const loginForm = reactive<ILoginForm>({
   username: "",
   password: "",
 });
 
 // 함수 등록
-const onClickSigninBtn = asyncDebounce(signin);
-
-// 로그인 하고 세션 갱신
-async function signin() {
-  try {
-    const signinRes = await api.auth.signin(loginForm, true);
-
-    if (signinRes?.status === 200) {
-      // 토큰 세션에 저장
-      sessionStorage.setItem(COOKIE_ACCESS_TOKEN, signinRes.data.accessToken);
-
-      // accessToken 갱신
-      updateAt(signinRes.data.accessToken);
-
-      await router.push("/");
-    } else {
-      alert("아이디 혹은 비밀번호를 확인해주세요");
-    }
-  } catch (e: any) {
-    log(e);
-  }
-}
+const onClickSigninBtn = asyncDebounce(() => authStore.signin(loginForm));
 </script>
 <style lang="scss" scoped>
 .login-form {

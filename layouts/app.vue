@@ -26,9 +26,8 @@ const onClickLogoutBtn = debounce(logout, 150);
 
 // 세션 지우고 로그인 화면으로 이동
 function logout() {
-  const rt = sessionStorage.getItem(COOKIE_REFRESH_TOKEN);
   sessionStorage.clear();
-  router.push("login");
+  router.push("/signin");
 }
 </script>
 <style lang="scss"></style>

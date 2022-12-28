@@ -6,7 +6,7 @@ import axios, {
 } from "axios";
 
 import { getBaseUrl } from "@/api/utils";
-import { extractError, IHttpError } from "./error";
+import { extractError } from "./error";
 import api from "./api";
 
 const baseURL = import.meta.env.VITE_BASE_URL + getBaseUrl();
@@ -15,6 +15,43 @@ const axiosConfig = { baseURL: baseURL, timeout: 20000 };
 
 const axiosInstance: AxiosInstance = axios.create(axiosConfig);
 export const logInstance: AxiosInstance = axios.create(axiosConfig);
+
+// 요청 인터셉터
+axiosInstance.interceptors.request.use(
+  async function (config: AxiosRequestConfig) {
+    config.headers = config?.headers ? config.headers : {};
+
+    // 토큰 세션에 저장
+    const accessToken = sessionStorage.getItem(COOKIE_ACCESS_TOKEN);
+    if (accessToken) config.headers.Authorization = "Bearer " + accessToken;
+
+    return config;
+  },
+  function (error) {
+    log(error);
+    return Promise.reject(error);
+  }
+);
+
+// 응답 인터셉터
+axiosInstance.interceptors.response.use(
+  function (response) {
+    // @ts-ignore
+    const bearerAt = response.headers.get(Authorization);
+
+    // Authorization 토큰이 있으면 세션 갱신해줌
+    if (bearerAt) {
+      const at = bearerAt.slice(7);
+      sessionStorage.setItem(COOKIE_ACCESS_TOKEN, at);
+    }
+
+    return response;
+  },
+  function (e) {
+    const error = extractError(e);
+    return Promise.reject(error);
+  }
+);
 
 // 로깅 함수
 async function logging(data: any) {
@@ -28,36 +65,14 @@ async function logging(data: any) {
   await api.log.create(params);
 }
 
-// 요청 인터셉터
-axiosInstance.interceptors.request.use(
-  async function (config: AxiosRequestConfig) {
-    return config;
-  },
-  function (error) {
-    log(error);
-    return Promise.reject(error);
-  }
-);
-
-// 응답 인터셉터
-axiosInstance.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (e) {
-    const error = extractError(e);
-    return Promise.reject(error);
-  }
-);
-
 // 요청 wrapper
-async function reqWrapper<
+async function requestWrapper<
   F extends (...args: any[]) => Promise<AxiosResponse<any>>
->(fn: F, isLogging?: boolean): Promise<AxiosResponse<any>> {
-  let result: any;
+>(fn: F, url: string, isLogging?: boolean): Promise<AxiosResponse<any>> {
+  let result: AxiosResponse<any>;
   try {
     // 로깅 함수 요청에 보내줌
-    if (isLogging) logging(fn.name);
+    if (isLogging) logging(url);
 
     result = await fn();
   } catch (e: AxiosError & any) {
@@ -75,7 +90,11 @@ const instance = {
     isLoggging?: boolean,
     config?: AxiosRequestConfig | undefined
   ): Promise<AxiosResponse<any>> {
-    return reqWrapper(() => axiosInstance.get(url, config), isLoggging);
+    return requestWrapper(
+      () => axiosInstance.get(url, config),
+      url,
+      isLoggging
+    );
   },
 
   getNaiveUrl: async function (
@@ -85,7 +104,11 @@ const instance = {
   ): Promise<AxiosResponse<any>> {
     config = config ? config : {};
     config.baseURL = "";
-    return reqWrapper(() => axiosInstance.get(url, config), isLoggging);
+    return requestWrapper(
+      () => axiosInstance.get(url, config),
+      url,
+      isLoggging
+    );
   },
 
   post: async function (
@@ -94,7 +117,11 @@ const instance = {
     isLoggging?: boolean,
     config?: AxiosRequestConfig | undefined
   ): Promise<AxiosResponse<any>> {
-    return reqWrapper(() => axiosInstance.post(url, data, config), isLoggging);
+    return requestWrapper(
+      () => axiosInstance.post(url, data, config),
+      url,
+      isLoggging
+    );
   },
 
   put: async function (
@@ -103,7 +130,11 @@ const instance = {
     isLoggging?: boolean,
     config?: AxiosRequestConfig | undefined
   ): Promise<AxiosResponse<any>> {
-    return reqWrapper(() => axiosInstance.put(url, data, config), isLoggging);
+    return requestWrapper(
+      () => axiosInstance.put(url, data, config),
+      url,
+      isLoggging
+    );
   },
 
   delete: async function (
@@ -111,7 +142,11 @@ const instance = {
     isLoggging?: boolean,
     config?: AxiosRequestConfig | undefined
   ): Promise<AxiosResponse<any>> {
-    return reqWrapper(() => axiosInstance.delete(url, config), isLoggging);
+    return requestWrapper(
+      () => axiosInstance.delete(url, config),
+      url,
+      isLoggging
+    );
   },
 };
 

@@ -13,10 +13,7 @@ import api from "@/api/api";
 const onClickTestBtn = asyncDebounce(test);
 
 async function test() {
-  const res = await api.log.create({
-    msg: "test",
-    path: "test",
-  });
+  const res = await api.auth.check();
   log("test response: ", res);
 }
 </script>

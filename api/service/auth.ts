@@ -6,9 +6,10 @@ import type {
 } from "@/api/schema/request";
 import type { LoginResponse, SimpleResponse } from "@/api/schema/response";
 import type { AxiosResponse } from "axios";
-import { IHttpError } from "../error";
 
 export default {
+  check: (isLogging?: boolean): Promise<AxiosResponse<LoginResponse>> =>
+    instance.get("/auth/check", isLogging),
   valid: (
     body: AccessTokenRequest,
     isLogging?: boolean

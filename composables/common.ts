@@ -18,3 +18,6 @@ export const ALL_DRAWINGS_SIZE_LIMIT = ONE_MB * 20; // 20MB
 
 // 날짜 포멧
 export const dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
+
+// 헤더
+export const Authorization = "Authorization";
