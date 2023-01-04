@@ -38,6 +38,7 @@ axiosInstance.interceptors.response.use(
   function (response) {
     // @ts-ignore
     const bearerAt = response.headers.get(Authorization);
+    log(bearerAt);
 
     // Authorization 토큰이 있으면 세션 갱신해줌
     if (bearerAt) {
@@ -62,7 +63,7 @@ async function logging(data: any) {
     path: route.fullPath,
   };
 
-  await api.log.create(params);
+  await api.kafka.log.create(params);
 }
 
 // 요청 wrapper
@@ -163,6 +164,6 @@ const instance = {
 //     }
 //   }
 //   return params.toString();
-// };ㄴ
+// };
 
 export default instance;

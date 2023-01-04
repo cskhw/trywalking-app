@@ -41,19 +41,18 @@ export default defineNuxtPlugin(() => {
 
       try {
         /**access log 보내고 콘솔 찍어줌 */
-        const accessLogRes = await api.log.create({
-          msg: logData,
-          path: to.fullPath,
-        });
-
-        if (accessLogRes?.status === 200) {
-          log("=========== access log ==========");
-          for (const props in accessLogRes.data) {
-            // @ts-ignore
-            log(`${props}: ${accessLogRes.data[props]}`);
-          }
-          log("========= access log end ========");
-        }
+        // const accessLogRes = await api.kafka.log.create({
+        //   msg: logData,
+        //   path: to.fullPath,
+        // });
+        // if (accessLogRes?.status === 200) {
+        //   log("=========== access log ==========");
+        //   for (const props in accessLogRes.data) {
+        //     // @ts-ignore
+        //     log(`${props}: ${accessLogRes.data[props]}`);
+        //   }
+        //   log("========= access log end ========");
+        // }
       } catch (e) {
         log("서버 에러: ", e);
       }

@@ -1,19 +1,18 @@
-/** log api 리스트
- * LogCreateRequest: 로그 생성
- * LogReadRequest: 로그 가져오기
- * LogReadAllRequest: 로그 모두 가져오기
+/** /kafka/log api 리스트
+ * CreateLogRequest: 로그 생성
+ * ReadLogRequest: 로그 가져오기
+ * ReadAllLogRequest: 로그 모두 가져오기
  */
 
-export interface LogReadRequest {}
-
-export interface LogReadAllRequest {}
-
-export interface LogCreateRequest {
+export interface CreateLogRequest {
   msg: string;
   path: string;
 }
 
-/** auth api 리스트
+export interface ReadLogRequest {}
+export interface ReadAllLogRequest {}
+
+/** /auth api 리스트
  * SignupRequest: 회원가입
  * SigninRequest: 로그인
  * AccessTokenRequest: 토큰 재발급
@@ -33,8 +32,6 @@ export interface SigninRequest {
 export interface AccessTokenRequest {
   accessToken: string;
 }
-
-export interface LogoutRequest {}
 
 export interface RequestEmailRequest {
   email: string;
