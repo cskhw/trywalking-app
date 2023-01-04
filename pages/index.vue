@@ -8,9 +8,8 @@
         <QBtn @click="$router.push('/post')">포스트</QBtn>
         <QBtn @click="onClickKafkaBtn">카프카 테스트</QBtn>
 
-        <QInput v-model="logItem.id" />
-        <QInput v-model="logItem.name" />
-        <QInput v-model="logItem.price" />
+        <QInput v-model="logItem.msg" />
+        <QInput v-model="logItem.path" />
       </div>
     </QPage>
   </QPageContainer>
@@ -21,8 +20,6 @@ import useUserStore from "@/stores/useUserStore";
 import type { CreateLogRequest } from "@/api/schema/request";
 
 const route = useRoute();
-
-const userStore = useUserStore();
 
 const logItem = reactive<CreateLogRequest>({
   msg: "test log",
@@ -44,7 +41,10 @@ async function test() {
 async function requestKafka(id: number) {
   try {
     /**access log 보내고 콘솔 찍어줌 */
-    const res = await api.kafka.log.createLog(logItem);
+    const res = await api.kafka.log.createLog({
+      msg: `id: ${id} msg: ${logItem.msg} `,
+      path: logItem.path,
+    });
 
     if (res?.status === 200) {
       console.log(res);
