@@ -3,10 +3,11 @@
  * ReadLogRequest: 로그 가져오기
  * ReadAllLogRequest: 로그 모두 가져오기
  */
-
 export interface CreateLogRequest {
-  msg: string;
+  userId?: string;
   path: string;
+  url: string;
+  event: string;
 }
 
 export interface ReadLogRequest {}
@@ -17,7 +18,6 @@ export interface ReadAllLogRequest {}
  * SigninRequest: 로그인
  * AccessTokenRequest: 토큰 재발급
  */
-
 export interface SignupRequest {
   username: string;
   password: string;
@@ -40,4 +40,12 @@ export interface RequestEmailRequest {
 export interface VerifyEmailRequest {
   email: string;
   code: string;
+}
+
+/** /test api 리스트
+ * TestUploadImgRequest: 이미지 업로드
+ *
+ */
+export interface TestUploadImgRequest {
+  image: File;
 }

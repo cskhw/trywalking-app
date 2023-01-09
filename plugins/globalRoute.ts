@@ -28,6 +28,7 @@ async function checkAuth() {
 export default defineNuxtPlugin(() => {
   const appStore = useAppStore();
   const userStore = useUserStore();
+  const route = useRoute();
 
   // 글로벌 라우터 미들웨어
   addRouteMiddleware(
@@ -41,18 +42,20 @@ export default defineNuxtPlugin(() => {
 
       try {
         /**access log 보내고 콘솔 찍어줌 */
-        // const accessLogRes = await api.kafka.log.create({
-        //   msg: logData,
-        //   path: to.fullPath,
-        // });
-        // if (accessLogRes?.status === 200) {
-        //   log("=========== access log ==========");
-        //   for (const props in accessLogRes.data) {
-        //     // @ts-ignore
-        //     log(`${props}: ${accessLogRes.data[props]}`);
-        //   }
-        //   log("========= access log end ========");
-        // }
+        alert(route.path);
+        const accessLogRes = await api.kafka.log.createLog({
+          path: route.path,
+          event: "routing",
+          url: route.path,
+        });
+        if (accessLogRes?.status === 200) {
+          log("=========== access log ==========");
+          for (const props in accessLogRes.data) {
+            // @ts-ignore
+            log(`${props}: ${accessLogRes.data[props]}`);
+          }
+          log("========= access log end ========");
+        }
       } catch (e) {
         log("서버 에러: ", e);
       }

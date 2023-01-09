@@ -59,11 +59,12 @@ async function logging(data: any) {
   const route = useRoute();
 
   const params = {
-    msg: data ? data : "Msg is empty.",
-    path: route.fullPath,
+    path: route.path,
+    event: "routing",
+    url: route.path,
   };
 
-  await api.kafka.log.create(params);
+  await api.kafka.log.createLog(params);
 }
 
 // 요청 wrapper
@@ -88,8 +89,8 @@ const instance = {
 
   get: async function (
     url: string,
-    isLoggging?: boolean,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging = true
   ): Promise<AxiosResponse<any>> {
     return requestWrapper(
       () => axiosInstance.get(url, config),
@@ -100,8 +101,8 @@ const instance = {
 
   getNaiveUrl: async function (
     url: string,
-    isLoggging?: boolean,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging = true
   ): Promise<AxiosResponse<any>> {
     config = config ? config : {};
     config.baseURL = "";
@@ -115,8 +116,8 @@ const instance = {
   post: async function (
     url: string,
     data?: any,
-    isLoggging?: boolean,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging = true
   ): Promise<AxiosResponse<any>> {
     return requestWrapper(
       () => axiosInstance.post(url, data, config),
@@ -128,8 +129,8 @@ const instance = {
   put: async function (
     url: string,
     data?: any,
-    isLoggging?: boolean,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging = true
   ): Promise<AxiosResponse<any>> {
     return requestWrapper(
       () => axiosInstance.put(url, data, config),
@@ -140,8 +141,8 @@ const instance = {
 
   delete: async function (
     url: string,
-    isLoggging?: boolean,
-    config?: AxiosRequestConfig | undefined
+    config?: AxiosRequestConfig | undefined,
+    isLoggging = true
   ): Promise<AxiosResponse<any>> {
     return requestWrapper(
       () => axiosInstance.delete(url, config),

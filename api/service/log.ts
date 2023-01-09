@@ -1,5 +1,5 @@
-import instance, { logInstance } from "@/api/instance";
-import type { LogCreateResponse, UsersMeResponse } from "@/api/schema/response";
+import { logInstance } from "@/api/instance";
+import type { CreateLogResponse, UsersMeResponse } from "@/api/schema/response";
 import type { AxiosResponse } from "axios";
 import { CreateLogRequest } from "@/api/schema/request";
 
@@ -10,6 +10,6 @@ export default {
     logInstance.get(`/log/${id}`),
   readAll: (): Promise<AxiosResponse<UsersMeResponse>> =>
     logInstance.get("/log"),
-  create: (body: CreateLogRequest): Promise<AxiosResponse<LogCreateResponse>> =>
+  create: (body: CreateLogRequest): Promise<AxiosResponse<CreateLogResponse>> =>
     logInstance.post("/log/create", body),
 };
