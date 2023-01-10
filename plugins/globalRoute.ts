@@ -42,7 +42,6 @@ export default defineNuxtPlugin(() => {
 
       try {
         /**access log 보내고 콘솔 찍어줌 */
-        alert(route.path);
         const accessLogRes = await api.kafka.log.createLog({
           path: route.path,
           event: "routing",

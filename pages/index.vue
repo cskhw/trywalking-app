@@ -21,8 +21,11 @@
           @change="onChangeUploadFileInput"
         />
 
-        <QInput v-model="logItem.msg" />
+        <!-- 로그 프로퍼티 -->
         <QInput v-model="logItem.path" />
+        <QInput v-model="logItem.event" />
+        <QInput v-model="logItem.url" />
+        <QInput v-model="logItem.ip" />
       </div>
     </QPage>
   </QPageContainer>
@@ -30,6 +33,8 @@
 <script setup lang="ts">
 import api from "@/api/api";
 import type { CreateLogRequest } from "@/api/schema/request";
+import instance from "@/api/instance";
+import { mdiConsoleNetworkOutline } from "@mdi/js";
 
 interface Image {
   name: string;
@@ -50,12 +55,13 @@ const logItem = reactive<CreateLogRequest>({
   path: route.path,
   event: "none",
   url: route.path,
+  ip: "none",
 });
 
 /** 이벤트 등록 */
 const onClickTestBtn = asyncDebounce(test);
 const onClickKafkaBtn = async () => {
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 1; i++) {
     requestKafka(i);
   }
 };
@@ -88,14 +94,14 @@ async function test() {
 }
 
 async function requestKafka(id: number) {
-  alert(route.path);
   try {
+    const ipRes = await instance.get("https://api.ipify.org?format=json");
+
+    logItem.event = "click";
+    logItem.ip = ipRes.data.ip;
+
     /**access log 보내고 콘솔 찍어줌 */
-    const res = await api.kafka.log.createLog({
-      path: route.path,
-      event: "click",
-      url: route.path,
-    });
+    const res = await api.kafka.log.createLog(logItem);
 
     if (res?.status === 200) {
       console.log(res);
