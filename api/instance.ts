@@ -69,6 +69,7 @@ async function logging(url: any) {
     path: route.path,
     event: "routing",
     url: url,
+    date: new Date().toUTCString(),
   });
 }
 

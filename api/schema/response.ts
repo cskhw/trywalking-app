@@ -20,7 +20,7 @@ export interface ValidationError {
 export interface CreateLogResponse {
   path: string;
   ip: string;
-  url: string;
+  url?: string;
   event: string;
 }
 
@@ -42,3 +42,5 @@ export interface AuthTokenResponse {
   refresh_token: string;
   expiration_time: string;
 }
+
+export interface UsersMeResponse {}

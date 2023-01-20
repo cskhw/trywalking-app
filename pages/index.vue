@@ -1,39 +1,41 @@
 <template>
   <QPageContainer>
-    <!-- 홈 페이지 -->
-    <QPage>
-      <!-- 홈 고객 정보 배너 -->
-      <div class="row q-gutter-md q-pa-md">
-        <QBtn @click="onClickTestBtn">테스트 요청 보내기</QBtn>
-        <QBtn @click="$router.push('/post')">포스트</QBtn>
-        <QBtn @click="onClickKafkaBtn">카프카 테스트</QBtn>
+    <QLayout>
+      <!-- 홈 페이지 -->
+      <QPage>
+        <!-- 홈 고객 정보 배너 -->
+        <div class="row q-gutter-md q-pa-md">
+          <QBtn @click="onClickTestBtn">테스트 요청 보내기</QBtn>
+          <QBtn @click="$router.push('/post')">포스트</QBtn>
+          <QBtn @click="onClickKafkaBtn">카프카 테스트</QBtn>
 
-        <QCard class="home-upload-file-card">{{ image.name }}</QCard>
+          <QCard class="home-upload-file-card">{{ image.name }}</QCard>
 
-        <QBtn @click="onClickImgUploadBtn">이미지 업로드 테스트</QBtn>
-        <!-- 이미지 업로드 히든 인풋 -->
-        <input
-          ref="uploadImageInputRef"
-          style="display: none"
-          id="upload-image-input"
-          type="file"
-          @change="onChangeUploadFileInput"
-        />
+          <QBtn @click="onClickImgUploadBtn">이미지 업로드 테스트</QBtn>
+          <!-- 이미지 업로드 히든 인풋 -->
+          <input
+            ref="uploadImageInputRef"
+            style="display: none"
+            id="upload-image-input"
+            type="file"
+            @change="onChangeUploadFileInput"
+          />
 
-        <!-- 로그 프로퍼티 -->
-        <QInput v-model="logItem.path" />
-        <QInput v-model="logItem.event" />
-        <QInput v-model="logItem.url" />
-        <QInput v-model="logItem.ip" />
+          <!-- 로그 프로퍼티 -->
+          <QInput v-model="logItem.path" />
+          <QInput v-model="logItem.event" />
+          <QInput v-model="logItem.url" />
+          <QInput v-model="logItem.ip" />
 
-        <!-- 파일 쓰기 -->
+          <!-- 파일 쓰기 -->
 
-        <QBtn @click="onClickFileWriteBtn">파일 쓰기</QBtn>
+          <QBtn @click="onClickFileWriteBtn">파일 쓰기</QBtn>
 
-        <!-- 파일 텍스트 -->
-        <QInput v-model="fileStr" />
-      </div>
-    </QPage>
+          <!-- 파일 텍스트 -->
+          <QInput v-model="fileStr" />
+        </div>
+      </QPage>
+    </QLayout>
   </QPageContainer>
 </template>
 <script setup lang="ts">
@@ -62,6 +64,7 @@ const logItem = reactive<CreateLogRequest>({
   path: route.path,
   event: "none",
   url: route.path,
+  date: new Date().toUTCString(),
 });
 
 const fileStr = ref("");

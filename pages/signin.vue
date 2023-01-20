@@ -74,7 +74,6 @@
 <script setup lang="ts">
 import api from "@/api/api";
 import useAuthStore from "@/stores/useAuthStore";
-import axios from "axios";
 
 const route = useRoute();
 
@@ -88,11 +87,15 @@ const loginForm = reactive<ILoginForm>({
 const onClickSigninBtn = asyncDebounce(() => authStore.signin(loginForm));
 
 async function onClickLogTestBtn() {
-  const accessLogRes = await api.log.createLog({
-    path: route.path,
-    event: "routing",
-    url: route.path,
-  });
+  try {
+    const res = await api.log.createLog({
+      path: route.path,
+      event: "click",
+      date: new Date().toUTCString(),
+    });
+  } catch (e) {
+    alert(e);
+  }
 }
 </script>
 <style lang="scss" scoped>

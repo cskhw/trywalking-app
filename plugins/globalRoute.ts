@@ -40,8 +40,8 @@ export default defineNuxtPlugin(() => {
         /**access log 보내고 콘솔 찍어줌 */
         const accessLogRes = await api.log.createLog({
           path: route.path,
-          event: "routing",
-          url: route.path,
+          event: "route",
+          date: new Date().toUTCString(),
         });
         if (accessLogRes?.status === 200) {
           log("=========== access log ==========");

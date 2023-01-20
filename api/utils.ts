@@ -27,16 +27,7 @@ export function getLogBaseURL(): string {
     const contextPath = config.VITE_CONTEXT_PATH;
     let logBaseURL = import.meta.env.VITE_LOG_BASE_URL;
 
-    if (contextPath) {
-      log("baseURL: ", logBaseURL);
-
-      return logBaseURL;
-    } else {
-      logBaseURL += contextPath;
-      log("baseURL: ", logBaseURL);
-
-      return logBaseURL;
-    }
+    return (logBaseURL += contextPath ? contextPath : "");
   } catch (e) {
     console.log(e);
     console.log(config);

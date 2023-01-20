@@ -6,9 +6,10 @@
 export interface CreateLogRequest {
   userId?: string;
   path: string;
-  url: string;
+  url?: string;
   ip?: string;
   event: string;
+  date: string;
 }
 
 export interface ReadLogRequest {}
