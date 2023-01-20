@@ -1,13 +1,42 @@
 export function getBaseUrl(): string {
   const config = import.meta.env;
   try {
-    // const mode = config.VITE_MODE;
-    const prefix = config.VITE_PREFIX_URL;
-    // const subfix = config.VITE_SUBFIX_URL;
-    // const baseURL = mode + prefix;
-    const baseURL = prefix;
-    log("baseURL: ", baseURL);
-    return baseURL;
+    const contextPath = config.VITE_CONTEXT_PATH;
+    let baseURL = import.meta.env.VITE_BASE_URL;
+
+    if (contextPath) {
+      log("baseURL: ", baseURL);
+
+      return baseURL;
+    } else {
+      baseURL += contextPath;
+      log("baseURL: ", baseURL);
+
+      return baseURL;
+    }
+  } catch (e) {
+    console.log(e);
+    console.log(config);
+    return "Check environment variables for URL";
+  }
+}
+
+export function getLogBaseURL(): string {
+  const config = import.meta.env;
+  try {
+    const contextPath = config.VITE_CONTEXT_PATH;
+    let logBaseURL = import.meta.env.VITE_LOG_BASE_URL;
+
+    if (contextPath) {
+      log("baseURL: ", logBaseURL);
+
+      return logBaseURL;
+    } else {
+      logBaseURL += contextPath;
+      log("baseURL: ", logBaseURL);
+
+      return logBaseURL;
+    }
   } catch (e) {
     console.log(e);
     console.log(config);

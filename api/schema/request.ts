@@ -1,4 +1,4 @@
-/** /kafka/log api 리스트
+/** /log api 리스트
  * CreateLogRequest: 로그 생성
  * ReadLogRequest: 로그 가져오기
  * ReadAllLogRequest: 로그 모두 가져오기
@@ -7,7 +7,7 @@ export interface CreateLogRequest {
   userId?: string;
   path: string;
   url: string;
-  ip: string;
+  ip?: string;
   event: string;
 }
 

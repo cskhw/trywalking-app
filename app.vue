@@ -15,8 +15,13 @@
 </template>
 <script setup lang="ts">
 import useAppStore from "@/stores/useAppStore";
+import instance from "./api/instance";
 
 const appStore = useAppStore();
+
+// 공인 ip 초기화
+appStore.ip = (await instance.get("https://api.ipify.org?format=json")).data.ip;
+
 // 글로벌 로거
 const GlobalErrorLogger = (e: any) => {
   log(e);

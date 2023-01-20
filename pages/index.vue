@@ -9,9 +9,8 @@
         <QBtn @click="onClickKafkaBtn">카프카 테스트</QBtn>
 
         <QCard class="home-upload-file-card">{{ image.name }}</QCard>
-        <label ref="uploadImageLabelRef" for="upload-image-input">
-          <QBtn @click="onClickImgUploadBtn">이미지 업로드 테스트</QBtn>
-        </label>
+
+        <QBtn @click="onClickImgUploadBtn">이미지 업로드 테스트</QBtn>
         <!-- 이미지 업로드 히든 인풋 -->
         <input
           ref="uploadImageInputRef"
@@ -26,6 +25,13 @@
         <QInput v-model="logItem.event" />
         <QInput v-model="logItem.url" />
         <QInput v-model="logItem.ip" />
+
+        <!-- 파일 쓰기 -->
+
+        <QBtn @click="onClickFileWriteBtn">파일 쓰기</QBtn>
+
+        <!-- 파일 텍스트 -->
+        <QInput v-model="fileStr" />
       </div>
     </QPage>
   </QPageContainer>
@@ -33,8 +39,7 @@
 <script setup lang="ts">
 import api from "@/api/api";
 import type { CreateLogRequest } from "@/api/schema/request";
-import instance from "@/api/instance";
-import { mdiConsoleNetworkOutline } from "@mdi/js";
+import useAppStore from "@/stores/useAppStore";
 
 interface Image {
   name: string;
@@ -42,6 +47,8 @@ interface Image {
 }
 
 const route = useRoute();
+
+const appStore = useAppStore();
 
 /** 인풋 Ref */
 const uploadImageInputRef = ref<HTMLInputElement>();
@@ -55,17 +62,18 @@ const logItem = reactive<CreateLogRequest>({
   path: route.path,
   event: "none",
   url: route.path,
-  ip: "none",
 });
+
+const fileStr = ref("");
 
 /** 이벤트 등록 */
 const onClickTestBtn = asyncDebounce(test);
 const onClickKafkaBtn = async () => {
   for (let i = 1; i <= 1; i++) {
-    requestKafka(i);
+    requestKafka();
   }
 };
-const onClickImgUploadBtn = () => uploadImageLabelRef.value?.click();
+const onClickImgUploadBtn = () => uploadImageInputRef.value?.click();
 
 // 파일 선택하면 api 호출
 async function onChangeUploadFileInput(e: Event) {
@@ -93,21 +101,47 @@ async function test() {
   log("test response: ", res);
 }
 
-async function requestKafka(id: number) {
+async function requestKafka() {
   try {
-    const ipRes = await instance.get("https://api.ipify.org?format=json");
-
     logItem.event = "click";
-    logItem.ip = ipRes.data.ip;
 
     /**access log 보내고 콘솔 찍어줌 */
-    const res = await api.kafka.log.createLog(logItem);
+    const res = await api.log.createLog(logItem);
 
     if (res?.status === 200) {
-      console.log(res);
+      alert(JSON.stringify(res.data));
     }
   } catch (e) {
     log("서버 에러: ", e);
+  }
+}
+
+const onClickFileWriteBtn = asyncDebounce(writeFile);
+
+// 파일쓰기 함수
+async function writeFile(fileName: string) {
+  if (fileName == "") return false;
+
+  var fileObject = new ActiveXObject("Scripting.FileSystemObject");
+
+  var fullPath = "./log.txt";
+
+  // 파일이 생성되어있지 않으면 새로 만들고 기록
+
+  if (!fileObject.FileExists(fullPath)) {
+    var fWrite = fileObject.CreateTextFile(fullPath, false);
+
+    fWrite.write(fileStr.value);
+
+    fWrite.close();
+  } else {
+    // 파일이 이미 생성되어 있으면 appending 모드로 파일 열고 기록
+
+    var fWrite = fileObject.OpenTextFile(fullPath, 8);
+
+    fWrite.write(fileStr.value);
+
+    fWrite.close();
   }
 }
 </script>

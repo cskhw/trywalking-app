@@ -1,3 +1,4 @@
+import instance from "@/api/instance";
 import { defineStore } from "pinia";
 
 export default defineStore("app", {
@@ -6,6 +7,7 @@ export default defineStore("app", {
     isLoading: false,
     isAuth: false,
     layout: "app",
+    ip: "none",
   }),
   getters: {
     loading: (state) => {

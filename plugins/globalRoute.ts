@@ -1,4 +1,5 @@
 import api from "@/api/api";
+import instance from "@/api/instance";
 import useAppStore from "@/stores/useAppStore";
 import useUserStore from "@/stores/useUserStore";
 
@@ -27,7 +28,6 @@ async function checkAuth() {
 
 export default defineNuxtPlugin(() => {
   const appStore = useAppStore();
-  const userStore = useUserStore();
   const route = useRoute();
 
   // 글로벌 라우터 미들웨어
@@ -36,13 +36,9 @@ export default defineNuxtPlugin(() => {
     async (to, from) => {
       log(`to: ${to.path} from: ${from.path}`);
 
-      const logData = `userId: ${
-        userStore.user?.id ? userStore.user?.id.toString() : "none"
-      }`;
-
       try {
         /**access log 보내고 콘솔 찍어줌 */
-        const accessLogRes = await api.kafka.log.createLog({
+        const accessLogRes = await api.log.createLog({
           path: route.path,
           event: "routing",
           url: route.path,

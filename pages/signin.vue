@@ -62,6 +62,7 @@
             <div class="vertical-center font-size-6">|</div>
             <QBtn @click="$router.push('/signup')" flat> 회원가입</QBtn></QItem
           >
+          <QBtn @click="onClickLogTestBtn" flat>테스트 로그 보내기</QBtn>
         </QForm>
       </div>
 
@@ -71,7 +72,11 @@
   </QPageContainer>
 </template>
 <script setup lang="ts">
+import api from "@/api/api";
 import useAuthStore from "@/stores/useAuthStore";
+import axios from "axios";
+
+const route = useRoute();
 
 const authStore = useAuthStore();
 const loginForm = reactive<ILoginForm>({
@@ -81,6 +86,14 @@ const loginForm = reactive<ILoginForm>({
 
 // 함수 등록
 const onClickSigninBtn = asyncDebounce(() => authStore.signin(loginForm));
+
+async function onClickLogTestBtn() {
+  const accessLogRes = await api.log.createLog({
+    path: route.path,
+    event: "routing",
+    url: route.path,
+  });
+}
 </script>
 <style lang="scss" scoped>
 .login-form {

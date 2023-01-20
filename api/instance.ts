@@ -5,16 +5,23 @@ import axios, {
   type AxiosResponse,
 } from "axios";
 
-import { getBaseUrl } from "@/api/utils";
+import { getBaseUrl, getLogBaseURL } from "@/api/utils";
 import { extractError } from "./error";
 import api from "./api";
 
-const baseURL = import.meta.env.VITE_BASE_URL + getBaseUrl();
+const baseURL = getBaseUrl();
+const logBaseURL = getLogBaseURL();
+
+console.log(logBaseURL);
 
 const axiosConfig = { baseURL: baseURL, timeout: 20000 };
+const logAxiosConfig = {
+  baseURL: logBaseURL,
+  timeout: 20000,
+};
 
 const axiosInstance: AxiosInstance = axios.create(axiosConfig);
-export const logInstance: AxiosInstance = axios.create(axiosConfig);
+export const logInstance: AxiosInstance = axios.create(logAxiosConfig);
 
 // 요청 인터셉터
 axiosInstance.interceptors.request.use(
@@ -55,16 +62,14 @@ axiosInstance.interceptors.response.use(
 );
 
 // 로깅 함수
-async function logging(data: any) {
+async function logging(url: any) {
   const route = useRoute();
 
-  const params = {
+  await api.log.createLog({
     path: route.path,
     event: "routing",
-    url: route.path,
-  };
-
-  await api.kafka.log.createLog(params);
+    url: url,
+  });
 }
 
 // 요청 wrapper
