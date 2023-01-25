@@ -16,6 +16,8 @@ services:
       my-network:
         aliases:
           - frontend
+    environment:
+      - TZ=Asia/Seoul
 
 networks:
   my-network:
