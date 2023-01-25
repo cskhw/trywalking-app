@@ -4,16 +4,7 @@ export function getBaseUrl(): string {
     const contextPath = config.VITE_CONTEXT_PATH;
     let baseURL = import.meta.env.VITE_BASE_URL;
 
-    if (contextPath) {
-      log("baseURL: ", baseURL);
-
-      return baseURL;
-    } else {
-      baseURL += contextPath;
-      log("baseURL: ", baseURL);
-
-      return baseURL;
-    }
+    return (baseURL += contextPath ? contextPath : "");
   } catch (e) {
     console.log(e);
     console.log(config);
