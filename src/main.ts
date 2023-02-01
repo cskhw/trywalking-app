@@ -11,8 +11,15 @@ import router from "@/router";
 import { abilitiesPlugin } from "@casl/vue";
 import "@core/scss/template/index.scss";
 import "@styles/styles.scss";
-import { createPinia } from "pinia";
 import { createApp } from "vue";
+import api from "@/api/api";
+
+// Create pinia and setup
+const pinia = createPinia();
+pinia.use(({ store }) => {
+  store.router = markRaw(router);
+  store.api = markRaw(api);
+});
 
 loadFonts();
 
@@ -21,10 +28,10 @@ const app = createApp(App);
 
 // Use plugins
 app.use(vuetify);
-app.use(createPinia());
 app.use(router);
 app.use(layoutsPlugin);
 app.use(i18n);
+app.use(pinia);
 app.use(abilitiesPlugin, ability, {
   useGlobalProperties: true,
 });

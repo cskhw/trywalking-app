@@ -46,8 +46,8 @@ const loginForm = reactive<ILoginForm>({
   password: "",
 });
 
-const login = () => {
-  router.push("/dashboards/analytics");
+const login = async () => {
+  await authStore.signin(loginForm);
 };
 
 // 인풋 함수 등록
@@ -55,7 +55,6 @@ const onSubmit = asyncDebounce(async () => {
   refVForm.value?.validate().then(({ valid: isValid }) => {
     if (isValid) login();
   });
-  authStore.signin(loginForm);
 });
 
 () => {};
