@@ -43,8 +43,8 @@ const router = createRouter({
       },
     },
     {
-      path: "/dashboards/analytics",
-      component: () => import("@/pages/dashboards/analytics.vue"),
+      path: "/inspection",
+      component: () => import("@/pages/inspection/inspection.vue"),
     },
     {
       path: "/user-profile",

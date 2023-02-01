@@ -13,7 +13,7 @@ export default defineStore("auth", {
   actions: {
     async signin(loginForm: ILoginForm) {
       console.log(this.router);
-      await this.router.push("/dashboards/analytics");
+      await this.router.push("/inspection");
       return;
 
       const signinRes = await this.api.auth.signin(loginForm, true);
