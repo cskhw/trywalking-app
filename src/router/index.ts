@@ -43,14 +43,18 @@ const router = createRouter({
       },
     },
     {
-      path: "/pages/user-profile",
+      path: "/dashboards/analytics",
+      component: () => import("@/pages/dashboards/analytics.vue"),
+    },
+    {
+      path: "/user-profile",
       redirect: () => ({
         name: "pages-user-profile-tab",
         params: { tab: "profile" },
       }),
     },
     {
-      path: "/pages/account-settings",
+      path: "/account-settings",
       redirect: () => ({
         name: "pages-account-settings-tab",
         params: { tab: "account" },

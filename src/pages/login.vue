@@ -47,7 +47,7 @@ const loginForm = reactive<ILoginForm>({
 });
 
 const login = () => {
-  router.push("/");
+  router.push("/dashboards/analytics");
 };
 
 // 인풋 함수 등록
@@ -79,28 +79,15 @@ const onSubmit = asyncDebounce(async () => {
 
     <VCol cols="12" lg="4" class="d-flex align-center justify-center">
       <VCard flat :max-width="500" class="mt-12 mt-sm-0 pa-4">
-        <VCardText>
+        <VCardText class="d-flex align-center">
           <VNodeRenderer :nodes="themeConfig.app.logo" class="mb-6" />
 
+          <!-- 타이틀 -->
           <h5 class="text-h5 font-weight-semibold mb-1">
-            Welcome to {{ themeConfig.app.title }}! 👋🏻
+            {{ themeConfig.app.title }}
           </h5>
-          <p class="mb-0">
-            Please sign-in to your account and start the adventure
-          </p>
         </VCardText>
-        <VCardText>
-          <VAlert color="primary" variant="tonal">
-            <p class="text-caption mb-2">
-              Admin Email: <strong>admin@demo.com</strong> / Pass:
-              <strong>admin</strong>
-            </p>
-            <p class="text-caption mb-0">
-              Client Email: <strong>client@demo.com</strong> / Pass:
-              <strong>client</strong>
-            </p>
-          </VAlert>
-        </VCardText>
+
         <VCardText>
           <VForm ref="refVForm" @submit.prevent="onSubmit">
             <VRow>
@@ -108,8 +95,8 @@ const onSubmit = asyncDebounce(async () => {
               <VCol cols="12">
                 <VTextField
                   v-model="loginForm.username"
-                  label="Email"
-                  type="email"
+                  label="Username"
+                  type="text"
                   :rules="[requiredValidator]"
                   :error-messages="errors.email"
                 />
@@ -132,7 +119,6 @@ const onSubmit = asyncDebounce(async () => {
                 <div
                   class="d-flex align-center flex-wrap justify-space-between mt-2 mb-4"
                 >
-                  <VCheckbox v-model="rememberMe" label="Remember me" />
                   <RouterLink
                     class="text-primary ms-2 mb-1"
                     :to="{ name: 'forgot-password' }"
@@ -154,16 +140,16 @@ const onSubmit = asyncDebounce(async () => {
                   Create an account
                 </RouterLink>
               </VCol>
-              <VCol cols="12" class="d-flex align-center">
+              <!-- <VCol cols="12" class="d-flex align-center">
                 <VDivider />
                 <span class="mx-4">or</span>
                 <VDivider />
-              </VCol>
+              </VCol> -->
 
               <!-- auth providers -->
-              <VCol cols="12" class="text-center">
+              <!-- <VCol cols="12" class="text-center">
                 <AuthProvider />
-              </VCol>
+              </VCol> -->
             </VRow>
           </VForm>
         </VCardText>
