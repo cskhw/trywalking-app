@@ -1,31 +1,31 @@
 <script lang="ts" setup>
-import navItems from '@/navigation/vertical'
-import { useThemeConfig } from '@core/composable/useThemeConfig'
+import navItems from "@/navigation/vertical";
+import { useThemeConfig } from "@core/composable/useThemeConfig";
 
 // Components
-import Footer from '@/layouts/components/Footer.vue'
-import NavBarI18n from '@/layouts/components/NavBarI18n.vue'
-import NavBarNotifications from '@/layouts/components/NavBarNotifications.vue'
-import NavbarShortcuts from '@/layouts/components/NavbarShortcuts.vue'
-import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
-import NavSearchBar from '@/layouts/components/NavSearchBar.vue'
-import UserProfile from '@/layouts/components/UserProfile.vue'
+import Footer from "@/layouts/components/Footer.vue";
+import NavBarI18n from "@/layouts/components/NavBarI18n.vue";
+import NavBarNotifications from "@/layouts/components/NavBarNotifications.vue";
+import NavbarShortcuts from "@/layouts/components/NavbarShortcuts.vue";
+import NavbarThemeSwitcher from "@/layouts/components/NavbarThemeSwitcher.vue";
+import NavSearchBar from "@/layouts/components/NavSearchBar.vue";
+import UserProfile from "@/layouts/components/UserProfile.vue";
 
 // @layouts plugin
-import { VerticalNavLayout } from '@layouts'
+import { VerticalNavLayout } from "@layouts";
+import { themeConfig } from "@themeConfig";
 
-const { appRouteTransition, isLessThanOverlayNavBreakpoint } = useThemeConfig()
-const { width: windowWidth } = useWindowSize()
+const { appRouteTransition, isLessThanOverlayNavBreakpoint } = useThemeConfig();
+const { width: windowWidth } = useWindowSize();
 </script>
 
 <template>
-  <VerticalNavLayout
-    :nav-items="navItems"
-  >
+  <VerticalNavLayout :nav-items="navItems">
     <!-- 👉 navbar -->
     <template #navbar="{ toggleVerticalOverlayNavActive }">
       <div class="d-flex h-100 align-center">
-        <VBtn
+        <!-- 사이드바 사용하지 않음 -->
+        <!-- <VBtn
           v-if="isLessThanOverlayNavBreakpoint(windowWidth)"
           icon
           variant="text"
@@ -38,7 +38,11 @@ const { width: windowWidth } = useWindowSize()
             icon="tabler-menu-2"
             size="24"
           />
-        </VBtn>
+        </VBtn> -->
+
+        <span class="purple-lighten-2" style="">
+          {{ themeConfig.app.title }}
+        </span>
 
         <NavSearchBar class="ms-lg-n3" />
 
@@ -54,10 +58,7 @@ const { width: windowWidth } = useWindowSize()
 
     <!-- 👉 Pages -->
     <RouterView v-slot="{ Component }">
-      <Transition
-        :name="appRouteTransition"
-        mode="out-in"
-      >
+      <Transition :name="appRouteTransition" mode="out-in">
         <Component :is="Component" />
       </Transition>
     </RouterView>

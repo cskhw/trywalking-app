@@ -12,7 +12,6 @@ export default defineStore("auth", {
   },
   actions: {
     async signin(loginForm: ILoginForm) {
-      console.log(this.router);
       await this.router.push("/inspection");
       return;
 

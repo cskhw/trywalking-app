@@ -43,10 +43,6 @@ const router = createRouter({
       },
     },
     {
-      path: "/inspection",
-      component: () => import("@/pages/inspection/inspection.vue"),
-    },
-    {
       path: "/user-profile",
       redirect: () => ({
         name: "pages-user-profile-tab",

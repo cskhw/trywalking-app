@@ -26,7 +26,7 @@ injectSkinClasses();
 </script>
 
 <template>
-  <template v-if="appContentLayoutNav === AppContentLayoutNav.Vertical ">
+  <template v-if="appContentLayoutNav === AppContentLayoutNav.Vertical">
     <DefaultLayoutWithVerticalNav v-bind="layoutAttrs" />
   </template>
   <template v-else>
