@@ -40,7 +40,7 @@ const { width: windowWidth } = useWindowSize();
           />
         </VBtn> -->
 
-        <span class="purple-lighten-2" style="">
+        <span class="text-purple-lighten-2">
           {{ themeConfig.app.title }}
         </span>
 

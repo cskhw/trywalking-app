@@ -29,5 +29,7 @@ syncConfigThemeWithVuetifyTheme();
   </VLocaleProvider>
 </template>
 <style lang="scss">
-@import "@/assets/styles/main";
+@import "@/styles/main";
+// vuetify css
+@import "vuetify/lib/styles/main.css";
 </style>

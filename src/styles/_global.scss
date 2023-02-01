@@ -5,6 +5,11 @@ body {
   margin: 0;
 }
 
+/** vuetify scss */
+.v-application__wrap {
+  overflow-x: hidden;
+}
+
 .pt-btn:hover {
   cursor: pointer;
   opacity: 0.6;

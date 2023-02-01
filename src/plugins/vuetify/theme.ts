@@ -12,10 +12,11 @@ const theme: VuetifyOptions["theme"] = {
       colors: {
         // ...colors,
         primary:
-          localStorage.getItem(
-            `${themeConfig.app.title}-lightThemePrimaryColor`
-          ) || "#7367F0",
-        "on-primary": "#fff",
+          // localStorage.getItem(
+          //   `${themeConfig.app.title}-lightThemePrimaryColor`
+          // ) || "#7367F0",
+          "white",
+        "on-primary": "black",
         secondary: "#A8AAAE",
         "on-secondary": "#fff",
         success: "#28C76F",
