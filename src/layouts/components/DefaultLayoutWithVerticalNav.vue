@@ -67,21 +67,22 @@ const currentFragment = ref();
       </Transition>
     </RouterView>
 
-    <!-- 👉 Footer -->
-    <template #footer>
-      <Footer />
-      fdsa
-    </template>
-
     <!-- BottomNavigation -->
     {{ currentFragment }}
-    <VBottomNavigation v-model="currentFragment">
-      <VBtn value="recent">
-        <span>Recent</span>
-
+    <VBottomNavigation v-model="currentFragment" grow>
+      <VBtn value="inspection" style="flex: 1">
+        <VIcon>mdi-document</VIcon>
+        검수확인서
+      </VBtn>
+      <VBtn value="das" style="flex: 1">
         <VIcon>mdi-history</VIcon>
-      </VBtn></VBottomNavigation
-    >
+        DAS
+      </VBtn>
+      <VBtn value="setting" style="flex: 1">
+        <VIcon>mdi-cog</VIcon>
+        설정
+      </VBtn>
+    </VBottomNavigation>
 
     <!-- 👉 Customizer -->
     <!-- <TheCustomizer /> -->

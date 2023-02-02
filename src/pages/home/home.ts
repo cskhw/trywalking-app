@@ -13,7 +13,7 @@ export const dashboardTableStyle = computed<DTableStyles>(() => ({
     const style: CSSProperties = {
       height: "24px",
       padding: "4px",
-      backgroundColor: colors.ee,
+      backgroundColor: colors.searchTableHeader,
       border: "none",
       borderRight: colors.borderE0,
       fontWeight: "bold",
@@ -49,7 +49,7 @@ export const dashboardTableStyle = computed<DTableStyles>(() => ({
       border: "none",
     };
     if (i == 1) {
-      style.backgroundColor = colors.ee;
+      style.backgroundColor = colors.searchTableHeader;
       style.fontWeight = "bold";
     }
     if (i == 2) {

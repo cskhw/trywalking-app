@@ -20,6 +20,11 @@ body {
   height: 100%;
 }
 
+.v-bottom-navigation__content {
+  width: 100%;
+  display: flex;
+}
+
 .pt-btn:hover {
   cursor: pointer;
   opacity: 0.6;
