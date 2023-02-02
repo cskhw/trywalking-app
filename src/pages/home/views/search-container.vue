@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import AppDateTimePicker from "@core/components/AppDateTimePicker.vue";
 import DTable from "@/components/DTable.vue";
 import { dashboardTableStyle } from "../home";
 import {
@@ -11,12 +10,14 @@ import {
   date,
   deliveryOrderSelectItems,
   deliveryOrderSelectValue,
-  landingSelectItems,
-  landingSelectValue,
+  landingSelectItems as routeSelectItems,
+  landingSelectValue as routeSelectValue,
   loadSelectItems,
   loadSelectValue,
   pickingSelectItems,
   pickingSelectValue,
+  isShowOnlyCs,
+  isShowOnlyPickingCompleted,
 } from "./search-container";
 import DatePicker from "vue3-datepicker";
 </script>
@@ -29,12 +30,13 @@ import DatePicker from "vue3-datepicker";
   >
     <VRow class="px-3 pt-4">
       <!-- 날짜 선택 -->
-      <VCol class="pa-0 pr-1" cols="4">
+      <VCol class="pa-0 pr-1" cols="8">
         <DatePicker
           style="height: 40px; overflow: hidden"
           v-model="date"
         ></DatePicker>
       </VCol>
+      <!-- 센터미배정 -->
       <VCol class="pa-0 mr-1">
         <VSelect
           v-model="centerSelectValue"
@@ -43,16 +45,27 @@ import DatePicker from "vue3-datepicker";
         >
         </VSelect>
       </VCol>
+    </VRow>
+    <VRow class="px-3 pt-2">
+      <!-- 피킹 완료 스위치 -->
+      <VCol class="pa-0 mr-1">
+        <v-switch
+          color="indigo"
+          v-model="isShowOnlyPickingCompleted"
+          inset
+          label="피킹 완"
+        ></v-switch>
+      </VCol>
+      <!-- 노선 선택 -->
       <VCol class="pa-0 mr-1">
         <VSelect
-          v-model="landingSelectValue"
-          :item="landingSelectItems"
+          v-model="routeSelectValue"
+          :item="routeSelectItems"
           variant="solo"
         >
         </VSelect>
       </VCol>
-    </VRow>
-    <VRow class="px-3 pt-2">
+      <!-- 착지 선택 -->
       <VCol class="pa-0 mr-1">
         <VSelect
           v-model="loadSelectValue"
@@ -61,6 +74,18 @@ import DatePicker from "vue3-datepicker";
         >
         </VSelect>
       </VCol>
+    </VRow>
+    <VRow class="px-3 pt-2">
+      <!-- CS업장 스위치 -->
+      <VCol class="pa-0 mr-1">
+        <v-switch
+          color="indigo"
+          v-model="isShowOnlyCs"
+          inset
+          label="CS업장"
+        ></v-switch>
+      </VCol>
+      <!-- 적재 위치 -->
       <VCol class="pa-0 mr-1">
         <VSelect
           v-model="pickingSelectValue"
@@ -69,6 +94,7 @@ import DatePicker from "vue3-datepicker";
         >
         </VSelect>
       </VCol>
+      <!--  -->
       <VCol class="pa-0 mr-1">
         <VSelect
           v-model="deliveryOrderSelectValue"
@@ -78,6 +104,7 @@ import DatePicker from "vue3-datepicker";
         </VSelect>
       </VCol>
     </VRow>
+
     <!-- 검색창 -->
     <VRow class="px-3 pt-2">
       <VBtn style="width: 56px" class="mr-1">초기화</VBtn>
