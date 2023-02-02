@@ -40,7 +40,7 @@ const currentFragment = ref();
           />
         </VBtn> -->
 
-        <span class="text-purple-lighten-2">
+        <span class="text-purple-lighten-2 text-h5">
           {{ themeConfig.app.title }}
         </span>
 
@@ -54,8 +54,10 @@ const currentFragment = ref();
         <NavBarNotifications class="me-2" />
         <UserProfile /> -->
 
-        <VBtn style="width: 36px" flat>
-          <span class="text-grey-darken-3 font-weight-bold"> 총량피킹 </span>
+        <VBtn flat>
+          <span class="text-grey-darken-3 text-h6 font-weight-bold">
+            총량피킹
+          </span>
         </VBtn>
       </div>
     </template>
