@@ -11,3 +11,20 @@ export const tableValue = ref([
 ]);
 
 export const searchQuery = ref("test");
+
+export const centerSelectValue = ref("센터미배정");
+export const centerSelectItems = ref(["업장 선택", "센터 미배정", "왕십리"]);
+
+export const landingSelectValue = ref("그룹미배정");
+export const landingSelectItems = ref([]);
+
+export const loadSelectValue = ref("착지 선택");
+export const loadSelectItems = ref([]);
+
+export const pickingSelectValue = ref("적재위치");
+export const pickingSelectItems = ref([]);
+
+export const deliveryOrderSelectValue = ref("타입");
+export const deliveryOrderSelectItems = ref([]);
+
+export const date = ref(new Date());

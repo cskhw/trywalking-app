@@ -25,6 +25,26 @@ body {
   display: flex;
 }
 
+.v-field__input {
+  padding-inline-start: 8px !important;
+}
+
+// vue3-datepicker
+.search-container .v3dp__datepicker .v3dp__input_wrapper {
+  overflow: hidden;
+  outline: none;
+  height: 40px;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px 2px var(--v-shadow-key-umbra-opacity),
+    0 5px 3px var(--v-shadow-key-penumbra-opacity),
+    0 1px 4px 2px var(--v-shadow-key-ambient-opacity);
+  input {
+    padding: 4px;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
 .pt-btn:hover {
   cursor: pointer;
   opacity: 0.6;

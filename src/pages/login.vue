@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { VForm } from "vuetify/components";
-import AuthProvider from "@/views/pages/authentication/AuthProvider.vue";
 import { useGenerateImageVariant } from "@core/composable/useGenerateImageVariant";
 import { VNodeRenderer } from "@layouts/components/VNodeRenderer";
 import { themeConfig } from "@themeConfig";
-import { emailValidator, requiredValidator } from "@validators";
+import { requiredValidator } from "@validators";
 
 import authV2LoginIllustrationBorderedDark from "@images/pages/auth-v2-login-illustration-bordered-dark.png";
 import authV2LoginIllustrationBorderedLight from "@images/pages/auth-v2-login-illustration-bordered-light.png";
@@ -14,6 +13,11 @@ import authV2MaskDark from "@images/pages/misc-mask-dark.png";
 import authV2MaskLight from "@images/pages/misc-mask-light.png";
 
 import useAuthStore from "@/stores/useAuthStore";
+
+interface ILoginForm {
+  username: string;
+  password: string;
+}
 
 const authStore = useAuthStore();
 
@@ -37,9 +41,6 @@ const errors = ref<Record<string, string | undefined>>({
 });
 
 const refVForm = ref<VForm>();
-const email = ref("admin@demo.com");
-const password = ref("admin");
-const rememberMe = ref(false);
 
 const loginForm = reactive<ILoginForm>({
   username: "",

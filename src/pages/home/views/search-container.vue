@@ -1,36 +1,81 @@
 <script setup lang="ts">
+import AppDateTimePicker from "@core/components/AppDateTimePicker.vue";
 import DTable from "@/components/DTable.vue";
 import { dashboardTableStyle } from "../home";
-import { tableheaders, searchQuery, tableValue } from "./search-container";
+import {
+  tableheaders,
+  searchQuery,
+  tableValue,
+  centerSelectItems,
+  centerSelectValue,
+  date,
+  deliveryOrderSelectItems,
+  deliveryOrderSelectValue,
+  landingSelectItems,
+  landingSelectValue,
+  loadSelectItems,
+  loadSelectValue,
+  pickingSelectItems,
+  pickingSelectValue,
+} from "./search-container";
+import DatePicker from "vue3-datepicker";
 </script>
 
 <template>
   <VCard
-    class="pa-4 pb-2"
+    class="search-container pa-4 pb-2"
     color="white"
-    style="border-radius: 0px 0px 24px 24px"
+    style="border-radius: 0px 0px 24px 24px; white-space: nowrap"
   >
     <VRow class="px-3 pt-4">
       <!-- 날짜 선택 -->
-      <VCol class="pa-0 mr-1">
-        <VSelect variant="solo"> </VSelect>
+      <VCol class="pa-0 pr-1" cols="4">
+        <DatePicker
+          style="height: 40px; overflow: hidden"
+          v-model="date"
+        ></DatePicker>
       </VCol>
       <VCol class="pa-0 mr-1">
-        <VSelect variant="solo"> </VSelect>
+        <VSelect
+          v-model="centerSelectValue"
+          :item="centerSelectItems"
+          variant="solo"
+        >
+        </VSelect>
       </VCol>
       <VCol class="pa-0 mr-1">
-        <VSelect variant="solo"> </VSelect>
+        <VSelect
+          v-model="landingSelectValue"
+          :item="landingSelectItems"
+          variant="solo"
+        >
+        </VSelect>
       </VCol>
     </VRow>
     <VRow class="px-3 pt-2">
       <VCol class="pa-0 mr-1">
-        <VSelect variant="solo"> </VSelect>
+        <VSelect
+          v-model="loadSelectValue"
+          :item="loadSelectItems"
+          variant="solo"
+        >
+        </VSelect>
       </VCol>
       <VCol class="pa-0 mr-1">
-        <VSelect variant="solo"> </VSelect>
+        <VSelect
+          v-model="pickingSelectValue"
+          :item="pickingSelectItems"
+          variant="solo"
+        >
+        </VSelect>
       </VCol>
       <VCol class="pa-0 mr-1">
-        <VSelect variant="solo"> </VSelect>
+        <VSelect
+          v-model="deliveryOrderSelectValue"
+          :item="deliveryOrderSelectItems"
+          variant="solo"
+        >
+        </VSelect>
       </VCol>
     </VRow>
     <!-- 검색창 -->
@@ -61,7 +106,7 @@ import { tableheaders, searchQuery, tableValue } from "./search-container";
         <!-- 차량 번호 -->
         <VCol class="d-flex justify-space-evenly" cols="6">
           <VIcon color="blue-darken-2" size="24" icon="mdi-truck"></VIcon>
-          <span style="line-height: 24px">123가5678</span>
+          <span style="line-height: 24px">타요</span>
         </VCol>
         <!-- 운전자 -->
         <VCol class="d-flex justify-space-evenly" cols="6">
