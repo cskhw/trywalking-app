@@ -99,5 +99,43 @@ const onClickTd = (td: any) => {
 };
 </script>
 <style lang="scss">
-@import "@/styles/components/d-table.scss";
+@import "@/styles/colors.scss";
+
+.d-table {
+  display: flex;
+  flex-direction: column;
+
+  width: max-content;
+
+  outline: 1px solid $r-table-border;
+  border-radius: 0.25rem;
+  .d-table-header {
+    display: flex;
+    width: max-content;
+    .d-table-th {
+      padding: 0.5rem 0.75rem;
+      border-right: 1px solid $r-table-border;
+      border-bottom: 1px solid $r-table-border;
+    }
+    .d-table-th:last-child {
+      border-right: none;
+    }
+  }
+  .d-table-body {
+    .d-table-tr {
+      display: flex;
+      border-bottom: 1px solid $r-table-border;
+      .d-table-td {
+        padding: 0.5rem 0.75rem;
+        border-right: 1px solid $r-table-border;
+      }
+      .d-table-td:last-child {
+        border-right: none;
+      }
+    }
+    .d-table-tr:last-child {
+      border-bottom: none;
+    }
+  }
+}
 </style>

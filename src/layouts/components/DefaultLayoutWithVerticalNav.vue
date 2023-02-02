@@ -4,19 +4,19 @@ import { useThemeConfig } from "@core/composable/useThemeConfig";
 
 // Components
 import Footer from "@/layouts/components/Footer.vue";
-import NavBarI18n from "@/layouts/components/NavBarI18n.vue";
-import NavBarNotifications from "@/layouts/components/NavBarNotifications.vue";
-import NavbarShortcuts from "@/layouts/components/NavbarShortcuts.vue";
-import NavbarThemeSwitcher from "@/layouts/components/NavbarThemeSwitcher.vue";
-import NavSearchBar from "@/layouts/components/NavSearchBar.vue";
-import UserProfile from "@/layouts/components/UserProfile.vue";
+// import NavBarNotifications from "@/layouts/components/NavBarNotifications.vue";
+// import NavbarShortcuts from "@/layouts/components/NavbarShortcuts.vue";
+// import NavbarThemeSwitcher from "@/layouts/components/NavbarThemeSwitcher.vue";
+// import NavSearchBar from "@/layouts/components/NavSearchBar.vue";
+// import UserProfile from "@/layouts/components/UserProfile.vue";
 
 // @layouts plugin
 import { VerticalNavLayout } from "@layouts";
 import { themeConfig } from "@themeConfig";
 
 const { appRouteTransition, isLessThanOverlayNavBreakpoint } = useThemeConfig();
-const { width: windowWidth } = useWindowSize();
+
+const currentFragment = ref();
 </script>
 
 <template>
@@ -44,15 +44,19 @@ const { width: windowWidth } = useWindowSize();
           {{ themeConfig.app.title }}
         </span>
 
-        <NavSearchBar class="ms-lg-n3" />
+        <!-- <NavSearchBar class="ms-lg-n3" /> -->
 
         <VSpacer />
-
+        <!-- 
         <NavBarI18n />
         <NavbarThemeSwitcher />
         <NavbarShortcuts />
         <NavBarNotifications class="me-2" />
-        <UserProfile />
+        <UserProfile /> -->
+
+        <VBtn style="width: 36px" flat>
+          <span class="text-grey-darken-3 font-weight-bold"> 총량피킹 </span>
+        </VBtn>
       </div>
     </template>
 
@@ -66,9 +70,20 @@ const { width: windowWidth } = useWindowSize();
     <!-- 👉 Footer -->
     <template #footer>
       <Footer />
+      fdsa
     </template>
 
+    <!-- BottomNavigation -->
+    {{ currentFragment }}
+    <VBottomNavigation v-model="currentFragment">
+      <VBtn value="recent">
+        <span>Recent</span>
+
+        <VIcon>mdi-history</VIcon>
+      </VBtn></VBottomNavigation
+    >
+
     <!-- 👉 Customizer -->
-    <TheCustomizer />
+    <!-- <TheCustomizer /> -->
   </VerticalNavLayout>
 </template>

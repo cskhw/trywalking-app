@@ -2,7 +2,7 @@ import { logInstance } from "@/api/instance";
 import type { CreateLogResponse } from "@/api/schema/response";
 import type { AxiosResponse } from "axios";
 import type { CreateLogRequest } from "@/api/schema/request";
-import type { Log } from "@/types/log";
+import type { Log } from "@/models/log";
 import axios from "axios";
 
 export default {

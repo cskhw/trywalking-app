@@ -40,7 +40,10 @@
     "src/**/*",
     "src/**/*.vue",
     "themeConfig.ts",
-    "types/stores"
+    "types/stores",
+    "pinia.d.ts",
+    "pinia.d.ts",
+    "vitest.d.ts"
   ],
   "exclude": ["dist", "node_modules", "src/@iconify/*"]
 }

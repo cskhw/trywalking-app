@@ -1,20 +1,15 @@
 <script setup lang="ts">
 import DTable from "@/components/DTable.vue";
-import { dashboardTableStyle } from "@/pages/home/home";
-
-const tableheaders = ref(["피킹 중/완/합계", "배송 중/완/합계", "적재 내/외"]);
-
-const tableValue = ref([
-  { a: "42/38/80", b: "42/38/80", c: "42" },
-  { a: "총 매장 수", b: "총 수량", c: "총 주문 금액" },
-  { a: "999,999", b: "9,999,999", c: "99,999,999,999" },
-]);
-
-const searchQuery = ref("test");
+import { dashboardTableStyle } from "../home";
+import { tableheaders, searchQuery, tableValue } from "./search-container";
 </script>
 
 <template>
-  <VCard class="pa-4 pb-2" color="white" style="border-radius: 0px 0px 4px 4px">
+  <VCard
+    class="pa-4 pb-2"
+    color="white"
+    style="border-radius: 0px 0px 24px 24px"
+  >
     <VRow class="px-3 pt-4">
       <!-- 날짜 선택 -->
       <VCol class="pa-0 mr-1">
