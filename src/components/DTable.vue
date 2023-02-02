@@ -40,8 +40,8 @@
           class="d-table-td"
           v-for="(td, _, j) in row"
           :style="[
-            tableStyles?.tdStyle ? tableStyles.tdStyle(i, j) : {},
             tableStyles?.columnStyle ? tableStyles.columnStyle(j) : {},
+            tableStyles?.tdStyle ? tableStyles.tdStyle(i, j) : {},
           ]"
           @click="() => onClickTd(td)"
         >

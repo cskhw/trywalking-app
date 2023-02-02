@@ -15,8 +15,8 @@ const theme: VuetifyOptions["theme"] = {
           // localStorage.getItem(
           //   `${themeConfig.app.title}-lightThemePrimaryColor`
           // ) || "#7367F0",
-          "white",
-        "on-primary": "black",
+          "#ffffff",
+        "on-primary": "#000000",
         secondary: "#A8AAAE",
         "on-secondary": "#fff",
         success: "#28C76F",

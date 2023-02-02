@@ -14,6 +14,11 @@ body {
 .v-application__wrap {
   overflow-x: hidden;
 }
+.layout-content-wrapper,
+.layout-page-content,
+.page-content-container {
+  height: 100%;
+}
 
 .pt-btn:hover {
   cursor: pointer;

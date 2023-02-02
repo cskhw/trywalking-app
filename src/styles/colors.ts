@@ -1,5 +1,5 @@
 export default {
-  mainBackground: "white",
+  mainBackground: "#F4F6F9",
   hoverBgColor: "rgba(0,0,0,0.3)",
   hoverColor: "rgba(0,0,0,0.6)",
   commonBorder: "#e0e0e0",

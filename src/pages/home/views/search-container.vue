@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import DTable from "@/components/DTable.vue";
-import { tableStyle } from "@/pages/home/views/search-container";
-import colors from "@/styles/colors";
+import { dashboardTableStyle } from "@/pages/home/home";
+
+const tableheaders = ref(["피킹 중/완/합계", "배송 중/완/합계", "적재 내/외"]);
 
 const tableValue = ref([
   { a: "42/38/80", b: "42/38/80", c: "42" },
@@ -36,9 +37,6 @@ const searchQuery = ref("test");
       <VCol class="pa-0 mr-1">
         <VSelect variant="solo"> </VSelect>
       </VCol>
-      <VCol class="pa-0 mr-1">
-        <VSelect variant="solo"> </VSelect>
-      </VCol>
     </VRow>
     <!-- 검색창 -->
     <VRow class="px-3 pt-2">
@@ -53,8 +51,8 @@ const searchQuery = ref("test");
     <DTable
       class="mt-5"
       v-model="tableValue"
-      :headers="['피킹 중/완/합계', '배송 중/완/합계', '적재 내/외']"
-      :table-styles="tableStyle"
+      :headers="tableheaders"
+      :table-styles="dashboardTableStyle"
     >
     </DTable>
     <!-- 히어로 설정 버튼 -->
@@ -68,12 +66,12 @@ const searchQuery = ref("test");
         <!-- 차량 번호 -->
         <VCol class="d-flex justify-space-evenly" cols="6">
           <VIcon color="blue-darken-2" size="24" icon="mdi-truck"></VIcon>
-          <span style="font-weight: bold; line-height: 24px">123가5678</span>
+          <span style="line-height: 24px">123가5678</span>
         </VCol>
         <!-- 운전자 -->
         <VCol class="d-flex justify-space-evenly" cols="6">
           <VIcon color="gray" size="24" icon="mdi-card-account-details"></VIcon>
-          <span style="font-weight: bold; line-height: 24px">타요</span>
+          <span style="line-height: 24px">타요</span>
         </VCol>
       </VRow>
     </VBtn>
