@@ -94,6 +94,6 @@ jobs:
       - name: Run deploy.sh
         run: |
           cd /home/ec2-user/orderhero-admin-inspection 
-          sudo chown ec2-user ./deploy.sh
-          sudo chown ec2-user ./down.sh
+          sudo chmod 700 ./deploy.sh
+          sudo chown 700 ./down.sh
           ./deploy.sh
