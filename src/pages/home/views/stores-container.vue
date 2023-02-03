@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import DTable from "@/components/DTable.vue";
 import { tableValue, tableheaders } from "./stores-container";
 
 function getColor(status: string) {
