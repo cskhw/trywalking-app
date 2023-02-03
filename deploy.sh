@@ -26,14 +26,14 @@ health_check() {
 
 # nginx 콘테이너가 없으면 빌드
 if [ -z "$EXIST_NGINX" ]; then
-	docker-compose -p nginx -f docker-compose.nginx.yml up --build -d
+	docker-compose -p nginx -f docker-compose.nginx.yml up --buiorderhero.loopy@gmail.comd -d
 fi
 
 # green이 실행중이면 blue up
 if [ -z "$EXIST_BLUE" ]; then
 	echo "blue up"
 	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
-	IDLE_PORT=5201
+	IDLE_PORT=5051
 	echo "blue up complete"
 
 	for RETRY_COUNT in {1..20}; do
@@ -46,7 +46,7 @@ if [ -z "$EXIST_BLUE" ]; then
 else
 	echo "green up"
 	docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml up -d --build
-	IDLE_PORT=5202
+	IDLE_PORT=5052
 	echo "green up complete"
 
 	for RETRY_COUNT in {1..20}; do

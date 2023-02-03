@@ -1,28 +1,28 @@
 <script lang="ts" setup>
-import 'prismjs'
-import 'prismjs/themes/prism-tomorrow.css'
-import Prism from 'vue-prism-component'
+import "prismjs";
+import "prismjs/themes/prism-tomorrow.css";
+import Prism from "vue-prism-component";
 
 interface Props {
-  title: string
-  code: CodeProp
-  codeLanguage?: string
-  noPadding?: boolean
+  title: string;
+  code: CodeProp;
+  codeLanguage?: string;
+  noPadding?: boolean;
 }
 
 interface CodeProp {
-  ts: string
-  js: string
+  ts: string;
+  js: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  codeLanguage: 'markup',
+  codeLanguage: "markup",
   noPadding: false,
-})
+});
 
-const preferredCodeLanguage = useStorage('preferredCodeLanguage', 'ts')
+const preferredCodeLanguage = useStorage("preferredCodeLanguage", "ts");
 
-const isCodeShown = ref(false)
+const isCodeShown = ref(false);
 </script>
 
 <template>
@@ -38,10 +38,7 @@ const isCodeShown = ref(false)
           :class="isCodeShown ? '' : 'text-disabled'"
           @click="isCodeShown = !isCodeShown"
         >
-          <VIcon
-            size="20"
-            icon="tabler-code"
-          />
+          <VIcon size="20" icon="tabler-code" />
         </VBtn>
       </template>
     </VCardItem>
@@ -69,7 +66,9 @@ const isCodeShown = ref(false)
                 <VIcon
                   size="x-large"
                   icon="custom-typescript"
-                  :color="preferredCodeLanguage === 'ts' ? 'primary' : 'secondary'"
+                  :color="
+                    preferredCodeLanguage === 'ts' ? 'primary' : 'secondary'
+                  "
                 />
               </VBtn>
               <VBtn
@@ -80,7 +79,9 @@ const isCodeShown = ref(false)
                 <VIcon
                   size="x-large"
                   icon="custom-javascript"
-                  :color="preferredCodeLanguage === 'js' ? 'primary' : 'secondary'"
+                  :color="
+                    preferredCodeLanguage === 'js' ? 'primary' : 'secondary'
+                  "
                 />
               </VBtn>
             </VBtnToggle>

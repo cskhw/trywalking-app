@@ -55,9 +55,7 @@ const currentFragment = ref();
         <UserProfile /> -->
 
         <VBtn flat>
-          <span class="text-grey-darken-3 text-h6 font-weight-bold">
-            총량피킹
-          </span>
+          <span class="font-weight-bold"> 총량피킹 </span>
         </VBtn>
       </div>
     </template>
