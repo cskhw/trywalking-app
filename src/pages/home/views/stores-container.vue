@@ -5,7 +5,7 @@ import { tableValue, tableheaders } from "./stores-container";
 function getColor(status: string) {
   if (status === "배송완") return "success";
   if (status === "배송중") return "orange";
-  if (status === "배송중") return "yellow";
+  if (status === "피킹중") return "blue";
   if (status === "배송중") return "yellow";
 }
 </script>

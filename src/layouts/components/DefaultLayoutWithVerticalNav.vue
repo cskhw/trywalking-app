@@ -13,10 +13,15 @@ import Footer from "@/layouts/components/Footer.vue";
 // @layouts plugin
 import { VerticalNavLayout } from "@layouts";
 import { themeConfig } from "@themeConfig";
+import router from "@/router";
 
-const { appRouteTransition, isLessThanOverlayNavBreakpoint } = useThemeConfig();
+const { appRouteTransition } = useThemeConfig();
 
-const currentFragment = ref();
+const currentFragment = ref("");
+
+const onClickInspectionBtn = (fragment: string) => {
+  router.push(fragment);
+};
 </script>
 
 <template>
@@ -40,7 +45,7 @@ const currentFragment = ref();
           />
         </VBtn> -->
 
-        <span class="text-primary text-h5">
+        <span class="text-primary text-h5 font-weight-black">
           {{ themeConfig.app.title }}
         </span>
 
@@ -68,17 +73,20 @@ const currentFragment = ref();
     </RouterView>
 
     <!-- BottomNavigation -->
-    {{ currentFragment }}
     <VBottomNavigation v-model="currentFragment" grow>
-      <VBtn value="inspection" style="flex: 1">
+      <VBtn @click="onClickInspectionBtn('home')" value="home" style="flex: 1">
         <VIcon>mdi-document</VIcon>
         검수확인서
       </VBtn>
-      <VBtn value="das" style="flex: 1">
+      <VBtn @click="onClickInspectionBtn('das')" value="das" style="flex: 1">
         <VIcon>mdi-history</VIcon>
         DAS
       </VBtn>
-      <VBtn value="setting" style="flex: 1">
+      <VBtn
+        @click="onClickInspectionBtn('settings')"
+        value="settings"
+        style="flex: 1"
+      >
         <VIcon>mdi-cog</VIcon>
         설정
       </VBtn>
