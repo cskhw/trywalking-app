@@ -1,6 +1,6 @@
 {
-  "name": "vuexy-vuetify-vuejs-admin-template",
-  "version": "7.0.1",
+  "name": "orderhero-admin-inspection",
+  "version": "1.0.0",
   "scripts": {
     "dev": "npm run build:icons && vite --host",
     "build": "npm run build:icons && vite build",

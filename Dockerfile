@@ -9,4 +9,4 @@ RUN yarn install --immutable --immutable-cache --check-cache
 RUN yarn build
 
 EXPOSE 5050
-CMD ["yarn", "preview"]
+CMD ["yarn", "preview", "--host"]
