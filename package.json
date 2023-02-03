@@ -8,8 +8,8 @@
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . -c .eslintrc.js --fix --rulesdir eslint-internal-rules/ --ext .ts,.js,.vue,.tsx,.jsx",
     "build:icons": "tsc -b src/@iconify && node src/@iconify/build-icons.js",
-    "vitest": "vitest --config ./test/vite.config.ts",
-    "coverage": "vitest run --coverage --config ./test/vite.config.ts"
+    "vitest": "vitest --config ./src/test/vite.config.ts",
+    "coverage": "vitest run --coverage --config ./src/test/vite.config.ts"
   },
   "dependencies": {
     "@casl/ability": "^6.2.0",
