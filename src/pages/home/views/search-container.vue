@@ -127,12 +127,12 @@ const searchQuery = ref("");
         <col width="33%" />
       </colgroup>
       <!-- 👉 Table head -->
-      <thead style="height: 32px !important; background-color: #f8f8f8">
-        <tr style="height: 32px !important">
+      <thead style="height: 32px; background-color: #f8f8f8">
+        <tr style="height: 32px">
           <th
-            class="font-weight-semibold text-center pa-0"
+            class="font-weight-bold text-center pa-0"
             scope="col"
-            style="height: 32px"
+            style="height: 32px; color: #33303cde"
             v-for="header in tableheaders"
             :key="header"
           >
@@ -145,10 +145,10 @@ const searchQuery = ref("");
       <tbody align="center">
         <tr
           v-for="(row, i) of tableValue"
-          style="height: 32px"
+          style="height: 32px; opacity: "
           :key="i"
           :style="{
-            backgroundColor: i === 1 ? colors.searchTableHeader : '',
+            backgroundColor: i === 1 ? colors.dataTableHeader : '',
           }"
           :class="{
             'text-center': i === 1,
@@ -156,9 +156,9 @@ const searchQuery = ref("");
         >
           <template v-for="(value, key, j) in row">
             <td
-              style="height: 32px"
-              :class="{ 'font-weight-semibold': i === 1 }"
+              style="height: 32px; color: #33303cde"
               class="text-center pa-0"
+              :class="{ 'font-weight-bold': i === 1 }"
             >
               {{ value }}
             </td>

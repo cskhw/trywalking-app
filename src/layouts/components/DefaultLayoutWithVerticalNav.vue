@@ -40,7 +40,7 @@ const currentFragment = ref();
           />
         </VBtn> -->
 
-        <span class="text-purple-lighten-2 text-h5">
+        <span class="text-primary text-h5">
           {{ themeConfig.app.title }}
         </span>
 

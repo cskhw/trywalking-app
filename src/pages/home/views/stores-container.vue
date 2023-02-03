@@ -1,22 +1,59 @@
 <script setup lang="ts">
 import DTable from "@/components/DTable.vue";
-import { tableValue, tableheaders, storeTableStyle } from "./stores-container";
+import { tableValue, tableheaders } from "./stores-container";
+
+function getColor(status: string) {
+  if (status === "배송완") return "success";
+  if (status === "배송중") return "orange";
+  if (status === "배송중") return "yellow";
+  if (status === "배송중") return "yellow";
+}
 </script>
 
 <template>
   <!-- 대시보드 테이블 -->
-  <DTable
-    class="pa-2 pt-3"
-    v-model="tableValue"
-    style="color: black"
-    :headers="tableheaders"
-    :table-styles="storeTableStyle"
-  >
-  </DTable>
+  <div class="stores-container pa-2">
+    <VDataTable
+      class="stores-container-table elevation-1 rounded"
+      :headers="tableheaders"
+      :items="tableValue"
+    >
+      <template v-slot:item.storeName="{ item }">
+        <div style="width: 60px">
+          {{ item.raw.storeName }}
+        </div>
+      </template>
+      <template v-slot:item.price="{ item }">
+        <div style="width: 40px; white-space: normal; word-break: break-all">
+          {{ item.raw.price }}
+        </div>
+      </template>
+      <template v-slot:item.status="{ item }">
+        <VChip outlined :color="getColor(item.raw.status)">
+          {{ item.raw.status }}
+        </VChip>
+      </template>
+      <template v-slot:item.camera="{ item }">
+        <VIcon
+          size="30"
+          color="#999999"
+          icon="mdi-panorama-variant-outline "
+        ></VIcon>
+      </template>
+    </VDataTable>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-::v-deep(.search-container-driver-dashboard .v-btn__content) {
-  width: 100%;
+::v-deep(.stores-container-table th) {
+  font-weight: bold !important;
+  padding: 6px !important;
+  background-color: #fafafa !important;
+  font-size: 14px !important;
+}
+
+::v-deep(.stores-container-table td) {
+  padding: 6px !important;
+  font-size: 14px !important;
 }
 </style>
