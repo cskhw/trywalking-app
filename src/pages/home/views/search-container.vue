@@ -19,8 +19,13 @@ import {
 import DatePicker from "vue3-datepicker";
 
 import colors from "@/styles/colors";
+import router from "@/router";
 // 👉 Store
 const searchQuery = ref("");
+
+const onClickDriverBtn = () => {
+  router.push("/home/driver");
+};
 </script>
 
 <template>
@@ -173,6 +178,7 @@ const searchQuery = ref("");
       style="width: 100%; height: 32px"
       flat
       block
+      @click="onClickDriverBtn"
     >
       <VRow style="width: 100%">
         <!-- 차량 번호 -->

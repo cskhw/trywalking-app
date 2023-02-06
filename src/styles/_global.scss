@@ -21,6 +21,12 @@ body {
   height: 100%;
 }
 
+// 앱바
+.navbar-content-container {
+  padding: 0 16px !important;
+}
+
+// 바텀 네비게이션
 .v-bottom-navigation__content {
   width: 100%;
   display: flex;
@@ -68,6 +74,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+}
+
+.d-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .components-body {

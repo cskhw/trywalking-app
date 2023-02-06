@@ -39,7 +39,7 @@ const router = createRouter({
     {
       path: "/",
       redirect: () => {
-        return "login";
+        return "/login";
       },
     },
     {
