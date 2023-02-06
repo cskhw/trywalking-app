@@ -16,28 +16,30 @@ health_check() {
 	echo "response: $RESPONSE"
 	if [ -n "$RESPONSE" ]; then
 		echo "$3 down"
-		docker-compose -p ${DOCKER_APP_NAME}-$3 -f docker-compose.green.yml down
+
+		docker-compose -p ${DOCKER_APP_NAME}-$3 -f docker-compose.$3.yml down
 		docker image prune -af # 사용하지 않는 이미지 삭제
+
 		echo "$3 down complete"
 		exit
 	fi
-	sleep 3
+	sleep 1
 }
 
 # nginx 콘테이너가 없으면 빌드
 if [ -z "$EXIST_NGINX" ]; then
-	docker-compose -p nginx -f docker-compose.nginx.yml up --buiorderhero.loopy@gmail.comd -d
+	docker-compose -p nginx -f docker-compose.nginx.yml up --build -d
 fi
 
 # green이 실행중이면 blue up
 if [ -z "$EXIST_BLUE" ]; then
 	echo "blue up"
 	docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
-	IDLE_PORT=5051
+	IDLE_PORT=5052
 	echo "blue up complete"
 
-	for RETRY_COUNT in {1..20}; do
-		health_check $RETRY_COUNT $IDLE_PORT "green"
+	for RETRY_NUM in {1..60}; do
+		health_check $RETRY_NUM $IDLE_PORT "green"
 	done
 
 	echo "Failed to health check. Please check docker container is running."
@@ -46,11 +48,11 @@ if [ -z "$EXIST_BLUE" ]; then
 else
 	echo "green up"
 	docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml up -d --build
-	IDLE_PORT=5052
+	IDLE_PORT=5051
 	echo "green up complete"
 
-	for RETRY_COUNT in {1..20}; do
-		health_check $RETRY_COUNT $IDLE_PORT "blue"
+	for RETRY_NUM in {1..60}; do
+		health_check $RETRY_NUM $IDLE_PORT "blue"
 	done
 
 	echo "Failed to health check. Please check docker container is running."
