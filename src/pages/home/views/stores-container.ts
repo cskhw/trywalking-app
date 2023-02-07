@@ -17,6 +17,13 @@ export const tableheaders = ref([
 export const pickingHTML = (status: string) =>
   `<div style='background-color: #FFC107; padding: 2px; border-radius: 8px; font'>${status}</div>`;
 
+export function getColor(status: string) {
+  if (status === "배송완") return "success";
+  if (status === "배송중") return "orange";
+  if (status === "피킹중") return "blue";
+  if (status === "배송중") return "yellow";
+}
+
 export const tableValue = ref([
   {
     id: "A-1",

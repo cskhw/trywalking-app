@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { tableValue, tableheaders } from "./stores-container";
+import router from "@/router";
+import { tableValue, tableheaders, getColor } from "./stores-container";
 
-function getColor(status: string) {
-  if (status === "배송완") return "success";
-  if (status === "배송중") return "orange";
-  if (status === "피킹중") return "blue";
-  if (status === "배송중") return "yellow";
-}
+const onClickUploadBtn = () => router.push("/home/upload");
 </script>
 
 <template>
@@ -45,7 +41,8 @@ function getColor(status: string) {
         <VIcon
           size="30"
           color="#999999"
-          icon="mdi-panorama-variant-outline "
+          icon="mdi-upload"
+          @click="onClickUploadBtn"
         ></VIcon>
       </template>
     </VDataTable>

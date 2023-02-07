@@ -12,13 +12,13 @@ import Footer from "@/layouts/components/Footer.vue";
 
 // @layouts plugin
 import { VerticalNavLayout } from "@layouts";
-import { themeConfig } from "@themeConfig";
-import router from "@/router";
+// import { themeConfig } from "@themeConfig";
 
-const { appRouteTransition } = useThemeConfig();
+// const { appRouteTransition } = useThemeConfig();
 
 const currentFragment = ref("");
 const route = useRoute();
+const router = useRouter();
 
 const onClickInspectionBtn = (fragment: string) => {
   router.push(fragment);
@@ -32,7 +32,7 @@ const onClickBackBtn = () => {
 const appTitle = computed(() => {
   let title = "MFC 모바일";
   if (route.path === "/home/driver") title = "배송기사 설정";
-  if (route.path === "/home/driver") title = "배송기사 설정";
+  if (route.path === "/home/upload") title = "배송사진 올리기";
   return title;
 });
 </script>
@@ -81,7 +81,7 @@ const appTitle = computed(() => {
           fab
           @click="onClickBackBtn"
         >
-          <v-icon size="40" color="grey-darken-2">mdi-chevron-left</v-icon>
+          <VIcon size="40" color="grey-darken-2">mdi-chevron-left</VIcon>
         </VBtn>
 
         <VBtn v-if="route.path === '/home'" flat>
