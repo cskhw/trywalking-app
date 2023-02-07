@@ -32,7 +32,8 @@ const onClickBackBtn = () => {
 const appTitle = computed(() => {
   let title = "MFC 모바일";
   if (route.path === "/home/driver") title = "배송기사 설정";
-  if (route.path === "/home/upload") title = "배송사진 올리기";
+  else if (route.path === "/home/upload") title = "배송사진 올리기";
+  else if (route.path === "/home/total-picking") title = "총량 피킹";
   return title;
 });
 </script>
@@ -84,7 +85,11 @@ const appTitle = computed(() => {
           <VIcon size="40" color="grey-darken-2">mdi-chevron-left</VIcon>
         </VBtn>
 
-        <VBtn v-if="route.path === '/home'" flat>
+        <VBtn
+          v-if="route.path === '/home'"
+          flat
+          @click="router.push('/home/total-picking')"
+        >
           <span class="font-weight-bold"> 총량피킹 </span>
         </VBtn>
       </div>

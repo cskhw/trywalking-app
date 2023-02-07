@@ -14,9 +14,6 @@ export const tableheaders = ref([
   { title: "사진", key: "camera", sortable: false },
 ]);
 
-export const pickingHTML = (status: string) =>
-  `<div style='background-color: #FFC107; padding: 2px; border-radius: 8px; font'>${status}</div>`;
-
 export function getColor(status: string) {
   if (status === "배송완") return "success";
   if (status === "배송중") return "orange";
