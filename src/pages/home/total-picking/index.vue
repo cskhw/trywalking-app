@@ -50,7 +50,7 @@ const onClickTagBtn = (picking: any) => {
 
                     <!-- 품명 -->
                     <template v-else-if="key === 'productName'">
-                      <div style="min-width: 52px">
+                      <div class="font-weight-bold" style="min-width: 52px">
                         {{ item }}
                       </div>
                     </template>
