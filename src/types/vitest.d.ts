@@ -21,5 +21,3 @@ declare module "vitest" {
     foo?: string;
   }
 }
-
-export {};

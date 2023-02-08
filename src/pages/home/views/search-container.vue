@@ -14,18 +14,27 @@ import {
   isShowOnlyCs,
   isShowOnlyPickingCompleted,
   tableheaders,
-  tableValue,
+  setStoresTableItemsByDelivery,
+  setStoresTableItemsByCourse,
 } from "./search-container";
 import DatePicker from "vue3-datepicker";
 
 import colors from "@/styles/colors";
 import router from "@/router";
-// 👉 Store
+import { driverURL } from "@/composable/common";
+import useHomeStore from "../useHomeStore";
+
+const homeStore = useHomeStore();
+
+const { isDeliveryOrderChangeMode, isCourceChangeMode, dashboardTableItems } =
+  storeToRefs(homeStore);
+
 const searchQuery = ref("");
 
-const onClickDriverBtn = () => {
-  router.push("/home/driver");
-};
+const onClickDriverBtn = () => router.push(driverURL);
+
+const onClickDeliveryBtn = setStoresTableItemsByDelivery;
+const onClickCourceBtn = setStoresTableItemsByCourse;
 </script>
 
 <template>
@@ -119,6 +128,7 @@ const onClickDriverBtn = () => {
         append-inner-icon="mdi-search"
       />
     </VRow>
+
     <!-- SECTION Table -->
     <VTable
       class="text-no-wrap mt-5"
@@ -149,7 +159,7 @@ const onClickDriverBtn = () => {
       <!-- 👉 Table Body -->
       <tbody align="center">
         <tr
-          v-for="(row, i) of tableValue"
+          v-for="(row, i) of dashboardTableItems"
           style="height: 32px; opacity: "
           :key="i"
           :style="{
@@ -172,10 +182,33 @@ const onClickDriverBtn = () => {
         </tr>
       </tbody>
     </VTable>
+
+    <!-- 배송 순서 변경 && 노선 설정 -->
+    <VRow class="pa-0 pt-1">
+      <VCol class="pr-1">
+        <VBtn
+          style="width: 100%"
+          :color="isDeliveryOrderChangeMode ? 'red' : 'green'"
+          @click="onClickDeliveryBtn"
+          >{{
+            isDeliveryOrderChangeMode ? "배송 순서 저장" : "배송 순서 변경"
+          }}</VBtn
+        >
+      </VCol>
+      <VCol>
+        <VBtn
+          style="width: 100%"
+          :color="isCourceChangeMode ? 'red' : 'blue'"
+          @click="onClickCourceBtn"
+          >{{ isCourceChangeMode ? "노선 저장" : "노선 변경" }}</VBtn
+        >
+      </VCol>
+    </VRow>
+
     <!-- 히어로 설정 버튼 -->
     <VBtn
       class="mt-2 search-container-driver-dashboard"
-      style="width: 100%; height: 32px"
+      style="width: 100%"
       flat
       block
       @click="onClickDriverBtn"

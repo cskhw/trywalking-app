@@ -1,5 +1,5 @@
 export interface PickingItem {
-  storeName: string;
+  restaurantName: string;
   productCount: number;
   status: string;
 }
@@ -47,22 +47,22 @@ export const tableValue = ref<TotalPickingTableItem[]>([
     type: "냉동",
     pickingList: [
       {
-        storeName: "어반비치연남",
+        restaurantName: "어반비치연남",
         productCount: 10,
         status: "완료",
       },
       {
-        storeName: "어반비치연남",
+        restaurantName: "어반비치연남",
         productCount: 10,
         status: "미완료",
       },
       {
-        storeName: "어반비치연남",
+        restaurantName: "어반비치연남",
         productCount: 10,
         status: "완료",
       },
       {
-        storeName: "어반비치연남",
+        restaurantName: "어반비치연남",
         productCount: 10,
         status: "미완료",
       },
@@ -77,22 +77,22 @@ export const tableValue = ref<TotalPickingTableItem[]>([
     type: "냉동",
     pickingList: [
       {
-        storeName: "어반비치연남",
+        restaurantName: "어반비치연남",
         productCount: 10,
         status: "완료",
       },
       {
-        storeName: "어반비치연남",
+        restaurantName: "어반비치연남",
         productCount: 10,
         status: "미완료",
       },
       {
-        storeName: "어반비치연남",
+        restaurantName: "어반비치연남",
         productCount: 10,
         status: "완료",
       },
       {
-        storeName: "어반비치연남",
+        restaurantName: "어반비치연남",
         productCount: 10,
         status: "미완료",
       },

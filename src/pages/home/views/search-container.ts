@@ -1,3 +1,6 @@
+import useHomeStore from "../useHomeStore";
+import type { StoresTableItem } from "../useHomeStore.d";
+
 // datepicker
 export const date = ref(new Date());
 
@@ -28,8 +31,86 @@ export const tableheaders = ref([
   "적재 내/외",
 ]);
 
-export const tableValue = ref([
-  { a: "42/38/80", b: "42/38/80", c: "42" },
-  { a: "총 매장 수", b: "총 수량", c: "총 주문 금액" },
-  { a: "999,999", b: "9,999,999", c: "999,999,999" },
-]);
+const homeStore = useHomeStore();
+
+/**배송 순서 & 노선 변경 */
+const { isDeliveryOrderChangeMode, isCourceChangeMode, storesTableItems } =
+  storeToRefs(homeStore);
+
+export const orgStoresTableItems = ref([...storesTableItems.value]);
+
+export async function setStoresTableItemsByDelivery() {
+  if (!isDeliveryOrderChangeMode.value) {
+    homeStore.setDeliveryOrderChangeMode();
+    return;
+  }
+
+  // 변경된 값이 없으면 리턴
+  if (
+    JSON.stringify(storesTableItems.value) ===
+    JSON.stringify(orgStoresTableItems.value)
+  ) {
+    homeStore.setDeliveryOrderChangeMode();
+    return;
+  }
+
+  const isConfirm = confirm("정말 저장하시겠습니까?");
+
+  if (!isConfirm) {
+    homeStore.setDeliveryOrderChangeMode();
+    storesTableItems.value = [...orgStoresTableItems.value];
+    return;
+  }
+
+  //TODO: 배송 순서 보내는 api 필요
+
+  orgStoresTableItems.value = [...storesTableItems.value];
+  homeStore.setDeliveryOrderChangeMode();
+}
+
+export async function setStoresTableItemsByCourse() {
+  if (!isCourceChangeMode.value) {
+    homeStore.setCourceChangeMode();
+    return;
+  }
+
+  let isSelected = false;
+
+  const storesItems: StoresTableItem[] = [];
+
+  // selected 가 true 인 것만 거름
+  storesTableItems.value.map((item) => {
+    if (item.selected) {
+      isSelected = true;
+      delete item.selected;
+      console.log(item);
+      storesItems.push(item);
+    }
+  });
+
+  // 선택된 값이 없으면 리턴
+  if (!isSelected) {
+    homeStore.setCourceChangeMode();
+    storesTableItems.value.map((item) => {
+      item.selected = false;
+    });
+    return;
+  }
+
+  const isConfirm = confirm("정말 저장하시겠습니까?");
+
+  if (!isConfirm) {
+    homeStore.setCourceChangeMode();
+    storesTableItems.value.map((item) => {
+      item.selected = false;
+    });
+    return;
+  }
+
+  //TODO: 노선 보내는 api 필요
+
+  alert(JSON.stringify(storesItems));
+
+  homeStore.setCourceChangeMode();
+}
+/**배송 순서 & 노선 변경 끝 */

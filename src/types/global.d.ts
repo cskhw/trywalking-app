@@ -1,11 +1,30 @@
 export {};
 
-//이곳이 가장 중요한 곳입니다.
+// Vue 확장
 declare module "vue/types/vue" {
   interface Vue {}
 }
 
-declare global {}
+declare global {
+  declare type DataTableHeader = {
+    key: string;
+    value?: SelectItemKey;
+    title: string;
+    colspan?: number;
+    rowspan?: number;
+    fixed?: boolean;
+    align?: "start" | "end";
+    width?: number;
+    minWidth?: string;
+    maxWidth?: string;
+    sortable?: boolean;
+    sort?: DataTableCompareFunction;
+  };
+}
+
+declare module "@vue/runtime-core" {
+  export interface GlobalComponents {}
+}
 
 // Extend Window Object
 interface Window {}

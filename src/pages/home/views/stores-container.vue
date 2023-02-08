@@ -1,64 +1,31 @@
 <script setup lang="ts">
 import router from "@/router";
-import { tableItems, tableheaders, getColor } from "./stores-container";
+import {
+  tableheaders,
+  getColor,
+  sortStoresTableItems,
+  headerSortColor,
+  showSortBtnCondition,
+} from "./stores-container";
+
+import { orgStoresTableItems } from "./search-container";
 import Draggable from "vuedraggable";
-import { sortObjectArray } from "@/@core/utils/appUtils";
+import useHomeStore from "../useHomeStore";
+import type { StoresTableItem } from "../useHomeStore.d";
+import { uploadURL } from "@/composable/common";
 
-const drag = ref(false);
-const onClickUploadBtn = () => router.push("/home/upload");
+const homeStore = useHomeStore();
+const { isDeliveryOrderChangeMode, storesTableItems, isCourceChangeMode } =
+  storeToRefs(homeStore);
 
-/**테이블 정렬 */
-const orgTableItems = ref([...tableItems.value]);
+const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
+  backgroundColor: element.selected ? "#00ffff10" : "white",
+}));
 
-// 헤더 정렬 정보
-const showSortBtnCondition = computed(
-  () => (header: { key: string; sortable: boolean }) =>
-    header.sortable && headerSortMeta.value.key === header.key
-);
-
-const headerSortMeta = ref({
-  key: "",
-  orderBy: "",
-});
-
-// 헤더 정렬 버튼 색
-const headerSortColor = computed(
-  () => (orderBy: string) =>
-    headerSortMeta.value.orderBy == orderBy ? "black" : "grey"
-);
-
-const onClickHeaderSortBtn = (key: string, type: string) => {
-  let orderBy = "";
-
-  // 정렬 키가 달라지면 정렬 초기화
-  if (headerSortMeta.value.key !== key) {
-    console.log(headerSortMeta.value.key !== key);
-    console.log(tableItems.value, orgTableItems.value);
-    tableItems.value = [...orgTableItems.value];
-    headerSortMeta.value.orderBy = orderBy;
-  }
-
-  headerSortMeta.value.key = key;
-
-  // 정렬 오더에 맞게 변수 초기화
-  if (headerSortMeta.value.orderBy === "asc") {
-    orderBy = "desc";
-    headerSortMeta.value.orderBy = orderBy;
-  } else if (headerSortMeta.value.orderBy === "desc") {
-    orderBy = "";
-    headerSortMeta.value.orderBy = orderBy;
-    headerSortMeta.value.key = "";
-  } else if (headerSortMeta.value.orderBy === "") {
-    orderBy = "asc";
-    headerSortMeta.value.orderBy = orderBy;
-  }
-
-  // 테이블 정렬 처리
-  if (orderBy === "") {
-    tableItems.value = [...orgTableItems.value];
-  } else {
-    sortObjectArray(tableItems.value, key, type, orderBy);
-  }
+const onClickUploadBtn = () => router.push(uploadURL);
+const onClickHeaderSortBtn = sortStoresTableItems;
+const onClickStoresTableRow = (element: StoresTableItem) => {
+  if (isCourceChangeMode.value) element.selected = !element.selected;
 };
 /**테이블 정렬 끝 */
 </script>
@@ -66,15 +33,13 @@ const onClickHeaderSortBtn = (key: string, type: string) => {
 <template>
   <!-- 대시보드 테이블 -->
   <div class="stores-container pa-2">
-    {{ headerSortMeta }}
     <VDataTable
       class="stores-container-table elevation-1 rounded"
       :headers="tableheaders"
-      :items="tableItems"
+      :items="storesTableItems"
       item-key="id"
     >
       <!-- 테이블 헤더 -->
-
       <thead>
         <tr>
           <th v-for="header in tableheaders">
@@ -108,40 +73,42 @@ const onClickHeaderSortBtn = (key: string, type: string) => {
         </tr>
       </thead>
       <Draggable
+        v-model="storesTableItems"
         itemKey="id"
         tag="tbody"
-        :list="tableItems"
-        @start="drag = true"
-        @end="drag = false"
+        :disabled="!isDeliveryOrderChangeMode"
       >
         <template #item="{ element }">
-          <tr>
-            <td>
+          <tr
+            @click="onClickStoresTableRow(element)"
+            :style="rowSelectedStyle(element)"
+          >
+            <td :style="rowSelectedStyle(element)">
               <div>
                 {{ element.id }}
               </div>
             </td>
-            <td>
+            <td :style="rowSelectedStyle(element)">
               <div class="font-weight-bold" style="width: 96px">
-                {{ element.storeName }}
+                {{ element.restaurantName }}
               </div>
             </td>
-            <td>
+            <td :style="rowSelectedStyle(element)">
               <span style="width: 16px">
                 {{ element.loadingPosition }}
               </span>
             </td>
-            <td>
+            <td :style="rowSelectedStyle(element)">
               <div style="width: 16px">
                 {{ element.count }}
               </div>
             </td>
-            <td>
+            <td :style="rowSelectedStyle(element)">
               <VChip outlined :color="getColor(element.status)">
                 {{ element.status }}
               </VChip>
             </td>
-            <td>
+            <td :style="rowSelectedStyle(element)">
               <VIcon
                 size="30"
                 color="#999999"

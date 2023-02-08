@@ -8,7 +8,7 @@ import {
 } from "./total-picking";
 
 const onClickTagBtn = (picking: any) => {
-  alert(picking.storeName);
+  alert(picking.restaurantName);
 };
 </script>
 
@@ -88,7 +88,7 @@ const onClickTagBtn = (picking: any) => {
                       :color="getTagChipColor(picking?.status)"
                       @click="onClickTagBtn(picking)"
                     >
-                      {{ picking.storeName }}
+                      {{ picking.restaurantName }}
                       {{ picking.productCount }}
                       {{ picking.status }}
                     </VChip>

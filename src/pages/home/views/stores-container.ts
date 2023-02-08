@@ -1,19 +1,13 @@
-interface StoresTableItem {
-  id: string;
-  storeName: string;
-  loadingPosition: string;
-  count: string;
-  status: string;
-  camera: string;
-}
+import { sortObjectArray } from "@/@core/utils/appUtils";
+import useHomeStore from "../useHomeStore";
 
-export const tableheaders = ref([
+export const tableheaders = ref<DataTableHeader[]>([
   {
     title: "순서",
     key: "id",
     sortable: true,
   },
-  { title: "매장", key: "storeName", sortable: true },
+  { title: "식당명", key: "restaurantName", sortable: true },
   { title: "적재", key: "loadingPosition", sortable: true },
   { title: "완/합계", key: "count", sortable: true },
   { title: "상태", key: "status", sortable: true },
@@ -27,29 +21,59 @@ export function getColor(status: string) {
   if (status === "배송중") return "yellow";
 }
 
-export const tableItems = ref<StoresTableItem[]>([
-  {
-    id: "A-1",
-    storeName: "오늘도 나는 오더해",
-    loadingPosition: "내",
-    count: "2/3",
-    status: "피킹중",
-    camera: "아이콘",
-  },
-  {
-    id: "A-2",
-    storeName: "오늘도 나는 오더해",
-    loadingPosition: "외",
-    count: "2/3",
-    status: "배송중",
-    camera: "아이콘",
-  },
-  {
-    id: "A-3",
-    storeName: "오늘도 나는 오더해",
-    loadingPosition: "외",
-    count: "2/3",
-    status: "배송완",
-    camera: "아이콘",
-  },
-]);
+const homeStore = useHomeStore();
+
+const { storesTableItems } = storeToRefs(homeStore);
+
+/**테이블 정렬 */
+// 정렬 정보
+export const headerSortMeta = ref({
+  key: "",
+  orderBy: "",
+});
+
+export const orgTableItems = ref([...storesTableItems.value]);
+
+export const showSortBtnCondition = computed(
+  () => (header: DataTableHeader) =>
+    // sortable이 있고 메타 키와 헤더 키가 같으면
+    header.sortable && headerSortMeta.value.key === header.key
+);
+
+// 헤더 정렬 버튼 색
+export const headerSortColor = computed(
+  () => (orderBy: string) =>
+    headerSortMeta.value.orderBy == orderBy ? "black" : "grey"
+);
+
+export const sortStoresTableItems = (key: string, type: string) => {
+  let orderBy = "";
+
+  // 정렬 키가 달라지면 정렬 초기화
+  if (headerSortMeta.value.key !== key) {
+    storesTableItems.value = [...orgTableItems.value];
+    headerSortMeta.value.orderBy = orderBy;
+  }
+
+  headerSortMeta.value.key = key;
+
+  // 정렬 오더에 맞게 변수 초기화
+  if (headerSortMeta.value.orderBy === "asc") {
+    orderBy = "desc";
+    headerSortMeta.value.orderBy = orderBy;
+  } else if (headerSortMeta.value.orderBy === "desc") {
+    orderBy = "";
+    headerSortMeta.value.orderBy = orderBy;
+    headerSortMeta.value.key = "";
+  } else if (headerSortMeta.value.orderBy === "") {
+    orderBy = "asc";
+    headerSortMeta.value.orderBy = orderBy;
+  }
+
+  // 테이블 정렬 처리
+  if (orderBy === "") {
+    storesTableItems.value = [...orgTableItems.value];
+  } else {
+    sortObjectArray(storesTableItems.value, key, type, orderBy);
+  }
+};
