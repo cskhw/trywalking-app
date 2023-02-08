@@ -11,12 +11,3 @@ declare module "pinia" {
     api: typeof api;
   }
 }
-
-// Extend Window Object
-interface Window {}
-// Extend Document Object
-interface Document {}
-
-// Global constants
-// declare const google;
-// declare const AppleID;

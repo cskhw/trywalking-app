@@ -1,3 +1,19 @@
+export interface PickingItem {
+  storeName: string;
+  productCount: number;
+  status: string;
+}
+
+export interface TotalPickingTableItem {
+  id: string;
+  distributor: string;
+  productName: string;
+  countAndWeight: string;
+  detail: string;
+  type: string;
+  pickingList: PickingItem[];
+}
+
 export const tableHeaders = ref([
   {
     title: "순번",
@@ -21,7 +37,7 @@ export function getTagChipColor(status: string) {
   if (status === "미완료") return "red";
 }
 
-export const tableValue = ref([
+export const tableValue = ref<TotalPickingTableItem[]>([
   {
     id: "A-1",
     distributor: "CJ프레시웨이",
