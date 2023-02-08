@@ -19,7 +19,7 @@ const { isDeliveryOrderChangeMode, storesTableItems, isCourceChangeMode } =
   storeToRefs(homeStore);
 
 const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
-  backgroundColor: element.selected ? "#00ffff10" : "white",
+  backgroundColor: element.selected ? "#0080ff11" : "white",
 }));
 
 const onClickUploadBtn = () => router.push(uploadURL);
