@@ -33,8 +33,6 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark);
 
 const isPasswordVisible = ref(false);
 
-const router = useRouter();
-
 const errors = ref<Record<string, string | undefined>>({
   email: undefined,
   password: undefined,
@@ -57,8 +55,6 @@ const onSubmit = asyncDebounce(async () => {
     if (isValid) login();
   });
 });
-
-() => {};
 </script>
 
 <template>

@@ -137,4 +137,8 @@ const itemsPerPage = ref(50);
   padding: 6px !important;
   font-size: 14px !important;
 }
+
+::v-deep(.stores-container-table .v-data-table-footer) {
+  display: none;
+}
 </style>

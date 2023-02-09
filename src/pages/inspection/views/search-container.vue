@@ -53,11 +53,7 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
       </VCol>
       <!-- 센터미배정 -->
       <VCol class="pa-0 mr-1">
-        <VSelect
-          v-model="centerSelectValue"
-          :item="centerSelectItems"
-          variant="solo"
-        >
+        <VSelect v-model="centerSelectValue" :item="centerSelectItems">
         </VSelect>
       </VCol>
     </VRow>
@@ -72,21 +68,11 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
       </VCol>
       <!-- 노선 선택 -->
       <VCol class="pa-0 mr-1">
-        <VSelect
-          v-model="routeSelectValue"
-          :item="routeSelectItems"
-          variant="solo"
-        >
-        </VSelect>
+        <VSelect v-model="routeSelectValue" :item="routeSelectItems"> </VSelect>
       </VCol>
       <!-- 착지 선택 -->
       <VCol class="pa-0 mr-1">
-        <VSelect
-          v-model="loadSelectValue"
-          :item="loadSelectItems"
-          variant="solo"
-        >
-        </VSelect>
+        <VSelect v-model="loadSelectValue" :item="loadSelectItems"> </VSelect>
       </VCol>
     </VRow>
     <VRow class="px-3 pt-2">
@@ -101,11 +87,7 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
 
       <!-- 적재 위치 -->
       <VCol class="pa-0 mr-1">
-        <VSelect
-          v-model="pickingSelectValue"
-          :item="pickingSelectItems"
-          variant="solo"
-        >
+        <VSelect v-model="pickingSelectValue" :item="pickingSelectItems">
         </VSelect>
       </VCol>
       <!--  -->
@@ -113,7 +95,6 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
         <VSelect
           v-model="deliveryOrderSelectValue"
           :item="deliveryOrderSelectItems"
-          variant="solo"
         >
         </VSelect>
       </VCol>
@@ -121,12 +102,8 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
 
     <!-- 검색창 -->
     <VRow class="px-3 pt-2">
-      <VBtn style="width: 56px" class="mr-1">초기화</VBtn>
-      <VTextField
-        v-model="searchQuery"
-        variant="solo"
-        append-inner-icon="mdi-search"
-      />
+      <VBtn style="width: 56px; height: 40px" class="mr-1">초기화</VBtn>
+      <VTextField v-model="searchQuery" append-inner-icon="mdi-search" />
     </VRow>
 
     <!-- SECTION Table -->

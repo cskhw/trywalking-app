@@ -23,9 +23,9 @@ export const dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 export const Authorization = "Authorization";
 
 // URL
-export const homeURL = "/home";
-export const driverURL = "/home/driver";
-export const uploadURL = "/home/upload";
-export const totalPickingURL = "/home/total-picking";
+export const inspectionURL = "/inspection";
+export const driverURL = "/inspection/driver";
+export const uploadURL = "/inspection/upload";
+export const totalPickingURL = "/inspection/total-picking";
 export const settingsURL = "/settings";
 export const dasURL = "/das";

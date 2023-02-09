@@ -18,7 +18,7 @@ export default defineStore("home", {
 
     storesTableItems: [
       {
-        id: "A-1",
+        id: "A1",
         restaurantName: "오늘도 나는 오더해1",
         loadingPosition: "내",
         count: "2/3",
@@ -27,7 +27,7 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-2",
+        id: "A2",
         restaurantName: "오늘도 나는 오더해2",
         loadingPosition: "외",
         count: "2/4",
@@ -36,7 +36,7 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-3",
+        id: "A3",
         restaurantName: "오늘도 나는 오더해3",
         loadingPosition: "외",
         count: "2/5",
@@ -45,8 +45,8 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-4",
-        restaurantName: "오늘도 나는 오더해3",
+        id: "A4",
+        restaurantName: "오늘도 나는 오더해4",
         loadingPosition: "외",
         count: "2/5",
         status: "배송완",
@@ -54,8 +54,8 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-5",
-        restaurantName: "오늘도 나는 오더해3",
+        id: "A5",
+        restaurantName: "오늘도 나는 오더해5",
         loadingPosition: "외",
         count: "2/5",
         status: "배송완",
@@ -63,8 +63,8 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-6",
-        restaurantName: "오늘도 나는 오더해3",
+        id: "A6",
+        restaurantName: "오늘도 나는 오더해6",
         loadingPosition: "외",
         count: "2/5",
         status: "배송완",
@@ -72,8 +72,8 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-7",
-        restaurantName: "오늘도 나는 오더해3",
+        id: "A7",
+        restaurantName: "오늘도 나는 오더해7",
         loadingPosition: "외",
         count: "2/5",
         status: "배송완",
@@ -81,8 +81,8 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-8",
-        restaurantName: "오늘도 나는 오더해3",
+        id: "A8",
+        restaurantName: "오늘도 나는 오더해8",
         loadingPosition: "외",
         count: "2/5",
         status: "배송완",
@@ -90,8 +90,8 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-9",
-        restaurantName: "오늘도 나는 오더해3",
+        id: "A9",
+        restaurantName: "오늘도 나는 오더해9",
         loadingPosition: "외",
         count: "2/5",
         status: "배송완",
@@ -99,8 +99,8 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-10",
-        restaurantName: "오늘도 나는 오더해3",
+        id: "A10",
+        restaurantName: "오늘도 나는 오더해10",
         loadingPosition: "외",
         count: "2/5",
         status: "배송완",
@@ -108,8 +108,8 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-11",
-        restaurantName: "오늘도 나는 오더해3",
+        id: "A11",
+        restaurantName: "오늘도 나는 오더해11",
         loadingPosition: "외",
         count: "2/5",
         status: "배송완",
@@ -117,8 +117,8 @@ export default defineStore("home", {
         selected: false,
       },
       {
-        id: "A-12",
-        restaurantName: "오늘도 나는 오더해3",
+        id: "A12",
+        restaurantName: "오늘도 나는 오더해12",
         loadingPosition: "외",
         count: "2/5",
         status: "배송완",

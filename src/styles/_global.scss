@@ -21,7 +21,7 @@ body {
   height: 100%;
 }
 
-// 앱바
+// 앱바d
 .navbar-content-container {
   padding: 0 16px !important;
 }
@@ -39,15 +39,35 @@ body {
 // vue3-datepicker
 .search-container .v3dp__datepicker .v3dp__input_wrapper {
   overflow: hidden;
-  outline: none;
   height: 40px;
   border-radius: 8px;
-  box-shadow: 0 3px 5px 2px var(--v-shadow-key-umbra-opacity),
-    0 5px 3px var(--v-shadow-key-penumbra-opacity),
-    0 1px 4px 2px var(--v-shadow-key-ambient-opacity);
+  border: 1px solid rgba(75, 70, 92, 0.5);
+
+  padding: 0px 8px;
+
+  // transition: 0.28s all cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:focus {
+    border: 2px solid #7367f0;
+  }
+  &:hover {
+    border: 2px solid #7367f0;
+  }
+  &:focus-within {
+    border: 2px solid #7367f0;
+  }
+
   input {
-    padding: 4px;
-    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+
+  input:focus {
+    border: none;
+    outline: none;
+  }
+  input:active {
+    border: none;
     outline: none;
   }
 }

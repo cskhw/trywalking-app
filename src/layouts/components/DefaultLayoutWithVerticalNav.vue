@@ -31,9 +31,12 @@ const onClickBackBtn = () => {
 // 앱 타이틀 설정
 const appTitle = computed(() => {
   let title = "MFC 모바일";
-  if (route.path === "/home/driver") title = "배송기사 설정";
-  else if (route.path === "/home/upload") title = "배송사진 올리기";
-  else if (route.path === "/home/total-picking") title = "총량 피킹";
+  if (route.path === "/inspection/driver") title = "배송기사 설정";
+  else if (route.path === "/inspection/upload") title = "배송사진 올리기";
+  else if (route.path === "/inspection/total-picking") title = "총량 피킹";
+  else if (route.path === "/category") title = "유통사 중분류";
+  else if (route.path === "/das") title = "유통사 중분류";
+  else if (route.path === "/settings") title = "유통사 중분류";
   return title;
 });
 </script>
@@ -74,7 +77,7 @@ const appTitle = computed(() => {
         <UserProfile /> -->
 
         <VBtn
-          v-if="route.path !== '/' && route.path !== '/home'"
+          v-if="route.path !== '/' && route.path !== '/inspection'"
           style="max-width: 40px !important; height: 40px"
           color="white"
           flat
@@ -86,9 +89,9 @@ const appTitle = computed(() => {
         </VBtn>
 
         <VBtn
-          v-if="route.path === '/home'"
+          v-if="route.path === '/inspection'"
           flat
-          @click="router.push('/home/total-picking')"
+          @click="router.push('/inspection/total-picking')"
         >
           <span class="font-weight-bold"> 총량피킹 </span>
         </VBtn>
@@ -104,7 +107,19 @@ const appTitle = computed(() => {
 
     <!-- BottomNavigation -->
     <VBottomNavigation v-model="currentFragment" grow>
-      <VBtn @click="onClickInspectionBtn('/home')" value="home" style="flex: 1">
+      <VBtn
+        @click="onClickInspectionBtn('/category')"
+        value="category"
+        style="flex: 1"
+      >
+        <VIcon>mdi-category</VIcon>
+        중분류
+      </VBtn>
+      <VBtn
+        @click="onClickInspectionBtn('/inspection')"
+        value="inspection"
+        style="flex: 1"
+      >
         <VIcon>mdi-document</VIcon>
         검수확인서
       </VBtn>

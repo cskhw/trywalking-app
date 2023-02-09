@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import SearchContainer from "@/pages/home/views/search-container.vue";
-import StoreTableContainer from "@/pages/home/views/stores-container.vue";
+import SearchContainer from "@/pages/inspection/views/search-container.vue";
+import StoreTableContainer from "@/pages/inspection/views/stores-container.vue";
 </script>
 
 <template>
