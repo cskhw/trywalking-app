@@ -2,6 +2,8 @@
 import { useTheme } from "vuetify";
 import { useThemeConfig } from "@core/composable/useThemeConfig";
 import { hexToRgb } from "@layouts/utils";
+import Modal from "@/components/modal/Modal.vue";
+import useAppStore from "./stores/useAppStore";
 
 const {
   syncInitialLoaderTheme,
@@ -14,6 +16,7 @@ const { global } = useTheme();
 // ℹ️ Sync current theme with initial loader theme
 syncInitialLoaderTheme();
 syncConfigThemeWithVuetifyTheme();
+const appStore = useAppStore();
 </script>
 
 <template>
@@ -27,6 +30,10 @@ syncConfigThemeWithVuetifyTheme();
       <RouterView />
     </VApp>
   </VLocaleProvider>
+  <Teleport to="#modal-area">
+    <Modal v-if="appStore.isShowModal"></Modal>
+  </Teleport>
+  <Modal> </Modal>
 </template>
 <style lang="scss">
 @import "@/styles/main";
