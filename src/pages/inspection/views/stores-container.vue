@@ -24,7 +24,12 @@ const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
 const onClickUploadBtn = () => router.push(uploadURL);
 const onClickHeaderSortBtn = sortStoresTableItems;
 const onClickStoresTableRow = (element: StoresTableItem) => {
-  if (isCourceChangeMode.value) element.selected = !element.selected;
+  if (isCourceChangeMode.value) {
+    element.selected = !element.selected;
+    return;
+  }
+
+  router.push(pickingURL);
 };
 
 const itemsPerPage = ref(50);
@@ -74,6 +79,7 @@ const itemsPerPage = ref(50);
           </th>
         </tr>
       </thead>
+      <!-- 드래그어블 테이블 바디 -->
       <Draggable
         v-model="storesTableItems"
         itemKey="id"
@@ -126,19 +132,19 @@ const itemsPerPage = ref(50);
 </template>
 
 <style lang="scss" scoped>
-::v-deep(.stores-container-table th) {
+:deep(.stores-container-table th) {
   font-weight: bold !important;
   padding: 6px !important;
   background-color: #fafafa !important;
   font-size: 14px !important;
 }
 
-::v-deep(.stores-container-table td) {
+:deep(.stores-container-table td) {
   padding: 6px !important;
   font-size: 14px !important;
 }
 
-::v-deep(.stores-container-table .v-data-table-footer) {
+:deep(.stores-container-table .v-data-table-footer) {
   display: none;
 }
 </style>

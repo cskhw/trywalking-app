@@ -8,6 +8,7 @@ export default defineStore("app", {
     isAuth: false,
     layout: "app",
     ip: "none",
+    isShowModal: false,
   }),
   getters: {
     loading: (state) => {

@@ -35,12 +35,13 @@ const appTitle = computed(() => {
   else if (route.path === "/inspection/upload") title = "배송사진 올리기";
   else if (route.path === "/inspection/total-picking") title = "총량 피킹";
   else if (route.path === "/category") title = "유통사 중분류";
-  else if (route.path === "/das") title = "유통사 중분류";
-  else if (route.path === "/settings") title = "유통사 중분류";
+  else if (route.path === "/das") title = "다스";
+  else if (route.path === "/settings") title = "설정";
+  else if (route.path === "/category") title = "유통사 중분류";
+
   return title;
 });
 </script>
-
 <template>
   <VerticalNavLayout class="pa-0" :nav-items="navItems">
     <!-- 👉 navbar -->

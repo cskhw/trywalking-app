@@ -29,3 +29,4 @@ export const uploadURL = "/inspection/upload";
 export const totalPickingURL = "/inspection/total-picking";
 export const settingsURL = "/settings";
 export const dasURL = "/das";
+export const pickingURL = "/inspection/picking";

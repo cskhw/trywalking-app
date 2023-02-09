@@ -111,14 +111,14 @@ const onClickTagBtn = (picking: any) => {
   overflow: auto;
 }
 
-::v-deep(.total-picking-table th) {
+:deep(.total-picking-table th) {
   font-weight: bold !important;
   padding: 4px !important;
   background-color: #fafafa !important;
   font-size: 14px !important;
 }
 
-::v-deep(.total-picking-table td) {
+:deep(.total-picking-table td) {
   padding: 4px !important;
   font-size: 14px !important;
 }

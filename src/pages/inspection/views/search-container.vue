@@ -207,7 +207,7 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
 </template>
 
 <style lang="scss" scoped>
-::v-deep(.search-container-driver-dashboard .v-btn__content) {
+:deep(.search-container-driver-dashboard .v-btn__content) {
   width: 100%;
 }
 </style>
