@@ -291,6 +291,5 @@ declare module '@vue/runtime-core' {
     TimelineWithIcons: typeof import('./src/views/demos/components/timeline/TimelineWithIcons.vue')['default']
     UserInfoEditDialog: typeof import('./src/@core/components/UserInfoEditDialog.vue')['default']
     UserUpgradePlanDialog: typeof import('./src/@core/components/UserUpgradePlanDialog.vue')['default']
-    VDataTable: typeof import("./src/types/vuetify-labs")["VDataTable"]
   }
 }

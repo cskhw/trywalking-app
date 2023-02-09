@@ -10,7 +10,6 @@ import "@core/scss/template/libs/vuetify/index.scss";
 import "vuetify/styles";
 
 export default createVuetify({
-  ssr: true,
   defaults,
   components: {
     ...components,

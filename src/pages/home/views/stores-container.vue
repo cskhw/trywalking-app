@@ -8,7 +8,6 @@ import {
   showSortBtnCondition,
 } from "./stores-container";
 
-import { orgStoresTableItems } from "./search-container";
 import Draggable from "vuedraggable";
 import useHomeStore from "../useHomeStore";
 import type { StoresTableItem } from "../useHomeStore.d";
