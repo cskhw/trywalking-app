@@ -23,14 +23,9 @@ export function getColor(status: string) {
 
 const homeStore = useHomeStore();
 
-const { storesTableItems } = storeToRefs(homeStore);
+const { storesTableItems, headerSortMeta } = storeToRefs(homeStore);
 
 /**테이블 정렬 */
-// 정렬 정보
-export const headerSortMeta = ref({
-  key: "",
-  orderBy: "",
-});
 
 export const orgTableItems = ref([...storesTableItems.value]);
 

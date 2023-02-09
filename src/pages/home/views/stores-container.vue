@@ -27,6 +27,8 @@ const onClickHeaderSortBtn = sortStoresTableItems;
 const onClickStoresTableRow = (element: StoresTableItem) => {
   if (isCourceChangeMode.value) element.selected = !element.selected;
 };
+
+const itemsPerPage = ref(50);
 /**테이블 정렬 끝 */
 </script>
 
@@ -38,6 +40,7 @@ const onClickStoresTableRow = (element: StoresTableItem) => {
       :headers="tableheaders"
       :items="storesTableItems"
       item-key="id"
+      :items-per-page="itemsPerPage"
     >
       <!-- 테이블 헤더 -->
       <thead>

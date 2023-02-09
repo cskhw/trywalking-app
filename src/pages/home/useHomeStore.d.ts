@@ -7,3 +7,14 @@ export interface StoresTableItem {
   camera: string;
   selected?: boolean;
 }
+
+export interface SearchTableItems {
+  pickingCount: number;
+  pickingCompleteCount: number;
+  pickingTotalCount: number;
+  deliveringCount: number;
+  deliveringCompleteCount: number;
+  deliveringTotalCount: number;
+  loadingPositionInsideCount: string;
+  loadingPositionOutSideCount: string;
+}

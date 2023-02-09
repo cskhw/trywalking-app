@@ -34,12 +34,26 @@ export const tableheaders = ref([
 const homeStore = useHomeStore();
 
 /**배송 순서 & 노선 변경 */
-const { isDeliveryOrderChangeMode, isCourceChangeMode, storesTableItems } =
-  storeToRefs(homeStore);
+const {
+  isDeliveryOrderChangeMode,
+  isCourceChangeMode,
+  storesTableItems,
+  headerSortMeta,
+} = storeToRefs(homeStore);
 
 export const orgStoresTableItems = ref([...storesTableItems.value]);
 
 export async function setStoresTableItemsByDelivery() {
+  if (headerSortMeta.value.key) {
+    alert("테이블 정렬을 풀어주세요");
+    return;
+  }
+
+  if (isCourceChangeMode.value) {
+    alert("노선 저장을 완료해주세요.");
+    return;
+  }
+
   if (!isDeliveryOrderChangeMode.value) {
     homeStore.setDeliveryOrderChangeMode();
     return;
@@ -69,6 +83,16 @@ export async function setStoresTableItemsByDelivery() {
 }
 
 export async function setStoresTableItemsByCourse() {
+  if (headerSortMeta.value.key) {
+    alert("테이블 정렬을 풀어주세요");
+    return;
+  }
+
+  if (isDeliveryOrderChangeMode.value) {
+    alert("배송 순서 변경을 완료해주세요.");
+    return;
+  }
+
   if (!isCourceChangeMode.value) {
     homeStore.setCourceChangeMode();
     return;
