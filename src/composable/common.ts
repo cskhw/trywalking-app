@@ -22,8 +22,12 @@ export const dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 // 헤더
 export const Authorization = "Authorization";
 
-// URL
+/**URL */
+// category
 export const categoryURL = "/category";
+export const categoryDetailURL = "/category/detail";
+
+// delivery
 export const deliveryURL = "/delivery";
 export const driverURL = "/delivery/driver";
 export const uploadURL = "/delivery/upload";

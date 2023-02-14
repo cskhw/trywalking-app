@@ -18,6 +18,7 @@ declare global {
   const asyncDebounce: typeof import('./src/composable/asyncDebounce')['default']
   const asyncDelay: typeof import('./src/composable/asyncDebounce')['asyncDelay']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const categoryDetailURL: typeof import('./src/composable/common')['categoryDetailURL']
   const categoryURL: typeof import('./src/composable/common')['categoryURL']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
@@ -344,6 +345,7 @@ declare module 'vue' {
     readonly asyncDebounce: UnwrapRef<typeof import('./src/composable/asyncDebounce')['default']>
     readonly asyncDelay: UnwrapRef<typeof import('./src/composable/asyncDebounce')['asyncDelay']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly categoryDetailURL: UnwrapRef<typeof import('./src/composable/common')['categoryDetailURL']>
     readonly categoryURL: UnwrapRef<typeof import('./src/composable/common')['categoryURL']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>

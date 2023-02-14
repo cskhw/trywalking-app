@@ -1,5 +1,5 @@
 import useHomeStore from "../useCategoryStore";
-import type { StoresTableItem } from "../useCategoryStore";
+import type { StoresTableItem } from "../useCategoryStore.d";
 
 // datepicker
 export const date = ref(new Date());

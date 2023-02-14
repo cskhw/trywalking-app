@@ -5,9 +5,9 @@ export default defineStore("home", {
     isDeliveryOrderChangeMode: false,
     isCourceChangeMode: false,
     dashboardTableItems: [
-      { a: "왕십리A", b: "20:23~20:23", c: "100%" },
-      { a: "왕십리B", b: "20:23~20:23", c: "100%" },
-      { a: "왕십리C", b: "20:23~20:23", c: "100%" },
+      { a: "image1", b: "오레가노럽드(건오레가노)", c: "2" },
+      { a: "image2", b: "오레가노럽드(건오레가노)", c: "2" },
+      { a: "image3", b: "오레가노럽드(건오레가노)", c: "2" },
     ],
 
     // 정렬 정보

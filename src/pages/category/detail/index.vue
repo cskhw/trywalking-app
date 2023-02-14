@@ -2,16 +2,14 @@
 import router from "@/router";
 import {
   tableheaders,
-  getColor,
   sortStoresTableItems,
   headerSortColor,
   showSortBtnCondition,
-} from "./stores-container";
+} from "./detail-container";
 
 import Draggable from "vuedraggable";
 import useHomeStore from "../useCategoryStore";
 import type { StoresTableItem } from "../useCategoryStore.d";
-import { uploadURL } from "@/composable/common";
 
 const homeStore = useHomeStore();
 const { isDeliveryOrderChangeMode, storesTableItems, isCourceChangeMode } =
@@ -86,29 +84,25 @@ const itemsPerPage = ref(50);
             @click="onClickStoresTableRow(element)"
             :style="rowSelectedStyle(element)"
           >
-            <!-- 유통사 -->
+            <!-- 이미지 -->
             <td :style="rowSelectedStyle(element)">
-              <div class="font-weight-bold" style="width: 96px">
-                {{ element.distributorName }}
+              <div class="font-weight-bold">
+                <img
+                  style="width: 60px; height: 60px; background-color: black"
+                />
               </div>
             </td>
-            <!-- 코스 -->
+            <!-- 상품명 -->
             <td :style="rowSelectedStyle(element)">
-              <div style="width: 16px">
+              <div style="width: 96px">
                 {{ element.cource }}
               </div>
             </td>
-            <!-- 완료율 -->
+            <!-- 주문수량 -->
             <td :style="rowSelectedStyle(element)">
-              <span style="width: 16px">
+              <span style="width: 48px">
                 {{ element.completeRate }}
               </span>
-            </td>
-            <!-- 완료 -->
-            <td :style="rowSelectedStyle(element)">
-              <div>
-                <VCheckbox @click.stop v-model="element.check" />
-              </div>
             </td>
           </tr>
         </template>
