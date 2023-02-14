@@ -9,8 +9,8 @@ import {
 } from "./stores-container";
 
 import Draggable from "vuedraggable";
-import useHomeStore from "../useHomeStore";
-import type { StoresTableItem } from "../useHomeStore.d";
+import useHomeStore from "../useCategoryStore";
+import type { StoresTableItem } from "../useCategoryStore.d";
 import { uploadURL } from "@/composable/common";
 
 const homeStore = useHomeStore();
@@ -91,38 +91,29 @@ const itemsPerPage = ref(50);
             @click="onClickStoresTableRow(element)"
             :style="rowSelectedStyle(element)"
           >
-            <td :style="rowSelectedStyle(element)">
-              <div>
-                {{ element.id }}
-              </div>
-            </td>
+            <!-- 유통사 -->
             <td :style="rowSelectedStyle(element)">
               <div class="font-weight-bold" style="width: 96px">
-                {{ element.restaurantName }}
+                {{ element.distributorName }}
               </div>
             </td>
-            <td :style="rowSelectedStyle(element)">
-              <span style="width: 16px">
-                {{ element.loadingPosition }}
-              </span>
-            </td>
+            <!-- 코스 -->
             <td :style="rowSelectedStyle(element)">
               <div style="width: 16px">
-                {{ element.count }}
+                {{ element.cource }}
               </div>
             </td>
+            <!-- 완료율 -->
             <td :style="rowSelectedStyle(element)">
-              <VChip outlined :color="getColor(element.status)">
-                {{ element.status }}
-              </VChip>
+              <span style="width: 16px">
+                {{ element.completeRate }}
+              </span>
             </td>
+            <!-- 완료 -->
             <td :style="rowSelectedStyle(element)">
-              <VIcon
-                size="30"
-                color="#999999"
-                icon="mdi-upload"
-                @click="onClickUploadBtn"
-              ></VIcon>
+              <div>
+                <VCheckbox @click.stop v-model="element.check" />
+              </div>
             </td>
           </tr>
         </template>

@@ -45,7 +45,7 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
   >
     <VRow class="px-3 pt-4">
       <!-- 날짜 선택 -->
-      <VCol class="pa-0 pr-1" cols="8">
+      <VCol class="pa-0 pr-1" cols="4">
         <DatePicker
           style="height: 40px; overflow: hidden"
           v-model="date"
@@ -194,7 +194,7 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
         <!-- 차량 번호 -->
         <VCol class="d-flex justify-space-evenly" cols="6">
           <VIcon size="24" icon="mdi-truck"></VIcon>
-          <span style="line-height: 24px">타요</span>
+          <span style="line-height: 24px">123하4567</span>
         </VCol>
         <!-- 운전자 -->
         <VCol class="d-flex justify-space-evenly" cols="6">

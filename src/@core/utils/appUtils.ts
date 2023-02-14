@@ -191,8 +191,14 @@ export function sortObjectArray(
     if (order.toLowerCase() == "asc") {
       targetArray.sort(function (a: any, b: any) {
         // 태그 모두 제거하고 비교
-        const x = a[key].toLowerCase().replace(/(<([^>]+)>)/gi, "");
-        const y = b[key].toLowerCase().replace(/(<([^>]+)>)/gi, "");
+        const x = a[key]
+          .toString()
+          .toLowerCase()
+          .replace(/(<([^>]+)>)/gi, "");
+        const y = b[key]
+          .toString()
+          .toLowerCase()
+          .replace(/(<([^>]+)>)/gi, "");
         if (x < y) {
           return -1;
         }
@@ -204,8 +210,14 @@ export function sortObjectArray(
     } else {
       targetArray.sort(function (b: any, a: any) {
         // 태그 모두 제거하고 비교
-        const x = a[key].toLowerCase().replace(/(<([^>]+)>)/gi, "");
-        const y = b[key].toLowerCase().replace(/(<([^>]+)>)/gi, "");
+        const x = a[key]
+          .toString()
+          .toLowerCase()
+          .replace(/(<([^>]+)>)/gi, "");
+        const y = b[key]
+          .toString()
+          .toLowerCase()
+          .replace(/(<([^>]+)>)/gi, "");
         if (x < y) {
           return -1;
         }

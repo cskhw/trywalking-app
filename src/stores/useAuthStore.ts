@@ -11,8 +11,8 @@ export default defineStore("auth", {
     },
   },
   actions: {
-    async signin(loginForm: ILoginForm) {
-      await this.router.push("/inspection");
+    async login(loginForm: ILoginForm) {
+      await this.router.push("/category");
       return;
 
       const signinRes = await this.api.auth.signin(loginForm, true);

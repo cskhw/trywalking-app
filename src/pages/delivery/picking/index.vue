@@ -76,9 +76,9 @@
 </template>
 
 <script setup lang="ts">
-import PickingListTable from "@/pages/inspection/picking/views/PickingListTable.vue";
-import PickingListStoreInfo from "@/pages/inspection/picking/views/PickingListStoreInfo.vue";
-import PickingListDeliveryInfo from "@/pages/inspection/picking/views/PickingListDeliveryInfo.vue";
+import PickingListTable from "@/pages/delivery/picking/views/PickingListTable.vue";
+import PickingListStoreInfo from "@/pages/delivery/picking/views/PickingListStoreInfo.vue";
+import PickingListDeliveryInfo from "@/pages/delivery/picking/views/PickingListDeliveryInfo.vue";
 
 const isShowPanel = ref([0, 1]);
 </script>
@@ -123,7 +123,7 @@ const isShowPanel = ref([0, 1]);
     margin: 0 0 3px 8px;
   }
 }
-:deep.v-card {
+:deep(.v-card) {
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   height: 100%;

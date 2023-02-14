@@ -18,6 +18,7 @@ declare global {
   const asyncDebounce: typeof import('./src/composable/asyncDebounce')['default']
   const asyncDelay: typeof import('./src/composable/asyncDebounce')['asyncDelay']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const categoryURL: typeof import('./src/composable/common')['categoryURL']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -44,6 +45,7 @@ declare global {
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const defineStore: typeof import('pinia')['defineStore']
+  const deliveryURL: typeof import('./src/composable/common')['deliveryURL']
   const driverURL: typeof import('./src/composable/common')['driverURL']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
@@ -54,7 +56,6 @@ declare global {
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
-  const inspectionURL: typeof import('./src/composable/common')['inspectionURL']
   const isDefined: typeof import('@vueuse/core')['isDefined']
   const isProxy: typeof import('vue')['isProxy']
   const isReactive: typeof import('vue')['isReactive']
@@ -343,6 +344,7 @@ declare module 'vue' {
     readonly asyncDebounce: UnwrapRef<typeof import('./src/composable/asyncDebounce')['default']>
     readonly asyncDelay: UnwrapRef<typeof import('./src/composable/asyncDebounce')['asyncDelay']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly categoryURL: UnwrapRef<typeof import('./src/composable/common')['categoryURL']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -369,6 +371,7 @@ declare module 'vue' {
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
+    readonly deliveryURL: UnwrapRef<typeof import('./src/composable/common')['deliveryURL']>
     readonly driverURL: UnwrapRef<typeof import('./src/composable/common')['driverURL']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
@@ -379,7 +382,6 @@ declare module 'vue' {
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
-    readonly inspectionURL: UnwrapRef<typeof import('./src/composable/common')['inspectionURL']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>

@@ -45,16 +45,12 @@ const loginForm = reactive<ILoginForm>({
   password: "",
 });
 
-const login = async () => {
-  await authStore.signin(loginForm);
-};
+async function login() {
+  if (await refVForm.value?.validate()) await authStore.login(loginForm);
+}
 
 // 인풋 함수 등록
-const onSubmit = asyncDebounce(async () => {
-  refVForm.value?.validate().then(({ valid: isValid }) => {
-    if (isValid) login();
-  });
-});
+const onSubmit = asyncDebounce(login);
 </script>
 
 <template>

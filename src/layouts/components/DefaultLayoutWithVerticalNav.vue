@@ -31,22 +31,43 @@ const onClickBackBtn = () => {
 // 앱 타이틀 설정
 const appTitle = computed(() => {
   let title = "MFC 모바일";
-  if (route.path === "/inspection/driver") title = "배송기사 설정";
-  else if (route.path === "/inspection/upload") title = "배송사진 올리기";
-  else if (route.path === "/inspection/total-picking") title = "총량 피킹";
-  else if (route.path === "/category") title = "유통사 중분류";
-  else if (route.path === "/das") title = "다스";
-  else if (route.path === "/settings") title = "설정";
-  else if (route.path === "/category") title = "유통사 중분류";
+
+  if (route.path === categoryURL) title = "유통사 중분류";
+  else if (route.path === deliveryURL) title = "배송";
+  else if (route.path === driverURL) title = "배송기사 설정";
+  else if (route.path === uploadURL) title = "배송사진 올리기";
+  else if (route.path === totalPickingURL) title = "총량 피킹";
+  else if (route.path === dasURL) title = "다스";
+  else if (route.path === settingsURL) title = "설정";
 
   return title;
 });
 </script>
 <template>
   <VerticalNavLayout class="pa-0" :nav-items="navItems">
-    <!-- 👉 navbar -->
     <template #navbar="{ toggleVerticalOverlayNavActive }">
+      <!-- 👉 navbar -->
       <div class="d-flex h-100 align-center">
+        <VBtn
+          v-if="route.path !== '/' && route.path !== '/delivery'"
+          style="max-width: 40px !important; height: 40px"
+          color="white"
+          flat
+          icon=""
+          fab
+          @click="onClickBackBtn"
+        >
+          <VIcon size="40" color="grey-darken-2">mdi-chevron-left</VIcon>
+        </VBtn>
+
+        <VBtn
+          v-if="route.path === '/delivery'"
+          flat
+          @click="router.push('/delivery/total-picking')"
+        >
+          <span class="font-weight-bold"> 총량피킹 </span>
+        </VBtn>
+
         <!-- 사이드바 사용하지 않음 -->
         <!-- <VBtn
           v-if="isLessThanOverlayNavBreakpoint(windowWidth)"
@@ -62,40 +83,25 @@ const appTitle = computed(() => {
             size="24"
           />
         </VBtn> -->
+        <VSpacer />
 
-        <span class="text-primary text-h5 font-weight-black">
+        <!-- 타이틀 -->
+        <span
+          class="text-primary text-h5 font-weight-black"
+          style="position: absolute; left: 50%; transform: translate(-51%, 0)"
+        >
           {{ appTitle }}
         </span>
+        <VSpacer />
 
         <!-- <NavSearchBar class="ms-lg-n3" /> -->
 
-        <VSpacer />
         <!-- 
         <NavBarI18n />
         <NavbarThemeSwitcher />
         <NavbarShortcuts />
         <NavBarNotifications class="me-2" />
         <UserProfile /> -->
-
-        <VBtn
-          v-if="route.path !== '/' && route.path !== '/inspection'"
-          style="max-width: 40px !important; height: 40px"
-          color="white"
-          flat
-          icon=""
-          fab
-          @click="onClickBackBtn"
-        >
-          <VIcon size="40" color="grey-darken-2">mdi-chevron-left</VIcon>
-        </VBtn>
-
-        <VBtn
-          v-if="route.path === '/inspection'"
-          flat
-          @click="router.push('/inspection/total-picking')"
-        >
-          <span class="font-weight-bold"> 총량피킹 </span>
-        </VBtn>
       </div>
     </template>
 
@@ -116,18 +122,20 @@ const appTitle = computed(() => {
         <VIcon>mdi-category</VIcon>
         중분류
       </VBtn>
-      <VBtn
-        @click="onClickInspectionBtn('/inspection')"
-        value="inspection"
-        style="flex: 1"
-      >
-        <VIcon>mdi-document</VIcon>
-        검수확인서
-      </VBtn>
       <VBtn @click="onClickInspectionBtn('/das')" value="das" style="flex: 1">
         <VIcon>mdi-history</VIcon>
         DAS
       </VBtn>
+
+      <VBtn
+        @click="onClickInspectionBtn('/delivery')"
+        value="delivery"
+        style="flex: 1"
+      >
+        <VIcon>mdi-truck</VIcon>
+        배송
+      </VBtn>
+
       <VBtn
         @click="onClickInspectionBtn('/settings')"
         value="settings"

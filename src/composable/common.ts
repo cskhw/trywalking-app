@@ -23,10 +23,11 @@ export const dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 export const Authorization = "Authorization";
 
 // URL
-export const inspectionURL = "/inspection";
-export const driverURL = "/inspection/driver";
-export const uploadURL = "/inspection/upload";
-export const totalPickingURL = "/inspection/total-picking";
+export const categoryURL = "/category";
+export const deliveryURL = "/delivery";
+export const driverURL = "/delivery/driver";
+export const uploadURL = "/delivery/upload";
+export const totalPickingURL = "/delivery/total-picking";
 export const settingsURL = "/settings";
 export const dasURL = "/das";
-export const pickingURL = "/inspection/picking";
+export const pickingURL = "/delivery/picking";
