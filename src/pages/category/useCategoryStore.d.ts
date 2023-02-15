@@ -10,10 +10,10 @@ export interface StoresTableItem {
 
 export interface CategoryStoresTableItem {
   id: number;
-  distributorName: string;
-  completeRate: string;
-  cource: string;
-  check: boolean;
+  image: string;
+  productName: string;
+  count: string;
+  checked: boolean;
 }
 
 export interface SearchTableItems {

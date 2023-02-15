@@ -24,7 +24,7 @@ const homeStore = useHomeStore();
 const {
   isDeliveryOrderChangeMode,
   isCourceChangeMode,
-  storesTableItems,
+  categoryStoresTableItems: storesTableItems,
   headerSortMeta,
 } = storeToRefs(homeStore);
 

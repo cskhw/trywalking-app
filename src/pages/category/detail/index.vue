@@ -6,22 +6,25 @@ import {
   showSortBtnCondition,
 } from "./detail-container";
 
-import useHomeStore from "../useCategoryStore";
-import type { StoresTableItem } from "../useCategoryStore.d";
+import type { CategoryStoresTableItem } from "../useCategoryStore.d";
 import useModalStore from "@/stores/useModalStore";
+import useCategoryStore from "../useCategoryStore";
 
-const homeStore = useHomeStore();
+const categoryStore = useCategoryStore();
 const modalStore = useModalStore();
 
-const { storesTableItems } = storeToRefs(homeStore);
+const { categoryStoresTableItems } = storeToRefs(categoryStore);
 
-const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
-  backgroundColor: element.selected ? "#0080ff11" : "white",
+const { globalModal } = storeToRefs(modalStore);
+
+const rowSelectedStyle = computed(() => (element: CategoryStoresTableItem) => ({
+  backgroundColor: element.checked ? "#0080ff11" : "white",
 }));
 
 const onClickHeaderSortBtn = sortStoresTableItems;
-const onClickStoresTableRow = () => {
-  modalStore.showGlobalModal();
+
+const onClickStoresTableRow = (row: CategoryStoresTableItem) => {
+  row.checked = !row.checked;
 };
 
 const itemsPerPage = ref(50);
@@ -34,7 +37,7 @@ const itemsPerPage = ref(50);
     <VDataTable
       class="stores-container-table elevation-1 rounded"
       :headers="tableheaders"
-      :items="storesTableItems"
+      :items="categoryStoresTableItems"
       item-key="id"
       :items-per-page="itemsPerPage"
     >
@@ -73,26 +76,29 @@ const itemsPerPage = ref(50);
       </thead>
       <!-- 드래그어블 테이블 바디 -->
       <tr
-        v-for="element in storesTableItems"
-        @click="onClickStoresTableRow(element)"
-        :style="rowSelectedStyle(element)"
+        v-for="row in categoryStoresTableItems"
+        @click="onClickStoresTableRow(row)"
+        :style="rowSelectedStyle(row)"
       >
         <!-- 이미지 -->
-        <td :style="rowSelectedStyle(element)">
+        <td :style="rowSelectedStyle(row)">
           <div class="font-weight-bold">
-            <img style="width: 60px; height: 60px; background-color: black" />
+            <img
+              style="width: 60px; height: 60px; background-color: black"
+              :src="row.image"
+            />
           </div>
         </td>
         <!-- 상품명 -->
-        <td :style="rowSelectedStyle(element)">
+        <td :style="rowSelectedStyle(row)">
           <div style="width: 96px">
-            {{ element.cource }}
+            {{ row.productName }}
           </div>
         </td>
         <!-- 주문수량 -->
-        <td :style="rowSelectedStyle(element)">
+        <td :style="rowSelectedStyle(row)">
           <span style="width: 48px">
-            {{ element.completeRate }}
+            {{ row.count }}
           </span>
         </td>
       </tr>

@@ -1,4 +1,3 @@
-import instance from "@/api/instance";
 import { defineStore } from "pinia";
 
 export default defineStore("app", {

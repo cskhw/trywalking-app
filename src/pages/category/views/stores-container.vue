@@ -14,8 +14,11 @@ import type { StoresTableItem } from "../useCategoryStore.d";
 import { uploadURL } from "@/composable/common";
 
 const homeStore = useHomeStore();
-const { isDeliveryOrderChangeMode, storesTableItems, isCourceChangeMode } =
-  storeToRefs(homeStore);
+const {
+  isDeliveryOrderChangeMode,
+  categoryStoresTableItems: storesTableItems,
+  isCourceChangeMode,
+} = storeToRefs(homeStore);
 
 const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
   backgroundColor: element.selected ? "#0080ff11" : "white",

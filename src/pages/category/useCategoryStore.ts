@@ -16,20 +16,22 @@ export default defineStore("home", {
       orderBy: "",
     },
 
-    storesTableItems: [
+    categoryStoresTableItems: [
       {
         id: 0,
-        completeRate: "0/22(0%)",
-        distributorName: "이너피스",
-        cource: "1",
-        check: false,
+        image:
+          "https://cdn.pixabay.com/photo/2020/06/02/06/52/cat-5249722__480.jpg",
+        count: "0/22(0%)",
+        productName: "딸기베이스(리플잼)",
+        checked: false,
       },
       {
         id: 1,
-        completeRate: "11/22(50%)",
-        distributorName: "CJ프레시",
-        cource: "2",
-        check: true,
+        image:
+          "https://cdn.pixabay.com/photo/2020/06/02/06/52/cat-5249722__480.jpg",
+        count: "11/22(50%)",
+        productName: "흑임자파우더(복음자리,구.로즈버드)",
+        checked: true,
       },
     ] as CategoryStoresTableItem[],
   }),
