@@ -3,7 +3,9 @@ import { useTheme } from "vuetify";
 import { useThemeConfig } from "@core/composable/useThemeConfig";
 import { hexToRgb } from "@layouts/utils";
 import Modal from "@/components/modal/Modal.vue";
+import GlobalModal from "@/components/modal/GlobalModal.vue";
 import useAppStore from "./stores/useAppStore";
+import useModalStore from "./stores/useModalStore";
 
 const {
   syncInitialLoaderTheme,
@@ -16,7 +18,9 @@ const { global } = useTheme();
 // ℹ️ Sync current theme with initial loader theme
 syncInitialLoaderTheme();
 syncConfigThemeWithVuetifyTheme();
+
 const appStore = useAppStore();
+const modalStore = useModalStore();
 </script>
 
 <template>
@@ -32,8 +36,8 @@ const appStore = useAppStore();
   </VLocaleProvider>
   <Teleport to="#modal-area">
     <Modal v-if="appStore.isShowModal"></Modal>
+    <GlobalModal v-if="modalStore.isShowGlobalModal"> </GlobalModal>
   </Teleport>
-  <Modal> </Modal>
 </template>
 <style lang="scss">
 @import "@/styles/main";

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import router from "@/router";
 import {
   tableheaders,
   sortStoresTableItems,
@@ -7,22 +6,22 @@ import {
   showSortBtnCondition,
 } from "./detail-container";
 
-import Draggable from "vuedraggable";
 import useHomeStore from "../useCategoryStore";
 import type { StoresTableItem } from "../useCategoryStore.d";
+import useModalStore from "@/stores/useModalStore";
 
 const homeStore = useHomeStore();
-const { isDeliveryOrderChangeMode, storesTableItems, isCourceChangeMode } =
-  storeToRefs(homeStore);
+const modalStore = useModalStore();
+
+const { storesTableItems } = storeToRefs(homeStore);
 
 const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
   backgroundColor: element.selected ? "#0080ff11" : "white",
 }));
 
 const onClickHeaderSortBtn = sortStoresTableItems;
-const onClickUploadBtn = () => router.push(categoryDetailURL);
-const onClickStoresTableRow = (element: StoresTableItem) => {
-  router.push(categoryDetailURL);
+const onClickStoresTableRow = () => {
+  modalStore.showGlobalModal();
 };
 
 const itemsPerPage = ref(50);
@@ -73,40 +72,30 @@ const itemsPerPage = ref(50);
         </tr>
       </thead>
       <!-- 드래그어블 테이블 바디 -->
-      <Draggable
-        v-model="storesTableItems"
-        itemKey="id"
-        tag="tbody"
-        :disabled="!isDeliveryOrderChangeMode"
+      <tr
+        v-for="element in storesTableItems"
+        @click="onClickStoresTableRow(element)"
+        :style="rowSelectedStyle(element)"
       >
-        <template #item="{ element }">
-          <tr
-            @click="onClickStoresTableRow(element)"
-            :style="rowSelectedStyle(element)"
-          >
-            <!-- 이미지 -->
-            <td :style="rowSelectedStyle(element)">
-              <div class="font-weight-bold">
-                <img
-                  style="width: 60px; height: 60px; background-color: black"
-                />
-              </div>
-            </td>
-            <!-- 상품명 -->
-            <td :style="rowSelectedStyle(element)">
-              <div style="width: 96px">
-                {{ element.cource }}
-              </div>
-            </td>
-            <!-- 주문수량 -->
-            <td :style="rowSelectedStyle(element)">
-              <span style="width: 48px">
-                {{ element.completeRate }}
-              </span>
-            </td>
-          </tr>
-        </template>
-      </Draggable>
+        <!-- 이미지 -->
+        <td :style="rowSelectedStyle(element)">
+          <div class="font-weight-bold">
+            <img style="width: 60px; height: 60px; background-color: black" />
+          </div>
+        </td>
+        <!-- 상품명 -->
+        <td :style="rowSelectedStyle(element)">
+          <div style="width: 96px">
+            {{ element.cource }}
+          </div>
+        </td>
+        <!-- 주문수량 -->
+        <td :style="rowSelectedStyle(element)">
+          <span style="width: 48px">
+            {{ element.completeRate }}
+          </span>
+        </td>
+      </tr>
     </VDataTable>
   </div>
 </template>
