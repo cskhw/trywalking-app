@@ -22,12 +22,12 @@ import DatePicker from "vue3-datepicker";
 import colors from "@/styles/colors";
 import router from "@/router";
 import { driverURL } from "@/composable/common";
-import useHomeStore from "../useHomeStore";
+import useDeliveryStore from "../useDeliveryStore";
 
-const homeStore = useHomeStore();
+const deliveryStore = useDeliveryStore();
 
 const { isDeliveryOrderChangeMode, isCourceChangeMode, dashboardTableItems } =
-  storeToRefs(homeStore);
+  storeToRefs(deliveryStore);
 
 const searchQuery = ref("");
 
@@ -56,41 +56,23 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
         <VSelect v-model="centerSelectValue" :item="centerSelectItems">
         </VSelect>
       </VCol>
-    </VRow>
-    <VRow class="px-3 pt-2">
-      <!-- CS업장 스위치 -->
-      <VCol class="pa-0 mr-1">
-        <v-switch
-          color="indigo"
-          v-model="isShowOnlyCs"
-          label="CS업장"
-        ></v-switch>
-      </VCol>
       <!-- 노선 선택 -->
       <VCol class="pa-0 mr-1">
         <VSelect v-model="routeSelectValue" :item="routeSelectItems"> </VSelect>
       </VCol>
+    </VRow>
+    <VRow class="px-3 pt-2">
       <!-- 착지 선택 -->
       <VCol class="pa-0 mr-1">
         <VSelect v-model="loadSelectValue" :item="loadSelectItems"> </VSelect>
       </VCol>
-    </VRow>
-    <VRow class="px-3 pt-2">
-      <!-- 피킹 완료 스위치 -->
-      <VCol class="pa-0 mr-1">
-        <v-switch
-          color="indigo"
-          v-model="isShowOnlyPickingCompleted"
-          label="피킹 중"
-        ></v-switch>
-      </VCol>
-
       <!-- 적재 위치 -->
       <VCol class="pa-0 mr-1">
         <VSelect v-model="pickingSelectValue" :item="pickingSelectItems">
         </VSelect>
       </VCol>
-      <!--  -->
+
+      <!-- 상태 셀렉트 -->
       <VCol class="pa-0 mr-1">
         <VSelect
           v-model="deliveryOrderSelectValue"
@@ -103,20 +85,25 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
     <!-- 검색창 -->
     <VRow class="px-3 pt-2">
       <VBtn style="width: 56px; height: 40px" class="mr-1">초기화</VBtn>
-      <VTextField v-model="searchQuery" append-inner-icon="mdi-search" />
+      <VTextField
+        class="mr-1"
+        v-model="searchQuery"
+        append-inner-icon="mdi-search"
+      />
+      <VBtn style="width: 56px; height: 40px">검색</VBtn>
     </VRow>
 
     <!-- SECTION Table -->
     <VTable
       class="text-no-wrap mt-5"
-      :headers="[]"
       disable-pagination
       style="table-layout: auto; width: 100%"
     >
       <colgroup>
-        <col width="33%" />
-        <col width="33%" />
-        <col width="33%" />
+        <col width="25%" />
+        <col width="25%" />
+        <col width="25%" />
+        <col width="25%" />
       </colgroup>
       <!-- 👉 Table head -->
       <thead style="height: 32px; background-color: #f8f8f8">
@@ -161,24 +148,36 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
     </VTable>
 
     <!-- 배송 순서 변경 && 노선 설정 -->
-    <VRow class="pa-0 pt-1">
-      <VCol class="pr-1">
+    <VRow class="pa-0 pt-1 px-3">
+      <!-- 배송 순서 변경 버튼 -->
+      <VCol class="pa-0 py-3 pr-1">
         <VBtn
           style="width: 100%"
-          :color="isDeliveryOrderChangeMode ? 'red' : 'green'"
+          :color="isDeliveryOrderChangeMode ? 'red' : 'black'"
           @click="onClickDeliveryBtn"
           >{{
             isDeliveryOrderChangeMode ? "배송 순서 저장" : "배송 순서 변경"
           }}</VBtn
         >
       </VCol>
-      <VCol>
+
+      <!-- 노선 변경 버튼 -->
+      <VCol class="pa-0 py-3 pr-1">
         <VBtn
           style="width: 100%"
-          :color="isCourceChangeMode ? 'red' : 'blue'"
+          :color="isCourceChangeMode ? 'red' : 'black'"
           @click="onClickCourceBtn"
           >{{ isCourceChangeMode ? "노선 저장" : "노선 변경" }}</VBtn
         >
+      </VCol>
+
+      <!-- CS업장 스위치 -->
+      <VCol class="d-center pa-0 mr-1">
+        <v-switch
+          color="indigo"
+          v-model="isShowOnlyCs"
+          label="CS업장"
+        ></v-switch>
       </VCol>
     </VRow>
 

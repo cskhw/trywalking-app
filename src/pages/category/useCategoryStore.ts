@@ -3,7 +3,7 @@ import type {
   CategoryStoreTableItem,
 } from "./useCategoryStore.d";
 
-export default defineStore("home", {
+export default defineStore("category", {
   state: () => ({
     isDeliveryOrderChangeMode: false,
     isCourceChangeMode: false,
@@ -51,14 +51,14 @@ export default defineStore("home", {
         image:
           "https://cdn.pixabay.com/photo/2020/06/02/06/52/cat-5249722__480.jpg",
         name: "딸기베이스(리플잼)",
-        count: "2",
+        count: "1",
         checked: false,
       },
       {
         id: 1,
         image:
           "https://cdn.pixabay.com/photo/2020/06/02/06/52/cat-5249722__480.jpg",
-        count: "3",
+        count: "2s",
         name: "흑임자파우더(복음자리,구.로즈버드)",
         checked: true,
       },

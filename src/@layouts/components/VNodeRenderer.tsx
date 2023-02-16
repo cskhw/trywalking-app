@@ -1,7 +1,7 @@
-import type { PropType, VNode } from 'vue'
+import type { PropType, VNode } from "vue";
 
 export const VNodeRenderer = defineComponent({
-  name: 'VNodeRenderer',
+  name: "VNodeRenderer",
   props: {
     nodes: {
       type: [Array, Object] as PropType<VNode | VNode[]>,
@@ -9,9 +9,9 @@ export const VNodeRenderer = defineComponent({
     },
   },
   setup(props) {
-    return () => props.nodes
+    return () => props.nodes;
   },
-})
+});
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export type VNodeRenderer = InstanceType<typeof VNodeRenderer>
+export type VNodeRenderer = InstanceType<typeof VNodeRenderer>;

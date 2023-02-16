@@ -1,14 +1,17 @@
-import type { StoresTableItem } from "./useHomeStore.d";
+import type { DashboardTableItem, StoresTableItem } from "./useDeliveryStore.d";
 
-export default defineStore("home", {
+export default defineStore("delivery", {
   state: () => ({
     isDeliveryOrderChangeMode: false,
     isCourceChangeMode: false,
     dashboardTableItems: [
-      { a: "42/38/80", b: "42/38/80", c: "42" },
-      { a: "총 매장 수", b: "총 수량", c: "총 주문 금액" },
-      { a: "999,999", b: "9,999,999", c: "999,999,999" },
-    ],
+      {
+        deliveryCount: "48/72",
+        loadingPosition: "48/72",
+        allStoresCount: "64",
+        allProductionCount: "1024",
+      },
+    ] as DashboardTableItem[],
 
     // 정렬 정보
     headerSortMeta: {

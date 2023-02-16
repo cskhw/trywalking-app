@@ -1,5 +1,5 @@
 import { sortObjectArray } from "@/@core/utils/appUtils";
-import useHomeStore from "../useCategoryStore";
+import useCategoryStore from "../useCategoryStore";
 
 export const tableheaders = ref<DataTableHeader[]>([
   { title: "이미지", key: "image" },
@@ -14,7 +14,7 @@ export function getColor(status: string) {
   if (status === "배송중") return "yellow";
 }
 
-const homeStore = useHomeStore();
+const homeStore = useCategoryStore();
 
 const {
   isDeliveryOrderChangeMode,

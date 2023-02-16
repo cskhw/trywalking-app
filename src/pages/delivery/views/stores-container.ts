@@ -1,5 +1,8 @@
 import { sortObjectArray } from "@/@core/utils/appUtils";
-import useHomeStore from "../useHomeStore";
+import router from "@/router";
+import useModalStore from "@/stores/useModalStore";
+import useDeliveryStore from "../useDeliveryStore";
+import type { StoresTableItem } from "../useDeliveryStore.d";
 
 export const tableheaders = ref<DataTableHeader[]>([
   {
@@ -21,14 +24,21 @@ export function getColor(status: string) {
   if (status === "배송중") return "yellow";
 }
 
-const homeStore = useHomeStore();
+const modalStore = useModalStore();
+const deliveryStore = useDeliveryStore();
+
+export const { globalModal } = storeToRefs(modalStore);
+
+export const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
+  backgroundColor: element.selected ? "#0080ff11" : "white",
+}));
 
 const {
   isDeliveryOrderChangeMode,
   isCourceChangeMode,
   storesTableItems,
   headerSortMeta,
-} = storeToRefs(homeStore);
+} = storeToRefs(deliveryStore);
 
 /**테이블 정렬 */
 
@@ -82,3 +92,40 @@ export const sortStoresTableItems = (key: string, type: string) => {
     sortObjectArray(storesTableItems.value, key, type, orderBy);
   }
 };
+
+export const onClickUploadBtn = () => router.push(uploadURL);
+export const onClickHeaderSortBtn = sortStoresTableItems;
+
+// 상세 이동 모달
+export const DeliveryDetailBtn = h(
+  "div",
+  {
+    class: "pt-2 pb-2",
+    onClick: () => {
+      router.push("/delivery/detail");
+      globalModal.value.hide();
+    },
+  },
+  ["배송 상세"]
+);
+export const InspectionBtn = h("div", { class: "pt-2" }, ["검수확인서"]);
+export const Divider = h("hr", {
+  style: "width: 100%",
+  class: "v-divider v-theme--light",
+  "aria-orientation": "horizontal",
+  role: "separator",
+});
+
+export const DetailConformModal = h(
+  "div",
+  { class: "d-center flex-column font-weight-bold" },
+  [DeliveryDetailBtn, Divider, InspectionBtn]
+);
+
+export const onClickStoresTableRow = (element: StoresTableItem) => {
+  globalModal.value.show();
+
+  modalStore.globalModal.contents = DetailConformModal;
+};
+
+export const itemsPerPage = ref(50);

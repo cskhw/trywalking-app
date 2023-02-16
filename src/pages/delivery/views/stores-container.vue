@@ -6,34 +6,34 @@ import {
   sortStoresTableItems,
   headerSortColor,
   showSortBtnCondition,
+  onClickHeaderSortBtn,
+  onClickStoresTableRow,
+  rowSelectedStyle,
+  DetailConformModal,
 } from "./stores-container";
 
 import Draggable from "vuedraggable";
-import useHomeStore from "../useHomeStore";
-import type { StoresTableItem } from "../useHomeStore.d";
-import { uploadURL } from "@/composable/common";
+import useDeliveryStore from "../useDeliveryStore";
+import type { StoresTableItem } from "../useDeliveryStore.d";
+import useModalStore from "@/stores/useModalStore";
 
-const homeStore = useHomeStore();
-const { isDeliveryOrderChangeMode, storesTableItems, isCourceChangeMode } =
-  storeToRefs(homeStore);
+const modalStore = useModalStore();
+const deliveryStore = useDeliveryStore();
 
-const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
-  backgroundColor: element.selected ? "#0080ff11" : "white",
-}));
+const { isDeliveryOrderChangeMode, storesTableItems } =
+  storeToRefs(deliveryStore);
+const { globalModal } = storeToRefs(modalStore);
 
+const itemsPerPage = ref(50);
+
+// 이벤트 등록
 const onClickUploadBtn = () => router.push(uploadURL);
 const onClickHeaderSortBtn = sortStoresTableItems;
 const onClickStoresTableRow = (element: StoresTableItem) => {
-  if (isCourceChangeMode.value) {
-    element.selected = !element.selected;
-    return;
-  }
+  globalModal.value.show();
 
-  router.push(pickingURL);
+  modalStore.globalModal.contents = DetailConformModal;
 };
-
-const itemsPerPage = ref(50);
-/**테이블 정렬 끝 */
 </script>
 
 <template>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { VNodeRenderer } from "@/@layouts/components/VNodeRenderer";
 import useModalStore from "@/stores/useModalStore";
 
 const modalStore = useModalStore();
@@ -6,30 +7,32 @@ const modalStore = useModalStore();
 const { globalModal } = storeToRefs(modalStore);
 
 globalModal.value.noBtnFunc = () => {
-  modalStore.hideGlobalModal();
+  globalModal.value.hide();
 };
 
 globalModal.value.yesBtnFunc = () => {
-  modalStore.hideGlobalModal();
+  globalModal.value.hide();
 };
 </script>
 <template>
   <div class="modal">
-    <div class="v-overlay__scrim" @click="modalStore.hideGlobalModal()"></div>
+    <div class="v-overlay__scrim" @click="globalModal.hide()"></div>
     <div class="v-dialog">
-      <DialogCloseBtn @click="modalStore.hideGlobalModal()" />
+      <DialogCloseBtn @click="globalModal.hide()" />
       <VCard :title="globalModal.title">
-        <VCardText v-html="globalModal.contents"> </VCardText>
+        <VCardText>
+          <VNodeRenderer :nodes="globalModal.contents" />
+        </VCardText>
 
         <VCardText
           class="d-flex justify-end flex-wrap gap-3 align-center modal-footer"
         >
           <!-- 아니오 버튼 -->
-          <VBtn @click="globalModal.noBtnFunc">
+          <VBtn v-if="globalModal?.noBtnTxt" @click="globalModal.noBtnFunc">
             {{ globalModal.noBtnTxt }}
           </VBtn>
           <!-- 예 버튼 -->
-          <VBtn @click="globalModal.yesBtnFunc">
+          <VBtn v-if="globalModal?.yesBtnTxt" @click="globalModal.yesBtnFunc">
             {{ globalModal.yesBtnTxt }}
           </VBtn>
         </VCardText>

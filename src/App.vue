@@ -21,6 +21,7 @@ syncConfigThemeWithVuetifyTheme();
 
 const appStore = useAppStore();
 const modalStore = useModalStore();
+const { globalModal } = storeToRefs(modalStore);
 </script>
 
 <template>
@@ -36,7 +37,7 @@ const modalStore = useModalStore();
   </VLocaleProvider>
   <Teleport to="#modal-area">
     <Modal v-if="appStore.isShowModal"></Modal>
-    <GlobalModal v-if="modalStore.isShowGlobalModal"> </GlobalModal>
+    <GlobalModal v-if="globalModal.isShow"> </GlobalModal>
   </Teleport>
 </template>
 <style lang="scss">

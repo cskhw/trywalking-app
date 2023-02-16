@@ -1,5 +1,5 @@
-import useHomeStore from "../useHomeStore";
-import type { StoresTableItem } from "../useHomeStore.d";
+import useDeliveryStore from "../useDeliveryStore";
+import type { StoresTableItem } from "../useDeliveryStore.d";
 
 // datepicker
 export const date = ref(new Date());
@@ -17,7 +17,7 @@ export const loadSelectItems = ref([]);
 export const pickingSelectValue = ref("적재위치");
 export const pickingSelectItems = ref([]);
 
-export const deliveryOrderSelectValue = ref("타입");
+export const deliveryOrderSelectValue = ref("상태");
 export const deliveryOrderSelectItems = ref([]);
 
 export const searchQuery = ref("test");
@@ -26,12 +26,13 @@ export const isShowOnlyCs = ref(false);
 export const isShowOnlyPickingCompleted = ref(false);
 
 export const tableheaders = ref([
-  "피킹 중/완/합계",
-  "배송 중/완/합계",
+  "배송 중/합계",
   "적재 내/외",
+  "총 매장 수",
+  "총 수량",
 ]);
 
-const homeStore = useHomeStore();
+const deliveryStore = useDeliveryStore();
 
 /**배송 순서 & 노선 변경 */
 const {
@@ -39,7 +40,7 @@ const {
   isCourceChangeMode,
   storesTableItems,
   headerSortMeta,
-} = storeToRefs(homeStore);
+} = storeToRefs(deliveryStore);
 
 export const orgStoresTableItems = ref([...storesTableItems.value]);
 
@@ -55,7 +56,7 @@ export async function setStoresTableItemsByDelivery() {
   }
 
   if (!isDeliveryOrderChangeMode.value) {
-    homeStore.setDeliveryOrderChangeMode();
+    deliveryStore.setDeliveryOrderChangeMode();
     return;
   }
 
@@ -64,14 +65,14 @@ export async function setStoresTableItemsByDelivery() {
     JSON.stringify(storesTableItems.value) ===
     JSON.stringify(orgStoresTableItems.value)
   ) {
-    homeStore.setDeliveryOrderChangeMode();
+    deliveryStore.setDeliveryOrderChangeMode();
     return;
   }
 
   const isConfirm = confirm("정말 저장하시겠습니까?");
 
   if (!isConfirm) {
-    homeStore.setDeliveryOrderChangeMode();
+    deliveryStore.setDeliveryOrderChangeMode();
     storesTableItems.value = [...orgStoresTableItems.value];
     return;
   }
@@ -79,7 +80,7 @@ export async function setStoresTableItemsByDelivery() {
   //TODO: 배송 순서 보내는 api 필요
 
   orgStoresTableItems.value = [...storesTableItems.value];
-  homeStore.setDeliveryOrderChangeMode();
+  deliveryStore.setDeliveryOrderChangeMode();
 }
 
 export async function setStoresTableItemsByCourse() {
@@ -94,7 +95,7 @@ export async function setStoresTableItemsByCourse() {
   }
 
   if (!isCourceChangeMode.value) {
-    homeStore.setCourceChangeMode();
+    deliveryStore.setCourceChangeMode();
     return;
   }
 
@@ -114,7 +115,7 @@ export async function setStoresTableItemsByCourse() {
 
   // 선택된 값이 없으면 리턴
   if (!isSelected) {
-    homeStore.setCourceChangeMode();
+    deliveryStore.setCourceChangeMode();
     storesTableItems.value.map((item) => {
       item.selected = false;
     });
@@ -124,7 +125,7 @@ export async function setStoresTableItemsByCourse() {
   const isConfirm = confirm("정말 저장하시겠습니까?");
 
   if (!isConfirm) {
-    homeStore.setCourceChangeMode();
+    deliveryStore.setCourceChangeMode();
     storesTableItems.value.map((item) => {
       item.selected = false;
     });
@@ -135,6 +136,6 @@ export async function setStoresTableItemsByCourse() {
 
   alert(JSON.stringify(storesItems));
 
-  homeStore.setCourceChangeMode();
+  deliveryStore.setCourceChangeMode();
 }
 /**배송 순서 & 노선 변경 끝 */

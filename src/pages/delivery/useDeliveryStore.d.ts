@@ -1,3 +1,10 @@
+export interface DashboardTableItem{
+  deliveryCount: string;
+  loadingPosition: string;
+  allStoresCount: string;
+  allProductionCount: string;
+}
+
 export interface StoresTableItem {
   id: string;
   restaurantName: string;

@@ -3,12 +3,19 @@ import { defineStore } from "pinia";
 import type { GlobalModal } from "./useModalStore.d";
 
 const initGlobalModal = {
+  isShow: false,
   title: " ",
-  contents: "",
-  noBtnTxt: "취소",
-  yesBtnTxt: "확인",
+  contents: [],
+  noBtnTxt: "",
+  yesBtnTxt: "",
   noBtnFunc: () => {},
   yesBtnFunc: () => {},
+  hide: function () {
+    this.isShow = false;
+  },
+  show: function () {
+    this.isShow = true;
+  },
 };
 
 export default defineStore("modal", {
@@ -19,18 +26,6 @@ export default defineStore("modal", {
       ...initGlobalModal,
     } as GlobalModal,
   }),
-  getters: {
-    getIsShowGlobalModal: (state) => {
-      return state.isShowGlobalModal;
-    },
-  },
-  actions: {
-    async showGlobalModal() {
-      this.isShowGlobalModal = true;
-    },
-    async hideGlobalModal() {
-      this.globalModal = { ...initGlobalModal };
-      this.isShowGlobalModal = false;
-    },
-  },
+  getters: {},
+  actions: {},
 });
