@@ -2,7 +2,6 @@
 import router from "@/router";
 import {
   tableheaders,
-  getColor,
   sortStoresTableItems,
   headerSortColor,
   showSortBtnCondition,
@@ -11,21 +10,16 @@ import {
 import Draggable from "vuedraggable";
 import useHomeStore from "../useCategoryStore";
 import type { StoresTableItem } from "../useCategoryStore.d";
-import { uploadURL } from "@/composable/common";
 
 const homeStore = useHomeStore();
-const {
-  isDeliveryOrderChangeMode,
-  categoryStoresTableItems: storesTableItems,
-  isCourceChangeMode,
-} = storeToRefs(homeStore);
+const { isDeliveryOrderChangeMode, categoryDistributorTableItems } =
+  storeToRefs(homeStore);
 
 const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
   backgroundColor: element.selected ? "#0080ff11" : "white",
 }));
 
 const onClickHeaderSortBtn = sortStoresTableItems;
-const onClickUploadBtn = () => router.push(categoryDetailURL);
 const onClickStoresTableRow = (element: StoresTableItem) => {
   router.push(categoryDetailURL);
 };
@@ -40,7 +34,7 @@ const itemsPerPage = ref(50);
     <VDataTable
       class="stores-container-table elevation-1 rounded"
       :headers="tableheaders"
-      :items="storesTableItems"
+      :items="categoryDistributorTableItems"
       item-key="id"
       :items-per-page="itemsPerPage"
     >
@@ -79,7 +73,7 @@ const itemsPerPage = ref(50);
       </thead>
       <!-- 드래그어블 테이블 바디 -->
       <Draggable
-        v-model="storesTableItems"
+        v-model="categoryDistributorTableItems"
         itemKey="id"
         tag="tbody"
         :disabled="!isDeliveryOrderChangeMode"
@@ -91,13 +85,13 @@ const itemsPerPage = ref(50);
           >
             <!-- 유통사 -->
             <td :style="rowSelectedStyle(element)">
-              <div class="font-weight-bold" style="width: 96px">
+              <div class="font-weight-bold" style="width: 64px">
                 {{ element.distributorName }}
               </div>
             </td>
             <!-- 코스 -->
             <td :style="rowSelectedStyle(element)">
-              <div style="width: 16px">
+              <div style="width: 40px">
                 {{ element.cource }}
               </div>
             </td>
@@ -107,10 +101,16 @@ const itemsPerPage = ref(50);
                 {{ element.completeRate }}
               </span>
             </td>
-            <!-- 완료 -->
+            <!-- 입고확인시간 -->
+            <td :style="rowSelectedStyle(element)">
+              <span style="width: 16px">
+                {{ element.receivingCheckTime }}
+              </span>
+            </td>
+            <!-- 완료 체크박스 -->
             <td :style="rowSelectedStyle(element)">
               <div>
-                <VCheckbox @click.stop v-model="element.check" />
+                <VCheckbox @click.stop v-model="element.checked" />
               </div>
             </td>
           </tr>

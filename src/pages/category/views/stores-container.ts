@@ -5,9 +5,10 @@ export const tableheaders = ref<DataTableHeader[]>([
   { title: "유통사", key: "distributorName", sortable: true },
   { title: "코스", key: "cource", sortable: true },
   { title: "완료율", key: "completeRate", sortable: true },
+  { title: "입고", key: "receivingCheckTime", sortable: true },
   {
     title: "완료",
-    key: "check",
+    key: "checked",
     sortable: true,
   },
 ]);
@@ -21,16 +22,12 @@ export function getColor(status: string) {
 
 const homeStore = useHomeStore();
 
-const {
-  isDeliveryOrderChangeMode,
-  isCourceChangeMode,
-  categoryStoresTableItems: storesTableItems,
-  headerSortMeta,
-} = storeToRefs(homeStore);
+const { categoryDistributorTableItems, headerSortMeta } =
+  storeToRefs(homeStore);
 
 /**테이블 정렬 */
 
-export const orgTableItems = ref([...storesTableItems.value]);
+export const orgTableItems = ref([...categoryDistributorTableItems.value]);
 
 export const showSortBtnCondition = computed(
   () => (header: DataTableHeader) =>
@@ -45,16 +42,11 @@ export const headerSortColor = computed(
 );
 
 export const sortStoresTableItems = (key: string, type: string) => {
-  if (isDeliveryOrderChangeMode.value || isCourceChangeMode.value) {
-    alert("배송 순서 변경 & 노선 저장을 완료해주세요.");
-    return;
-  }
-
   let orderBy = "";
 
   // 정렬 키가 달라지면 정렬 초기화
   if (headerSortMeta.value.key !== key) {
-    storesTableItems.value = [...orgTableItems.value];
+    categoryDistributorTableItems.value = [...orgTableItems.value];
     headerSortMeta.value.orderBy = orderBy;
   }
 
@@ -73,10 +65,12 @@ export const sortStoresTableItems = (key: string, type: string) => {
     headerSortMeta.value.orderBy = orderBy;
   }
 
+  console.log(JSON.stringify(headerSortMeta.value));
+
   // 테이블 정렬 처리
   if (orderBy === "") {
-    storesTableItems.value = [...orgTableItems.value];
+    categoryDistributorTableItems.value = [...orgTableItems.value];
   } else {
-    sortObjectArray(storesTableItems.value, key, type, orderBy);
+    sortObjectArray(categoryDistributorTableItems.value, key, type, orderBy);
   }
 };

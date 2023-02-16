@@ -8,7 +8,16 @@ export interface StoresTableItem {
   selected?: boolean;
 }
 
-export interface CategoryStoresTableItem {
+export interface CategoryDistributorTableItem {
+  id: number;
+  distributorName: string;
+  cource: string;
+  completeRate: string;
+  receivingCheckTime: string;
+  checked: boolean;
+}
+
+export interface CategoryStoreTableItem {
   id: number;
   image: string;
   productName: string;

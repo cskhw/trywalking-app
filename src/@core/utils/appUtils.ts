@@ -187,9 +187,11 @@ export function sortObjectArray(
   type: any,
   order: string
 ) {
+  log(targetArray.length);
   if (type.toLowerCase() == "string") {
     if (order.toLowerCase() == "asc") {
       targetArray.sort(function (a: any, b: any) {
+        console.log(a[key], b[key]);
         // 태그 모두 제거하고 비교
         const x = a[key]
           .toString()

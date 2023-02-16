@@ -1,4 +1,7 @@
-import type { CategoryStoresTableItem } from "./useCategoryStore.d";
+import type {
+  CategoryDistributorTableItem,
+  CategoryStoreTableItem,
+} from "./useCategoryStore.d";
 
 export default defineStore("home", {
   state: () => ({
@@ -15,14 +18,40 @@ export default defineStore("home", {
       key: "",
       orderBy: "",
     },
+    categoryDistributorTableItems: [
+      {
+        id: 0,
+        distributorName: "1엘홀딩스",
+        cource: "A, B, 1",
+        completeRate: "0/14(0%)",
+        receivingCheckTime: "11:11~12:12",
+        checked: false,
+      },
+      {
+        id: 1,
+        distributorName: "2엘홀딩스",
+        cource: "A, B, 1",
+        completeRate: "11/22(50%)",
+        receivingCheckTime: "11:11~12:12",
+        checked: true,
+      },
+      {
+        id: 2,
+        distributorName: "3엘홀딩스",
+        cource: "A, B, 1",
+        completeRate: "0/14(0%)",
+        receivingCheckTime: "~",
+        checked: false,
+      },
+    ] as CategoryDistributorTableItem[],
 
     categoryStoresTableItems: [
       {
         id: 0,
-        image:
+        distributorName:
           "https://cdn.pixabay.com/photo/2020/06/02/06/52/cat-5249722__480.jpg",
-        count: "0/22(0%)",
         productName: "딸기베이스(리플잼)",
+        count: "0/22(0%)",
         checked: false,
       },
       {
@@ -33,8 +62,9 @@ export default defineStore("home", {
         productName: "흑임자파우더(복음자리,구.로즈버드)",
         checked: true,
       },
-    ] as CategoryStoresTableItem[],
+    ] as CategoryStoreTableItem[],
   }),
+
   getters: {},
   actions: {
     setDeliveryOrderChangeMode() {

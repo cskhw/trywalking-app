@@ -6,7 +6,7 @@ import {
   showSortBtnCondition,
 } from "./detail-container";
 
-import type { CategoryStoresTableItem } from "../useCategoryStore.d";
+import type { CategoryStoreTableItem } from "../useCategoryStore.d";
 import useModalStore from "@/stores/useModalStore";
 import useCategoryStore from "../useCategoryStore";
 
@@ -17,13 +17,13 @@ const { categoryStoresTableItems } = storeToRefs(categoryStore);
 
 const { globalModal } = storeToRefs(modalStore);
 
-const rowSelectedStyle = computed(() => (element: CategoryStoresTableItem) => ({
+const rowSelectedStyle = computed(() => (element: CategoryStoreTableItem) => ({
   backgroundColor: element.checked ? "#0080ff11" : "white",
 }));
 
 const onClickHeaderSortBtn = sortStoresTableItems;
 
-const onClickStoresTableRow = (row: CategoryStoresTableItem) => {
+const onClickStoresTableRow = (row: CategoryStoreTableItem) => {
   row.checked = !row.checked;
 };
 
