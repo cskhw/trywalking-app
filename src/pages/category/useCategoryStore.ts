@@ -45,21 +45,29 @@ export default defineStore("home", {
       },
     ] as CategoryDistributorTableItem[],
 
-    categoryStoresTableItems: [
+    categoryStoreTableItems: [
       {
         id: 0,
-        distributorName:
+        image:
           "https://cdn.pixabay.com/photo/2020/06/02/06/52/cat-5249722__480.jpg",
-        productName: "딸기베이스(리플잼)",
-        count: "0/22(0%)",
+        name: "딸기베이스(리플잼)",
+        count: "2",
         checked: false,
       },
       {
         id: 1,
         image:
           "https://cdn.pixabay.com/photo/2020/06/02/06/52/cat-5249722__480.jpg",
-        count: "11/22(50%)",
-        productName: "흑임자파우더(복음자리,구.로즈버드)",
+        count: "3",
+        name: "흑임자파우더(복음자리,구.로즈버드)",
+        checked: true,
+      },
+      {
+        id: 1,
+        image:
+          "https://cdn.pixabay.com/photo/2020/06/02/06/52/cat-5249722__480.jpg",
+        count: "3",
+        name: "흑임자파우더(복음자리,구.로즈버드)",
         checked: true,
       },
     ] as CategoryStoreTableItem[],

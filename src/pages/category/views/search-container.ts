@@ -33,7 +33,7 @@ const homeStore = useHomeStore();
 const {
   isDeliveryOrderChangeMode,
   isCourceChangeMode,
-  categoryStoresTableItems: storesTableItems,
+  categoryStoreTableItems: storesTableItems,
   headerSortMeta,
 } = storeToRefs(homeStore);
 

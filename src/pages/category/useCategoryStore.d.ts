@@ -20,7 +20,7 @@ export interface CategoryDistributorTableItem {
 export interface CategoryStoreTableItem {
   id: number;
   image: string;
-  productName: string;
+  name: string;
   count: string;
   checked: boolean;
 }

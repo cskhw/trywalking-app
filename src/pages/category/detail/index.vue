@@ -7,15 +7,11 @@ import {
 } from "./detail-container";
 
 import type { CategoryStoreTableItem } from "../useCategoryStore.d";
-import useModalStore from "@/stores/useModalStore";
 import useCategoryStore from "../useCategoryStore";
 
 const categoryStore = useCategoryStore();
-const modalStore = useModalStore();
-
-const { categoryStoresTableItems } = storeToRefs(categoryStore);
-
-const { globalModal } = storeToRefs(modalStore);
+const { categoryStoreTableItems: categoryStoresTableItems } =
+  storeToRefs(categoryStore);
 
 const rowSelectedStyle = computed(() => (element: CategoryStoreTableItem) => ({
   backgroundColor: element.checked ? "#0080ff11" : "white",
@@ -54,7 +50,7 @@ const searchQuery = ref("");
       <VCol class="pa-0">
         <div class="stores-container pa-2">
           <VDataTable
-            class="stores-container-table elevation-1 rounded"
+            class="stores-container-table elevation-1 rounded mb-4"
             :headers="tableheaders"
             :items="categoryStoresTableItems"
             item-key="id"
@@ -101,8 +97,8 @@ const searchQuery = ref("");
               :style="rowSelectedStyle(row)"
             >
               <!-- 이미지 -->
-              <td :style="rowSelectedStyle(row)">
-                <div class="font-weight-bold">
+              <td style="width: 60px" :style="rowSelectedStyle(row)">
+                <div class="font-weight-bold" style="width: 60px">
                   <img
                     style="width: 60px; height: 60px; background-color: black"
                     :src="row.image"
@@ -111,13 +107,13 @@ const searchQuery = ref("");
               </td>
               <!-- 상품명 -->
               <td :style="rowSelectedStyle(row)">
-                <div style="width: 96px">
-                  {{ row.productName }}
+                <div style="font-weight: bold; white-space: normal">
+                  {{ row.name }}
                 </div>
               </td>
               <!-- 주문수량 -->
-              <td :style="rowSelectedStyle(row)">
-                <span style="width: 48px">
+              <td style="width: 16px" :style="rowSelectedStyle(row)">
+                <span>
                   {{ row.count }}
                 </span>
               </td>

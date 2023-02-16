@@ -2,9 +2,9 @@ import { sortObjectArray } from "@/@core/utils/appUtils";
 import useHomeStore from "../useCategoryStore";
 
 export const tableheaders = ref<DataTableHeader[]>([
-  { title: "이미지", key: "itemImage", sortable: true },
-  { title: "상품명", key: "itemName", sortable: true },
-  { title: "주문수량", key: "orderItemCount", sortable: true },
+  { title: "이미지", key: "image" },
+  { title: "상품명", key: "name", sortable: true },
+  { title: "주문수량", key: "count", sortable: true },
 ]);
 
 export function getColor(status: string) {
@@ -19,18 +19,18 @@ const homeStore = useHomeStore();
 const {
   isDeliveryOrderChangeMode,
   isCourceChangeMode,
-  categoryStoresTableItems: storesTableItems,
+  categoryStoreTableItems,
   headerSortMeta,
 } = storeToRefs(homeStore);
 
 /**테이블 정렬 */
 
-export const orgTableItems = ref([...storesTableItems.value]);
+export const orgTableItems = ref([...categoryStoreTableItems.value]);
 
 export const showSortBtnCondition = computed(
   () => (header: DataTableHeader) =>
     // sortable이 있고 메타 키와 헤더 키가 같으면
-    header.sortable && headerSortMeta.value.key === header.key
+    header?.sortable && headerSortMeta.value.key === header.key
 );
 
 // 헤더 정렬 버튼 색
@@ -49,7 +49,7 @@ export const sortStoresTableItems = (key: string, type: string) => {
 
   // 정렬 키가 달라지면 정렬 초기화
   if (headerSortMeta.value.key !== key) {
-    storesTableItems.value = [...orgTableItems.value];
+    categoryStoreTableItems.value = [...orgTableItems.value];
     headerSortMeta.value.orderBy = orderBy;
   }
 
@@ -70,8 +70,8 @@ export const sortStoresTableItems = (key: string, type: string) => {
 
   // 테이블 정렬 처리
   if (orderBy === "") {
-    storesTableItems.value = [...orgTableItems.value];
+    categoryStoreTableItems.value = [...orgTableItems.value];
   } else {
-    sortObjectArray(storesTableItems.value, key, type, orderBy);
+    sortObjectArray(categoryStoreTableItems.value, key, type, orderBy);
   }
 };
