@@ -153,7 +153,7 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
       <VCol class="pa-0 py-3 pr-1">
         <VBtn
           style="width: 100%"
-          :color="isDeliveryOrderChangeMode ? 'red' : 'black'"
+          :color="isDeliveryOrderChangeMode ? 'red' : 'blue'"
           @click="onClickDeliveryBtn"
           >{{
             isDeliveryOrderChangeMode ? "배송 순서 저장" : "배송 순서 변경"
@@ -165,7 +165,7 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
       <VCol class="pa-0 py-3 pr-1">
         <VBtn
           style="width: 100%"
-          :color="isCourceChangeMode ? 'red' : 'black'"
+          :color="isCourceChangeMode ? 'red' : 'blue'"
           @click="onClickCourceBtn"
           >{{ isCourceChangeMode ? "노선 저장" : "노선 변경" }}</VBtn
         >

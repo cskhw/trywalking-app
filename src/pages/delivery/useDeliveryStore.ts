@@ -129,6 +129,10 @@ export default defineStore("delivery", {
         selected: false,
       },
     ] as StoresTableItem[],
+
+    detailData: {},
+    inspectionData: {},
+    uploadData: {},
   }),
   getters: {},
   actions: {

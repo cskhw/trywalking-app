@@ -14,14 +14,20 @@ export const tableheaders = ref<DataTableHeader[]>([
   { title: "적재", key: "loadingPosition", sortable: true },
   { title: "완/합계", key: "count", sortable: true },
   { title: "상태", key: "status", sortable: true },
+  { title: "상세", key: "inspection" },
   { title: "사진", key: "camera" },
 ]);
 
-export function getColor(status: string) {
+export function getStatusColor(status: string) {
   if (status === "배송완") return "success";
-  if (status === "배송중") return "orange";
-  if (status === "피킹중") return "blue";
-  if (status === "배송중") return "yellow";
+  else if (status === "배송중") return "orange";
+  else if (status === "피킹중") return "blue";
+  else if (status === "배송중") return "yellow";
+}
+
+export function getPositionColor(status: string) {
+  if (status === "내") return "red";
+  else if (status === "외") return "blue";
 }
 
 const modalStore = useModalStore();
@@ -93,9 +99,6 @@ export const sortStoresTableItems = (key: string, type: string) => {
   }
 };
 
-export const onClickUploadBtn = () => router.push(uploadURL);
-export const onClickHeaderSortBtn = sortStoresTableItems;
-
 // 상세 이동 모달
 export const DeliveryDetailBtn = h(
   "div",
@@ -121,11 +124,5 @@ export const DetailConformModal = h(
   { class: "d-center flex-column font-weight-bold" },
   [DeliveryDetailBtn, Divider, InspectionBtn]
 );
-
-export const onClickStoresTableRow = (element: StoresTableItem) => {
-  globalModal.value.show();
-
-  modalStore.globalModal.contents = DetailConformModal;
-};
 
 export const itemsPerPage = ref(50);

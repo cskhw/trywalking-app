@@ -2,38 +2,35 @@
 import router from "@/router";
 import {
   tableheaders,
-  getColor,
+  getStatusColor,
   sortStoresTableItems,
   headerSortColor,
   showSortBtnCondition,
-  onClickHeaderSortBtn,
-  onClickStoresTableRow,
   rowSelectedStyle,
-  DetailConformModal,
+  getPositionColor,
 } from "./stores-container";
 
 import Draggable from "vuedraggable";
 import useDeliveryStore from "../useDeliveryStore";
 import type { StoresTableItem } from "../useDeliveryStore.d";
 import useModalStore from "@/stores/useModalStore";
+import { deliveryDetailURL, deliveryInspectionURL } from "@/composable/common";
 
 const modalStore = useModalStore();
 const deliveryStore = useDeliveryStore();
 
 const { isDeliveryOrderChangeMode, storesTableItems } =
   storeToRefs(deliveryStore);
-const { globalModal } = storeToRefs(modalStore);
-
-const itemsPerPage = ref(50);
 
 // 이벤트 등록
-const onClickUploadBtn = () => router.push(uploadURL);
+
 const onClickHeaderSortBtn = sortStoresTableItems;
 const onClickStoresTableRow = (element: StoresTableItem) => {
-  globalModal.value.show();
-
-  modalStore.globalModal.contents = DetailConformModal;
+  router.push(deliveryInspectionURL);
 };
+
+const onClickInspectionBtn = () => router.push(deliveryDetailURL);
+const onClickUploadBtn = () => router.push(uploadURL);
 </script>
 
 <template>
@@ -44,7 +41,6 @@ const onClickStoresTableRow = (element: StoresTableItem) => {
       :headers="tableheaders"
       :items="storesTableItems"
       item-key="id"
-      :items-per-page="itemsPerPage"
     >
       <!-- 테이블 헤더 -->
       <thead>
@@ -91,34 +87,54 @@ const onClickStoresTableRow = (element: StoresTableItem) => {
             @click="onClickStoresTableRow(element)"
             :style="rowSelectedStyle(element)"
           >
+            <!-- 순서 -->
             <td :style="rowSelectedStyle(element)">
               <div>
                 {{ element.id }}
               </div>
             </td>
+            <!-- 식당명 -->
             <td :style="rowSelectedStyle(element)">
-              <div class="font-weight-bold" style="width: 96px">
+              <div class="font-weight-bold" style="width: 84px">
                 {{ element.restaurantName }}
               </div>
             </td>
+            <!-- 적재 위치 -->
             <td :style="rowSelectedStyle(element)">
-              <span style="width: 16px">
+              <VChip
+                outlined
+                :color="getPositionColor(element.loadingPosition)"
+              >
                 {{ element.loadingPosition }}
-              </span>
+              </VChip>
             </td>
+            <!-- 수량 -->
             <td :style="rowSelectedStyle(element)">
               <div style="width: 16px">
                 {{ element.count }}
               </div>
             </td>
+            <!-- 상태 -->
             <td :style="rowSelectedStyle(element)">
-              <VChip outlined :color="getColor(element.status)">
+              <VChip outlined :color="getStatusColor(element.status)">
                 {{ element.status }}
               </VChip>
             </td>
+            <!-- 상세 버튼 -->
             <td :style="rowSelectedStyle(element)">
               <VIcon
-                size="30"
+                size="24"
+                color="#999999"
+                icon="mdi-document"
+                @click.stop="onClickInspectionBtn"
+              ></VIcon>
+            </td>
+
+            <!-- 배송 버튼 -->
+            <td class="pa-0 mr-1" :style="rowSelectedStyle(element)">
+              <VIcon
+                class="pa-0"
+                size="24"
                 color="#999999"
                 icon="mdi-upload"
                 @click.stop="onClickUploadBtn"
@@ -134,13 +150,13 @@ const onClickStoresTableRow = (element: StoresTableItem) => {
 <style lang="scss" scoped>
 :deep(.stores-container-table th) {
   font-weight: bold !important;
-  padding: 6px !important;
+  padding: 4px !important;
   background-color: #fafafa !important;
   font-size: 14px !important;
 }
 
 :deep(.stores-container-table td) {
-  padding: 6px !important;
+  padding: 4px !important;
   font-size: 14px !important;
 }
 

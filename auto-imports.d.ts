@@ -46,7 +46,10 @@ declare global {
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const defineStore: typeof import('pinia')['defineStore']
+  const deliveryDetailURL: typeof import('./src/composable/common')['deliveryDetailURL']
+  const deliveryInspectionURL: typeof import('./src/composable/common')['deliveryInspectionURL']
   const deliveryURL: typeof import('./src/composable/common')['deliveryURL']
+  const deliveryUploadURL: typeof import('./src/composable/common')['deliveryUploadURL']
   const driverURL: typeof import('./src/composable/common')['driverURL']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
@@ -94,7 +97,6 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
-  const pickingURL: typeof import('./src/composable/common')['pickingURL']
   const provide: typeof import('vue')['provide']
   const reactify: typeof import('@vueuse/core')['reactify']
   const reactifyObject: typeof import('@vueuse/core')['reactifyObject']
@@ -373,7 +375,10 @@ declare module 'vue' {
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
+    readonly deliveryDetailURL: UnwrapRef<typeof import('./src/composable/common')['deliveryDetailURL']>
+    readonly deliveryInspectionURL: UnwrapRef<typeof import('./src/composable/common')['deliveryInspectionURL']>
     readonly deliveryURL: UnwrapRef<typeof import('./src/composable/common')['deliveryURL']>
+    readonly deliveryUploadURL: UnwrapRef<typeof import('./src/composable/common')['deliveryUploadURL']>
     readonly driverURL: UnwrapRef<typeof import('./src/composable/common')['driverURL']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
@@ -421,7 +426,6 @@ declare module 'vue' {
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
-    readonly pickingURL: UnwrapRef<typeof import('./src/composable/common')['pickingURL']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>
     readonly reactifyObject: UnwrapRef<typeof import('@vueuse/core')['reactifyObject']>

@@ -12,6 +12,11 @@ import Footer from "@/layouts/components/Footer.vue";
 
 // @layouts plugin
 import { VerticalNavLayout } from "@layouts";
+import {
+  deliveryDetailURL,
+  deliveryInspectionURL,
+  deliveryUploadURL,
+} from "@/composable/common";
 // import { themeConfig } from "@themeConfig";
 
 // const { appRouteTransition } = useThemeConfig();
@@ -39,6 +44,9 @@ const appTitle = computed(() => {
   else if (route.path === totalPickingURL) title = "총량 피킹";
   else if (route.path === dasURL) title = "다스";
   else if (route.path === settingsURL) title = "설정";
+  else if (route.path === deliveryDetailURL) title = "배송 상세";
+  else if (route.path === deliveryInspectionURL) title = "검수확인서";
+  else if (route.path === deliveryUploadURL) title = "사진 올리기";
 
   return title;
 });
@@ -49,7 +57,7 @@ const appTitle = computed(() => {
       <!-- 👉 navbar -->
       <div class="d-flex h-100 align-center">
         <VBtn
-          v-if="route.path !== '/' && route.path !== '/delivery'"
+          v-if="route.path !== '/'"
           style="max-width: 40px !important; height: 40px"
           color="white"
           flat
@@ -58,14 +66,6 @@ const appTitle = computed(() => {
           @click="onClickBackBtn"
         >
           <VIcon size="40" color="grey-darken-2">mdi-chevron-left</VIcon>
-        </VBtn>
-
-        <VBtn
-          v-if="route.path === '/delivery'"
-          flat
-          @click="router.push('/delivery/total-picking')"
-        >
-          <span class="font-weight-bold"> 총량피킹 </span>
         </VBtn>
 
         <!-- 사이드바 사용하지 않음 -->
@@ -93,6 +93,14 @@ const appTitle = computed(() => {
           {{ appTitle }}
         </span>
         <VSpacer />
+
+        <VBtn
+          v-if="route.path === '/das'"
+          flat
+          @click="router.push('/das/total-picking')"
+        >
+          <span class="font-weight-bold"> 총량피킹 </span>
+        </VBtn>
 
         <!-- <NavSearchBar class="ms-lg-n3" /> -->
 

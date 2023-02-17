@@ -6,11 +6,62 @@
 
     <VRow>
       <VCol md="6" lg="8" cols="12">
-        <VCard style="height: 100%">
-          <v-expansion-panels v-model="isShowPanel" multiple>
-            <PickingListStoreInfo></PickingListStoreInfo>
-            <PickingListDeliveryInfo></PickingListDeliveryInfo>
-          </v-expansion-panels>
+        <VCard>
+          <VRow no-gutters>
+            <VCol
+              cols="12"
+              sm="8"
+              md="12"
+              lg="7"
+              order="2"
+              order-lg="1"
+              class="picking-list"
+            >
+              <VCardText>
+                <div class="dashboard-wrap">
+                  <div class="picking-status">
+                    <p>피킹상태</p>
+                    <span>3 / 43</span>
+                  </div>
+                  <div class="picking-status">
+                    <ul>
+                      <li>
+                        <p>
+                          <VChip color="error">
+                            <VIcon center size="16" icon="mdi-thermometer" />
+                          </VChip>
+                          상온
+                        </p>
+                        <span>36</span>
+                      </li>
+                      <li>
+                        <p>
+                          <VChip color="info">
+                            <VIcon center size="16" icon="mdi-water" />
+                          </VChip>
+                          냉장
+                        </p>
+                        <span>3</span>
+                      </li>
+                      <li>
+                        <p>
+                          <VChip color="default">
+                            <VIcon center size="16" icon="mdi-snowflake" />
+                          </VChip>
+                          냉동
+                        </p>
+                        <span>4</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </VCardText>
+
+              <VCardText>
+                <PickingListTable></PickingListTable>
+              </VCardText>
+            </VCol>
+          </VRow>
         </VCard>
       </VCol>
     </VRow>
@@ -18,28 +69,15 @@
 </template>
 
 <script setup lang="ts">
-import PickingListStoreInfo from "@/pages/delivery/detail/views/PickingListStoreInfo.vue";
-import PickingListDeliveryInfo from "@/pages/delivery/detail/views/PickingListDeliveryInfo.vue";
-
-// 패널 열기 로컬스토리지에 저장
-const localPanel = localStorage.getItem("isShowPanel");
-
-const isShowPanel = ref([0, 1]);
-
-if (localPanel) {
-  isShowPanel.value = JSON.parse(localPanel);
-}
-
-watch(isShowPanel, (newVal) => {
-  console.log(newVal);
-  localStorage.setItem("isShowPanel", JSON.stringify(newVal));
-});
+import PickingListTable from "@/pages/delivery/detail/views/PickingListTable.vue";
 </script>
 
 <style lang="scss" scoped>
 .picking-list-wrap {
   width: 100%;
-  margin-bottom: 40px;
+  height: calc(100% - 60px);
+  left: 0;
+  top: 0;
   z-index: 11;
   background-color: #f8f7fa;
 

@@ -32,6 +32,9 @@ export const deliveryURL = "/delivery";
 export const driverURL = "/delivery/driver";
 export const uploadURL = "/delivery/upload";
 export const totalPickingURL = "/delivery/total-picking";
+export const deliveryDetailURL = "/delivery/detail";
+export const deliveryInspectionURL = "/delivery/inspection";
+export const deliveryUploadURL = "/delivery/upload";
+
 export const settingsURL = "/settings";
 export const dasURL = "/das";
-export const pickingURL = "/delivery/picking";
