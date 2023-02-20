@@ -8,12 +8,20 @@ import {
 } from "./stores-container";
 
 import Draggable from "vuedraggable";
-import useHomeStore from "../useCategoryStore";
-import type { StoresTableItem } from "../useCategoryStore.d";
+import useCategoryStore from "../useCategoryStore";
+import type {
+  CategoryDistributorTableItem,
+  StoresTableItem,
+} from "../useCategoryStore.d";
+import useModalStore from "@/stores/useModalStore";
 
-const homeStore = useHomeStore();
+const categoryStore = useCategoryStore();
+const modalStore = useModalStore();
+
 const { isDeliveryOrderChangeMode, categoryDistributorTableItems } =
-  storeToRefs(homeStore);
+  storeToRefs(categoryStore);
+
+const { globalModal } = storeToRefs(modalStore);
 
 const rowSelectedStyle = computed(() => (element: StoresTableItem) => ({
   backgroundColor: element.selected ? "#0080ff11" : "white",
@@ -26,6 +34,31 @@ const onClickStoresTableRow = (element: StoresTableItem) => {
 
 const itemsPerPage = ref(50);
 /**테이블 정렬 끝 */
+
+const onClickCompleteCheckBox = (
+  e: Event,
+  element: CategoryDistributorTableItem
+) => {
+  e.stopPropagation();
+  e.preventDefault();
+  globalModal.value.show();
+  nextTick(() => {
+    globalModal.value.noBtnTxt = "닫기";
+    if (element.checked) {
+      globalModal.value.title = "정말 취소하시겠습니까?";
+      globalModal.value.yesBtnTxt = "취소";
+    } else {
+      globalModal.value.title = "정말 완료하시겠습니까?";
+      globalModal.value.yesBtnTxt = "완료";
+    }
+    globalModal.value.yesBtnFunc = async () => {
+      element.checked = !element.checked;
+      globalModal.value.hide();
+
+      //TODO: 전체 입고체크 완료하는 api 넣기
+    };
+  });
+};
 </script>
 
 <template>
@@ -110,7 +143,10 @@ const itemsPerPage = ref(50);
             <!-- 완료 체크박스 -->
             <td :style="rowSelectedStyle(element)">
               <div>
-                <VCheckbox @click.stop v-model="element.checked" />
+                <VCheckbox
+                  @click="(e:Event) => onClickCompleteCheckBox(e, element)"
+                  v-model="element.checked"
+                />
               </div>
             </td>
           </tr>
