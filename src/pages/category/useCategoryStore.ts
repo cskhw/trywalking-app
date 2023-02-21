@@ -1,4 +1,5 @@
 import type {
+  CategoryDashboardTableItem,
   CategoryDistributorTableItem,
   CategoryStoreTableItem,
 } from "./useCategoryStore.d";
@@ -8,10 +9,10 @@ export default defineStore("category", {
     isDeliveryOrderChangeMode: false,
     isCourceChangeMode: false,
     dashboardTableItems: [
-      { a: "image1", b: "오레가노럽드(건오레가노)", c: "2" },
-      { a: "image2", b: "오레가노럽드(건오레가노)", c: "2" },
-      { a: "image3", b: "오레가노럽드(건오레가노)", c: "2" },
-    ],
+      { cource: "A-1", storedTime: "11:00~12:12", storedRate: "50%" },
+      { cource: "A-2", storedTime: "11:00~12:12", storedRate: "50%" },
+      { cource: "A-3", storedTime: "11:00~12:12", storedRate: "50%" },
+    ] as CategoryDashboardTableItem[],
 
     // 정렬 정보
     headerSortMeta: {

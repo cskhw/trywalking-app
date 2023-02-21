@@ -17,6 +17,12 @@ export interface CategoryDistributorTableItem {
   checked: boolean;
 }
 
+export interface CategoryDashboardTableItem {
+  cource: string;
+  storedTime: string;
+  storedRate: string;
+}
+
 export interface CategoryStoreTableItem {
   id: number;
   image: string;
