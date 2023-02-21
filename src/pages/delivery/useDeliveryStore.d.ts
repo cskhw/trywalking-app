@@ -1,8 +1,9 @@
-export interface DashboardTableItem{
+export interface DashboardTableItem {
   deliveryCount: string;
   loadingPosition: string;
   allStoresCount: string;
   allProductionCount: string;
+  totalProductionPrice: string;
 }
 
 export interface StoresTableItem {

@@ -42,6 +42,7 @@ const onClickCompleteCheckBox = (
   e.stopPropagation();
   e.preventDefault();
   globalModal.value.show();
+
   nextTick(() => {
     globalModal.value.noBtnTxt = "닫기";
     if (element.checked) {

@@ -100,11 +100,13 @@ const onClickCourceBtn = setStoresTableItemsByCourse;
       style="table-layout: auto; width: 100%"
     >
       <colgroup>
-        <col width="25%" />
-        <col width="25%" />
-        <col width="25%" />
-        <col width="25%" />
+        <col width="20%" />
+        <col width="20%" />
+        <col width="16%" />
+        <col width="16%" />
+        <col width="28%" />
       </colgroup>
+
       <!-- 👉 Table head -->
       <thead style="height: 32px; background-color: #f8f8f8">
         <tr style="height: 32px">

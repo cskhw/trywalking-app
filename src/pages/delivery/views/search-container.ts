@@ -26,10 +26,11 @@ export const isShowOnlyCs = ref(false);
 export const isShowOnlyPickingCompleted = ref(false);
 
 export const tableheaders = ref([
-  "배송 중/합계",
+  "배송 중/합",
   "적재 내/외",
-  "총 매장 수",
-  "총 수량",
+  "매장 수",
+  "수량",
+  "금액",
 ]);
 
 const deliveryStore = useDeliveryStore();

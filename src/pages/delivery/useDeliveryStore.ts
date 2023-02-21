@@ -10,6 +10,7 @@ export default defineStore("delivery", {
         loadingPosition: "48/72",
         allStoresCount: "64",
         allProductionCount: "1024",
+        totalProductionPrice: "99,999,999",
       },
     ] as DashboardTableItem[],
 
