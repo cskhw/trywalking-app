@@ -23,7 +23,7 @@ export interface ReadAllLogRequest {}
 export interface SignupRequest {
   username: string;
   password: string;
-  role: string[];
+  roles: string[];
 }
 
 export interface SigninRequest {

@@ -13,11 +13,7 @@ import authV2MaskDark from "@images/pages/misc-mask-dark.png";
 import authV2MaskLight from "@images/pages/misc-mask-light.png";
 
 import useAuthStore from "@/stores/useAuthStore";
-
-interface ILoginForm {
-  username: string;
-  password: string;
-}
+import type { LoginForm } from "@/stores/useAuthStore.d";
 
 const authStore = useAuthStore();
 
@@ -40,7 +36,7 @@ const errors = ref<Record<string, string | undefined>>({
 
 const refVForm = ref<VForm>();
 
-const loginForm = reactive<ILoginForm>({
+const loginForm = reactive<LoginForm>({
   username: "",
   password: "",
 });
@@ -50,7 +46,7 @@ async function login() {
 }
 
 // 인풋 함수 등록
-const onSubmit = asyncDebounce(login);
+const onClickLoginBtn = asyncDebounce(login);
 </script>
 
 <template>
@@ -81,7 +77,7 @@ const onSubmit = asyncDebounce(login);
         </VCardText>
 
         <VCardText>
-          <VForm ref="refVForm" @submit.prevent="onSubmit">
+          <VForm ref="refVForm" @submit.prevent="onClickLoginBtn">
             <VRow>
               <!-- email -->
               <VCol cols="12">

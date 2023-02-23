@@ -1,5 +1,5 @@
 {
-  "name": "orderhero-admin-inspection",
+  "name": "mfc-mobile-app",
   "version": "1.0.0",
   "scripts": {
     "dev": "npm run build:icons && vite --host",

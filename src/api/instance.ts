@@ -62,11 +62,9 @@ axiosInstance.interceptors.response.use(
 );
 
 // 로깅 함수
-async function logging(url: any) {
-  const route = useRoute();
-
+async function logging(url: string) {
   await api.log.createLog({
-    path: route.path,
+    path: window.location.href,
     event: "routing",
     url: url,
     date: new Date().toUTCString(),
