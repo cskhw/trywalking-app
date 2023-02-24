@@ -3,6 +3,7 @@ import type {
   CategoryDistributorTableItem,
   CategoryStoreTableItem,
   Center,
+  Cource,
 } from "./useCategoryStore.d";
 
 export default defineStore("category", {
@@ -12,6 +13,7 @@ export default defineStore("category", {
 
     center: { name: "센터 미배정" } as Center,
     centers: [] as Center[],
+    cources: [] as Cource[],
 
     dashboardTableItems: [
       { cource: "A-1", storedTime: "11:00~12:12", storedRate: "50%" },
@@ -91,6 +93,16 @@ export default defineStore("category", {
     async getCenters() {
       const res = await this.api.category.getCenters();
       if (res.status === 200) this.centers = res.data;
+
+      console.log(res.data);
+    },
+
+    async getCources(centerName: string) {
+      const res = await this.api.category.getCources({
+        centerName: centerName,
+      });
+      if (res.status === 200) this.cources = res.data;
+      console.log(res.data);
     },
   },
 });

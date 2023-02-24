@@ -1,7 +1,30 @@
 export interface Center {
-  id: 1;
+  centerId: number;
   name: string;
   location: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Production {
+  id: number;
+  name: string;
+  price: string;
+  weight: string;
+}
+
+export interface Store {
+  id: number;
+  name: string;
+  location: string;
+  production: Production;
+}
+
+export interface Cource {
+  id: number;
+  centerId: string;
+  courceId: string;
+  store: Store;
   createdAt: string;
   updatedAt: string;
 }

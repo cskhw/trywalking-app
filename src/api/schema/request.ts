@@ -51,3 +51,11 @@ export interface VerifyEmailRequest {
 export interface TestUploadImgRequest {
   image: File;
 }
+
+/** /category api 리스트
+ * CategoryGetCourcesRequest: 해당 센터의 코스들 가져옴
+ *
+ */
+export interface CategoryGetCourcesRequest {
+  centerName: string;
+}

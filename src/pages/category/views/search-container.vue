@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { centerSelectItems, date, tableheaders } from "./search-container";
+import { date, tableheaders } from "./search-container";
 import DatePicker from "vue3-datepicker";
 
 import useCategoryStore from "../useCategoryStore";
-import api from "@/api/api";
 
 const categoryStore = useCategoryStore();
 
@@ -28,6 +27,7 @@ const onClickSelectAllBtnInCourceSelect = () => {
 };
 
 categoryStore.getCenters();
+categoryStore.getCources("test");
 </script>
 
 <template>
@@ -40,7 +40,6 @@ categoryStore.getCenters();
       overflow: visible;
     "
   >
-    {{ categoryStore.centers }}
     <VRow class="px-3 pt-4">
       <!-- 날짜 선택 -->
       <VCol class="pa-0 pr-1" cols="4">

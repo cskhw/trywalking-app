@@ -1,4 +1,4 @@
-import { Center } from "@/pages/category/useCategoryStore";
+import type { Center, Cource } from "@/pages/category/useCategoryStore.d";
 
 export interface SimpleResponse {
   status: boolean;
@@ -60,3 +60,5 @@ export interface UserMeResponse {
  */
 
 export type GetCentersResponse = Center[];
+
+export type CategoryGetCourcesResponse = Cource[];
