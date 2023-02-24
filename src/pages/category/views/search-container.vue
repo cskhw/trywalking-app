@@ -1,18 +1,9 @@
 <script setup lang="ts">
-import {
-  centerSelectItems,
-  centerSelectValue,
-  date,
-  tableheaders,
-  setStoresTableItemsByDelivery,
-  setStoresTableItemsByCourse,
-} from "./search-container";
+import { centerSelectItems, date, tableheaders } from "./search-container";
 import DatePicker from "vue3-datepicker";
 
-import router from "@/router";
-import { driverURL } from "@/composable/common";
 import useCategoryStore from "../useCategoryStore";
-import useUserStore from "@/stores/useUserStore";
+import api from "@/api/api";
 
 const categoryStore = useCategoryStore();
 
@@ -36,16 +27,7 @@ const onClickSelectAllBtnInCourceSelect = () => {
     : (courceSelectValue.value = [...courceSelectItems.value]);
 };
 
-const onClickDriverBtn = () => router.push(driverURL);
-
-const onClickDeliveryBtn = setStoresTableItemsByDelivery;
-const onClickCourceBtn = setStoresTableItemsByCourse;
-
-const userStore = useUserStore();
-
-const testClick = async () => {
-  await userStore.getUser();
-};
+categoryStore.getCenters();
 </script>
 
 <template>
@@ -58,7 +40,7 @@ const testClick = async () => {
       overflow: visible;
     "
   >
-    <VBtn @click="testClick"></VBtn>
+    {{ categoryStore.centers }}
     <VRow class="px-3 pt-4">
       <!-- 날짜 선택 -->
       <VCol class="pa-0 pr-1" cols="4">
@@ -69,7 +51,14 @@ const testClick = async () => {
       </VCol>
       <!-- 센터미배정 -->
       <VCol class="pa-0">
-        <VSelect v-model="centerSelectValue" :item="centerSelectItems">
+        <VSelect
+          v-model="categoryStore.center.name"
+          :items="
+            categoryStore.centers.map((item) => {
+              return item.name;
+            })
+          "
+        >
         </VSelect>
       </VCol>
     </VRow>

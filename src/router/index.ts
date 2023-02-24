@@ -58,7 +58,7 @@ export const checkAuth = async () => {
 
     return true;
   } else {
-    // 인증코튼 없으면 로그인으로 이동
+    // 인증토큰 없으면 로그인으로 이동
     appStore.layout = "login";
 
     return "/login";
@@ -73,11 +73,11 @@ router.beforeEach(async (to, from) => {
 
   try {
     /**access log 보내고 콘솔 찍어줌 */
-    api.log.createLog({
-      path: to.path,
-      event: "route",
-      date: new Date().toUTCString(),
-    });
+    // api.log.createLog({
+    //   path: to.path,
+    //   event: "route",
+    //   date: new Date().toUTCString(),
+    // });
   } catch (e) {
     log("서버 에러: ", e);
   }
@@ -89,9 +89,12 @@ router.beforeEach(async (to, from) => {
   } else if (to.path === "/signup") {
     appStore.layout = "signup";
     return true;
-  } else {
-    appStore.layout = "app";
+    // 인증 필요없는 주소들은 통과
+  } else if (to.path === "/register" || to.path === "/forgot-password") {
+    return true;
   }
+
+  appStore.layout = "app";
 
   // 인증 체크
   return await checkAuth();

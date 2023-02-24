@@ -1,3 +1,5 @@
+import { Center } from "@/pages/category/useCategoryStore";
+
 export interface SimpleResponse {
   status: boolean;
   detail: string;
@@ -51,3 +53,10 @@ export interface UserMeResponse {
   created_at: string;
   updated_at: string;
 }
+
+/** /category api 리스트
+ * GetCentersResponse: 이미지 업로드
+ *
+ */
+
+export type GetCentersResponse = Center[];

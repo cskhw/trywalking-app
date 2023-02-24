@@ -1,3 +1,11 @@
+export interface Center {
+  id: 1;
+  name: string;
+  location: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface StoresTableItem {
   id: string;
   restaurantName: string;

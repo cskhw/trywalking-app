@@ -2,12 +2,17 @@ import type {
   CategoryDashboardTableItem,
   CategoryDistributorTableItem,
   CategoryStoreTableItem,
+  Center,
 } from "./useCategoryStore.d";
 
 export default defineStore("category", {
   state: () => ({
     isDeliveryOrderChangeMode: false,
     isCourceChangeMode: false,
+
+    center: { name: "센터 미배정" } as Center,
+    centers: [] as Center[],
+
     dashboardTableItems: [
       { cource: "A-1", storedTime: "11:00~12:12", storedRate: "50%" },
       { cource: "A-2", storedTime: "11:00~12:12", storedRate: "50%" },
@@ -81,6 +86,11 @@ export default defineStore("category", {
     },
     setCourceChangeMode() {
       this.isCourceChangeMode = !this.isCourceChangeMode;
+    },
+
+    async getCenters() {
+      const res = await this.api.category.getCenters();
+      if (res.status === 200) this.centers = res.data;
     },
   },
 });
