@@ -1,11 +1,11 @@
 import auth from "@/api/service/auth";
-import users from "@/api/service/users";
+import user from "@/api/service/user";
 import log from "@/api/service/log";
 import test from "@/api/service/test";
 
 export default {
   auth: auth,
-  users: users,
+  user: user,
   log: log,
   test: test,
 };

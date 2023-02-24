@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import router from "@/router";
+import useUserStore from "@/stores/useUserStore";
+
+const userStore = useUserStore();
 
 const settingItems = ref([{ text: "로그아웃", icon: "mdi-logout" }]);
 
@@ -9,18 +12,23 @@ const onClickSettingBtn = (text: string) => {
     sessionStorage.clear();
   }
 };
+
+const onClickProfileBtn = () => {
+  router.push(settingsProfileURL);
+};
 </script>
 
 <template>
   <VRow
     ><VCol cols="12">
+      <!-- 프로필 버튼 -->
       <VCard
         class="d-center justify-start ma-4 mb-0 mt-8 py-4 px-4 elevation-0 rounded-lg pt-btn"
+        @click="onClickProfileBtn"
       >
         <img class="mr-3" width="52" height="52" src="/logo.svg" alt="Logo" />
         <div>
-          <div class="font-weight-bold">타요</div>
-          <div>히어로지스틱</div>
+          <div class="font-weight-bold">{{ userStore.user.nickname }}</div>
         </div>
       </VCard>
     </VCol>

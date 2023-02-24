@@ -21,8 +21,11 @@ const refVForm = ref<VForm>();
 const signupForm = reactive<SignupForm>({
   username: "",
   password: "",
+  nickname: "",
   roles: ["ROLE_USER"],
 });
+
+const confirmPassword = ref("");
 
 const privacyPolicies = ref(true);
 
@@ -48,6 +51,11 @@ const onClickSubmitBtn = async () => {
 
   if (!(await refVForm.value?.validate())) {
     alert("유효한 아이디를 입력해주세요.");
+    return;
+  }
+
+  if (confirmPassword.value !== signupForm.password) {
+    alert("비밀번호와 확인 비밀번호는 같아야 합니다.");
     return;
   }
 
@@ -82,10 +90,7 @@ const onClickSubmitBtn = async () => {
       <VCard flat :max-width="500" class="mt-12 mt-sm-0 pa-4">
         <VCardText>
           <VNodeRenderer :nodes="themeConfig.app.logo" class="mb-6" />
-          <h5 class="text-h5 font-weight-semibold mb-1">
-            Adventure starts here 🚀
-          </h5>
-          <p class="mb-0">Make your app management easy and fun!</p>
+          <h5 class="text-h5 font-weight-semibold mb-1">회원가입</h5>
         </VCardText>
 
         <VCardText>
@@ -100,12 +105,42 @@ const onClickSubmitBtn = async () => {
                 />
               </VCol>
 
+              <!-- nickname -->
+              <VCol cols="12">
+                <VTextField
+                  v-model="signupForm.nickname"
+                  :rules="[requiredValidator, alphaDashValidator]"
+                  label="Nickname"
+                />
+              </VCol>
+
               <!-- password -->
               <VCol cols="12">
                 <VTextField
                   v-model="signupForm.password"
                   :rules="[requiredValidator]"
                   label="Password"
+                  :type="isPasswordVisible ? 'text' : 'password'"
+                  :append-inner-icon="
+                    isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'
+                  "
+                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                />
+              </VCol>
+
+              <!-- confirm password -->
+              <VCol cols="12">
+                <VTextField
+                  v-model="confirmPassword"
+                  :rules="[
+                    requiredValidator,
+                    (value: unknown) => {
+                      return value === signupForm.password ||
+                        '비밀번호와 다릅니다.';
+                    },
+                  ]"
+                  label="Confirm
+                Password"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="
                     isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'

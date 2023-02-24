@@ -3,31 +3,20 @@ import {
   centerSelectItems,
   centerSelectValue,
   date,
-  deliveryOrderSelectItems,
-  deliveryOrderSelectValue,
-  routeSelectValue,
-  routeSelectItems,
-  loadSelectItems,
-  loadSelectValue,
-  pickingSelectItems,
-  pickingSelectValue,
-  isShowOnlyCs,
-  isShowOnlyPickingCompleted,
   tableheaders,
   setStoresTableItemsByDelivery,
   setStoresTableItemsByCourse,
 } from "./search-container";
 import DatePicker from "vue3-datepicker";
 
-import colors from "@/styles/colors";
 import router from "@/router";
 import { driverURL } from "@/composable/common";
-import useHomeStore from "../useCategoryStore";
+import useCategoryStore from "../useCategoryStore";
+import useUserStore from "@/stores/useUserStore";
 
-const homeStore = useHomeStore();
+const categoryStore = useCategoryStore();
 
-const { isDeliveryOrderChangeMode, isCourceChangeMode, dashboardTableItems } =
-  storeToRefs(homeStore);
+const { dashboardTableItems } = storeToRefs(categoryStore);
 
 const searchQuery = ref("");
 
@@ -51,14 +40,25 @@ const onClickDriverBtn = () => router.push(driverURL);
 
 const onClickDeliveryBtn = setStoresTableItemsByDelivery;
 const onClickCourceBtn = setStoresTableItemsByCourse;
+
+const userStore = useUserStore();
+
+const testClick = async () => {
+  await userStore.getUser();
+};
 </script>
 
 <template>
   <VCard
     class="category-search-container pa-4 pb-2"
     color="white"
-    style="border-radius: 0px 0px 24px 24px; white-space: nowrap"
+    style="
+      border-radius: 0px 0px 24px 24px;
+      white-space: nowrap;
+      overflow: visible;
+    "
   >
+    <VBtn @click="testClick"></VBtn>
     <VRow class="px-3 pt-4">
       <!-- 날짜 선택 -->
       <VCol class="pa-0 pr-1" cols="4">

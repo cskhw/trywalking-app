@@ -6,5 +6,6 @@ export interface LoginForm {
 export interface SignupForm {
   username: string;
   password: string;
+  nickname: string;
   roles: string[];
 }

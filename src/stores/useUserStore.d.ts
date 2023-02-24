@@ -1,12 +1,13 @@
-export interface IUser {
+export interface User {
   id: number;
   username: string;
   password: string;
+  nickname: string;
   created_at: string;
   updated_at: string;
 }
 
-export interface IPost {
+export interface Post {
   id: number;
   title: string;
   description: string;

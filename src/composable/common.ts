@@ -2,10 +2,10 @@
 export const HTTP_REQUEST_TIMEOUT = import.meta.env.VITE_HTTP_REQUEST_TIMEOUT;
 
 // 인증
-export const COOKIE_ACCESS_TOKEN = "DL-AT";
-export const COOKIE_REFRESH_TOKEN = "DL_RT";
+export const ACCESS_TOKEN = "DL-AT";
+export const REFRESH_TOKEN = "DL_RT";
 export const TOKEN_EXPIRED_DATE_KEY_NAME = "DL_ET";
-export const COOKIE_AUTO_LOGIN = "DL_AL";
+export const AUTO_LOGIN = "DL_AL";
 
 // 1단위당 바이트
 export const ONE_KB = 1024;
@@ -37,4 +37,6 @@ export const deliveryInspectionURL = "/delivery/inspection";
 export const deliveryUploadURL = "/delivery/upload";
 
 export const settingsURL = "/settings";
+export const settingsProfileURL = "/settings/profile";
+
 export const dasURL = "/das";

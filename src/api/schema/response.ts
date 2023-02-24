@@ -43,4 +43,11 @@ export interface AuthTokenResponse {
   expiration_time: string;
 }
 
-export interface UsersMeResponse {}
+export interface UserMeResponse {
+  id: number;
+  username: string;
+  password: string;
+  nickname: string;
+  created_at: string;
+  updated_at: string;
+}

@@ -29,7 +29,7 @@ axiosInstance.interceptors.request.use(
     config.headers = config?.headers ? config.headers : {};
 
     // 토큰 세션에 저장
-    const accessToken = sessionStorage.getItem(COOKIE_ACCESS_TOKEN);
+    const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
     if (accessToken) config.headers.Authorization = "Bearer " + accessToken;
 
     return config;
@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use(
     // Authorization 토큰이 있으면 세션 갱신해줌
     if (bearerAt) {
       const at = bearerAt.slice(7);
-      sessionStorage.setItem(COOKIE_ACCESS_TOKEN, at);
+      sessionStorage.setItem(ACCESS_TOKEN, at);
     }
 
     return response;

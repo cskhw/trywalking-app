@@ -1,23 +1,25 @@
 <script lang="ts" setup>
-import type { ProfileHeader } from '@/@fake-db/types'
-import axios from '@axios'
+import type { ProfileHeader } from "@/@fake-db/types";
+import axios from "@axios";
 
-const profileHeaderData = ref<ProfileHeader>()
+const profileHeaderData = ref<ProfileHeader>();
 
 const fetchHeaderData = () => {
-  axios.get('/pages/profile-header').then(response => {
-    profileHeaderData.value = response.data
-  })
-}
+  axios.get("/pages/profile-header").then((response) => {
+    profileHeaderData.value = response.data;
+  });
+};
 
-fetchHeaderData()
+fetchHeaderData();
 </script>
 
 <template>
   <VCard v-if="profileHeaderData">
     <VImg :src="profileHeaderData.coverImg" />
 
-    <VCardText class="d-flex align-bottom flex-sm-row flex-column justify-center gap-x-5">
+    <VCardText
+      class="d-flex align-bottom flex-sm-row flex-column justify-center gap-x-5"
+    >
       <div class="d-flex h-0">
         <VAvatar
           rounded
@@ -32,45 +34,35 @@ fetchHeaderData()
           {{ profileHeaderData?.fullName }}
         </h6>
 
-        <div class="d-flex align-center justify-center justify-sm-space-between flex-wrap gap-4">
-          <div class="d-flex flex-wrap justify-center justify-sm-start flex-grow-1 gap-2">
+        <div
+          class="d-flex align-center justify-center justify-sm-space-between flex-wrap gap-4"
+        >
+          <div
+            class="d-flex flex-wrap justify-center justify-sm-start flex-grow-1 gap-2"
+          >
             <span class="d-flex">
-              <VIcon
-                size="20"
-                icon="tabler-color-swatch"
-                class="me-1"
-              />
+              <VIcon size="20" icon="tabler-color-swatch" class="me-1" />
               <span class="text-body-1">
                 {{ profileHeaderData?.designation }}
               </span>
             </span>
 
             <span class="d-flex align-center">
-              <VIcon
-                size="20"
-                icon="tabler-map-pin"
-                class="me-2"
-              />
+              <VIcon size="20" icon="tabler-map-pin" class="me-2" />
               <span class="text-body-1">
                 {{ profileHeaderData?.location }}
               </span>
             </span>
 
             <span class="d-flex align-center">
-              <VIcon
-                size="20"
-                icon="tabler-calendar"
-                class="me-2"
-              />
+              <VIcon size="20" icon="tabler-calendar" class="me-2" />
               <span class="text-body-1">
                 {{ profileHeaderData?.joiningDate }}
               </span>
             </span>
           </div>
 
-          <VBtn prepend-icon="tabler-check">
-            Connected
-          </VBtn>
+          <VBtn prepend-icon="tabler-check"> Connected </VBtn>
         </div>
       </div>
     </VCardText>
