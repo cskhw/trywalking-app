@@ -1,8 +1,8 @@
-name: CI-CD qa
+name: CI-CD prod
 
 on:
   push:
-    branches: [qa]
+    branches: [main]
 
 env:
   S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -87,13 +87,13 @@ jobs:
 
   run:
     needs: deploy # build 후에 실행되도록 정의
-    runs-on: [cicd-prod] # AWS ./configure에서 사용할 label명
+    runs-on: [trywalking-app-main] # AWS ./configure에서 사용할 label명
 
     steps:
       - uses: actions/checkout@v3
       - name: Run deploy.sh
         run: |
-          cd /home/ec2-user/orderhero-admin-inspection 
-          sudo chown ec2-user ./deploy.sh
-          sudo chown ec2-user ./down.sh
+          cd /home/ec2-user/trywalking-app
+          sudo chmod 700 ./deploy.sh
+          sudo chown 700 ./down.sh
           ./deploy.sh

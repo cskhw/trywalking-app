@@ -40,12 +40,13 @@ const router = createRouter({
 export const checkAuth = async () => {
   const appStore = useAppStore();
   const userStore = useUserStore();
-  const at = sessionStorage.getItem(ACCESS_TOKEN);
+  const at = localStorage.getItem(ACCESS_TOKEN);
+  const rt = localStorage.getItem(REFRESH_TOKEN);
 
   // 인증 체크
-  if (at) {
+  if (at && rt) {
     // 토큰 유효성 확인
-    const res = await api.auth.valid({ accessToken: at });
+    const res = await api.auth.valid({ accessToken: at, refreshToken: rt });
 
     // 토큰이 유효하지 않으면 로그인 화면으로 보냄
     if (res.status !== 200) {

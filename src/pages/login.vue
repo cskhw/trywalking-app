@@ -37,8 +37,8 @@ const errors = ref<Record<string, string | undefined>>({
 const refVForm = ref<VForm>();
 
 const loginForm = reactive<LoginForm>({
-  username: "",
-  password: "",
+  username: "test1",
+  password: "test1234",
 });
 
 async function login() {

@@ -16,7 +16,7 @@ import {
 
 export const { themeConfig, layoutConfig } = defineThemeConfig({
   app: {
-    title: "MFC 모바일",
+    title: "걸어봐",
     logo: h("div", {
       innerHTML: logo,
       style: "line-height:0; color: rgb(var(--v-global-theme-primary))",

@@ -12,8 +12,6 @@ import api from "./api";
 const baseURL = getBaseUrl();
 const logBaseURL = getLogBaseURL();
 
-console.log(logBaseURL);
-
 const axiosConfig = { baseURL: baseURL, timeout: 20000 };
 const logAxiosConfig = {
   baseURL: logBaseURL,
@@ -29,7 +27,7 @@ axiosInstance.interceptors.request.use(
     config.headers = config?.headers ? config.headers : {};
 
     // 토큰 세션에 저장
-    const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
+    const accessToken = localStorage.getItem(ACCESS_TOKEN);
     if (accessToken) config.headers.Authorization = "Bearer " + accessToken;
 
     return config;
@@ -45,12 +43,11 @@ axiosInstance.interceptors.response.use(
   function (response) {
     // @ts-ignore
     const bearerAt = response.headers.get(Authorization);
-    log(bearerAt);
 
     // Authorization 토큰이 있으면 세션 갱신해줌
     if (bearerAt) {
       const at = bearerAt.slice(7);
-      sessionStorage.setItem(ACCESS_TOKEN, at);
+      localStorage.setItem(ACCESS_TOKEN, at);
     }
 
     return response;
@@ -78,7 +75,7 @@ async function requestWrapper<
   let result: AxiosResponse<any>;
   try {
     // 로깅 함수 요청에 보내줌
-    if (isLogging) logging(url);
+    // if (isLogging) logging(url);
 
     result = await fn();
   } catch (e: AxiosError & any) {

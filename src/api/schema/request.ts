@@ -33,6 +33,7 @@ export interface SigninRequest {
 
 export interface AccessTokenRequest {
   accessToken: string;
+  refreshToken: string;
 }
 
 export interface RequestEmailRequest {

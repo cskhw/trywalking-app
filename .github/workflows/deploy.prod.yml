@@ -87,13 +87,13 @@ jobs:
 
   run:
     needs: deploy # build 후에 실행되도록 정의
-    runs-on: [cicd-prod] # AWS ./configure에서 사용할 label명
+    runs-on: [trywalking-app-main] # AWS ./configure에서 사용할 label명
 
     steps:
       - uses: actions/checkout@v3
       - name: Run deploy.sh
         run: |
-          cd /home/ec2-user/orderhero-admin-inspection 
+          cd /home/ec2-user/trywalking-app
           sudo chmod 700 ./deploy.sh
           sudo chown 700 ./down.sh
           ./deploy.sh

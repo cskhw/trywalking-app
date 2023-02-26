@@ -18,7 +18,8 @@ export default defineStore("auth", {
 
       if (signinRes?.status === 200) {
         // 토큰 세션에 저장
-        sessionStorage.setItem(ACCESS_TOKEN, signinRes.data.accessToken);
+        localStorage.setItem(ACCESS_TOKEN, signinRes.data.accessToken);
+        localStorage.setItem(REFRESH_TOKEN, signinRes.data.refreshToken);
 
         // 유저데이터 불러오고 중분류로 이동
         await this.router.push("/category");

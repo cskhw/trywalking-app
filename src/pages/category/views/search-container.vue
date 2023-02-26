@@ -25,9 +25,6 @@ const onClickSelectAllBtnInCourceSelect = () => {
     ? (courceSelectValue.value = [])
     : (courceSelectValue.value = [...courceSelectItems.value]);
 };
-
-categoryStore.getCenters();
-categoryStore.getCources("test");
 </script>
 
 <template>

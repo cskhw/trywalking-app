@@ -10,6 +10,7 @@ const onClickSettingBtn = (text: string) => {
   if (text === "로그아웃") {
     router.push("/login");
     sessionStorage.clear();
+    localStorage.clear();
   }
 };
 

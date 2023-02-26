@@ -5,10 +5,10 @@ import type { CategoryGetCourcesRequest } from "@/api/schema/request";
 import type { CategoryGetCourcesResponse } from "@/api/schema/response";
 
 export default {
-  getCenters: (): Promise<AxiosResponse<GetCentersResponse>> =>
-    instance.post("/category/centers"),
-  getCources: (
-    body: CategoryGetCourcesRequest
-  ): Promise<AxiosResponse<CategoryGetCourcesResponse>> =>
-    instance.post("/category/cources", body),
+  // getCenters: (): Promise<AxiosResponse<GetCentersResponse>> =>
+  //   instance.post("/category/centers"),
+  // getCources: (
+  //   body: CategoryGetCourcesRequest
+  // ): Promise<AxiosResponse<CategoryGetCourcesResponse>> =>
+  //   instance.post("/category/cources", body),
 };
