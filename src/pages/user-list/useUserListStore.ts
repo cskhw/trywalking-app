@@ -4,7 +4,7 @@ import type {
   CategoryStoreTableItem,
   Center,
   Cource,
-} from "./useCategoryStore.d";
+} from "./useUserLIstStore";
 
 export default defineStore("category", {
   state: () => ({

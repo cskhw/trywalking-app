@@ -76,9 +76,9 @@
 </template>
 
 <script setup lang="ts">
-import PickingListTable from "@/pages/category/picking/views/PickingListTable.vue";
-import PickingListStoreInfo from "@/pages/category/picking/views/PickingListStoreInfo.vue";
-import PickingListDeliveryInfo from "@/pages/category/picking/views/PickingListDeliveryInfo.vue";
+import PickingListTable from "@/pages/user-list/picking/views/PickingListTable.vue";
+import PickingListStoreInfo from "@/pages/user-list/picking/views/PickingListStoreInfo.vue";
+import PickingListDeliveryInfo from "@/pages/user-list/picking/views/PickingListDeliveryInfo.vue";
 
 const isShowPanel = ref([0, 1]);
 </script>

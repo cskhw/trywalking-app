@@ -24,8 +24,8 @@ export const Authorization = "Authorization";
 
 /**URL */
 // category
-export const categoryURL = "/category";
-export const categoryDetailURL = "/category/detail";
+export const userListURL = "/user-list";
+export const userListDetailURL = "/user-list/detail";
 
 // delivery
 export const deliveryURL = "/delivery";

@@ -19,7 +19,7 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
     title: "걸어봐",
     logo: h("div", {
       innerHTML: logo,
-      style: "line-height:0; color: rgb(var(--v-global-theme-primary))",
+      style: "line-height:0; color: rgb(var(--v-global-theme-primary));",
     }),
     contentWidth: ContentWidth.Boxed,
     contentLayoutNav: AppContentLayoutNav.Vertical,

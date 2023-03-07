@@ -1,5 +1,5 @@
 import { sortObjectArray } from "@/@core/utils/appUtils";
-import useHomeStore from "../useCategoryStore";
+import useHomeStore from "../useUserListStore";
 
 export const tableheaders = ref<DataTableHeader[]>([
   { title: "유통사", key: "distributorName", sortable: true },

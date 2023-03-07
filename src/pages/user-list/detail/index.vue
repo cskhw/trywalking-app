@@ -6,8 +6,8 @@ import {
   showSortBtnCondition,
 } from "./detail-container";
 
-import type { CategoryStoreTableItem } from "../useCategoryStore.d";
-import useCategoryStore from "../useCategoryStore";
+import type { CategoryStoreTableItem } from "../useUserLIstStore";
+import useCategoryStore from "../useUserListStore";
 
 const categoryStore = useCategoryStore();
 const { categoryStoreTableItems: categoryStoresTableItems } =

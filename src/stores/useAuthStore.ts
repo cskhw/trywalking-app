@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
-import type { LoginForm, SignupForm } from "./useAuthStore.d";
-import useUserStore from "./useUserStore";
+import type { LoginForm } from "./useAuthStore.d";
 
 export default defineStore("auth", {
   state: () => ({
@@ -22,7 +21,7 @@ export default defineStore("auth", {
         localStorage.setItem(REFRESH_TOKEN, signinRes.data.refreshToken);
 
         // 유저데이터 불러오고 중분류로 이동
-        await this.router.push("/category");
+        await this.router.push(userListURL);
       } else {
         alert("아이디 혹은 비밀번호를 확인해주세요");
       }

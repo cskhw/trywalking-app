@@ -18,8 +18,6 @@ declare global {
   const asyncDebounce: typeof import('./src/composable/asyncDebounce')['default']
   const asyncDelay: typeof import('./src/composable/asyncDebounce')['asyncDelay']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
-  const categoryDetailURL: typeof import('./src/composable/common')['categoryDetailURL']
-  const categoryURL: typeof import('./src/composable/common')['categoryURL']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -312,6 +310,8 @@ declare global {
   const useWindowFocus: typeof import('@vueuse/core')['useWindowFocus']
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
+  const userListDetailURL: typeof import('./src/composable/common')['userListDetailURL']
+  const userListURL: typeof import('./src/composable/common')['userListURL']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
@@ -348,8 +348,6 @@ declare module 'vue' {
     readonly asyncDebounce: UnwrapRef<typeof import('./src/composable/asyncDebounce')['default']>
     readonly asyncDelay: UnwrapRef<typeof import('./src/composable/asyncDebounce')['asyncDelay']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
-    readonly categoryDetailURL: UnwrapRef<typeof import('./src/composable/common')['categoryDetailURL']>
-    readonly categoryURL: UnwrapRef<typeof import('./src/composable/common')['categoryURL']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -642,6 +640,8 @@ declare module 'vue' {
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
+    readonly userListDetailURL: UnwrapRef<typeof import('./src/composable/common')['userListDetailURL']>
+    readonly userListURL: UnwrapRef<typeof import('./src/composable/common')['userListURL']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>

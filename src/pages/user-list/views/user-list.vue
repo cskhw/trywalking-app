@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { date, tableheaders } from "./search-container";
+import { date, tableheaders } from "./user-list";
 import DatePicker from "vue3-datepicker";
 
-import useCategoryStore from "../useCategoryStore";
+import useUserListStore from "../useUserListStore";
 
-const categoryStore = useCategoryStore();
+const categoryStore = useUserListStore();
 
 const { dashboardTableItems } = storeToRefs(categoryStore);
-
-const searchQuery = ref("");
 
 const isSelectAllCourceSelectValue = computed(
   () => courceSelectValue.value.length === courceSelectItems.value.length

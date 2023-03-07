@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import SearchContainer from "@/pages/category/views/search-container.vue";
-import StoreTableContainer from "@/pages/category/views/stores-container.vue";
+import SearchContainer from "@/pages/user-list/views/user-list.vue";
 </script>
 
 <template>
   <VRow class="match-height ma-0">
     <VCol class="pa-0" cols="12" md="6">
-      <SearchContainer />
+      <SearchContainer> </SearchContainer>
     </VCol>
-    <VCol class="pa-0" cols="12" md="6" style="height: 100%">
+    <!-- <VCol class="pa-0" cols="12" md="6" style="height: 100%">
       <StoreTableContainer />
-    </VCol>
+    </VCol> -->
   </VRow>
 </template>
 

@@ -1,5 +1,5 @@
 import { sortObjectArray } from "@/@core/utils/appUtils";
-import useCategoryStore from "../useCategoryStore";
+import useCategoryStore from "../useUserListStore";
 
 export const tableheaders = ref<DataTableHeader[]>([
   { title: "이미지", key: "image" },

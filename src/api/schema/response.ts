@@ -1,4 +1,4 @@
-import type { Center, Cource } from "@/pages/category/useCategoryStore.d";
+import type { Center, Cource } from "@/pages/user-list/useUserLIstStore";
 
 export interface SimpleResponse {
   status: boolean;

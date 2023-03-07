@@ -37,18 +37,31 @@ const onClickBackBtn = () => {
 const appTitle = computed(() => {
   let title = "MFC 모바일";
 
-  if (route.path === categoryURL) title = "유통사 중분류";
-  else if (route.path === deliveryURL) title = "배송";
-  else if (route.path === driverURL) title = "배송기사 설정";
+  // user-list
+  if (route.path === userListURL) title = "내 주변";
+  // chat
+  else if (route.path === driverURL) title = "채팅";
   else if (route.path === uploadURL) title = "배송사진 올리기";
   else if (route.path === totalPickingURL) title = "총량 피킹";
-  else if (route.path === dasURL) title = "다스";
-  else if (route.path === settingsURL) title = "설정";
+  else if (route.path === dasURL) title = "친구";
+  // friends
+  else if (route.path === deliveryURL) title = "친구";
   else if (route.path === deliveryDetailURL) title = "배송 상세";
   else if (route.path === deliveryInspectionURL) title = "검수확인서";
   else if (route.path === deliveryUploadURL) title = "사진 올리기";
+  // settings
+  else if (route.path === settingsURL) title = "설정";
 
   return title;
+});
+
+const showBackBtn = computed(() => {
+  return (
+    route.path !== "/" &&
+    route.path !== userListURL &&
+    route.path !== dasURL &&
+    route.path !== settingsURL
+  );
 });
 </script>
 <template>
@@ -57,7 +70,7 @@ const appTitle = computed(() => {
       <!-- 👉 navbar -->
       <div class="d-flex h-100 align-center">
         <VBtn
-          v-if="route.path !== '/'"
+          v-if="showBackBtn"
           style="max-width: 40px !important; height: 40px"
           color="white"
           flat
@@ -87,7 +100,7 @@ const appTitle = computed(() => {
 
         <!-- 타이틀 -->
         <span
-          class="text-primary text-h5 font-weight-black"
+          class="text-black text-h6 font-weight-black"
           style="position: absolute; left: 50%; transform: translate(-51%, 0)"
         >
           {{ appTitle }}

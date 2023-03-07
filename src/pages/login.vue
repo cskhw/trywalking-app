@@ -15,6 +15,8 @@ import authV2MaskLight from "@images/pages/misc-mask-light.png";
 import useAuthStore from "@/stores/useAuthStore";
 import type { LoginForm } from "@/stores/useAuthStore.d";
 
+import Logo from "@/assets/images/logo.svg";
+
 const authStore = useAuthStore();
 
 const authThemeImg = useGenerateImageVariant(
@@ -68,7 +70,7 @@ const onClickLoginBtn = asyncDebounce(login);
     <VCol cols="12" lg="4" class="d-flex align-center justify-center">
       <VCard flat :max-width="500" class="mt-12 mt-sm-0 pa-4">
         <VCardText class="d-flex align-center">
-          <VNodeRenderer :nodes="themeConfig.app.logo" class="mb-6" />
+          <img width="40" height="40" :src="Logo" />
 
           <!-- 타이틀 -->
           <h5 class="text-h5 font-weight-semibold mb-1">

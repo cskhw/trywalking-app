@@ -8,11 +8,11 @@ import {
 } from "./stores-container";
 
 import Draggable from "vuedraggable";
-import useCategoryStore from "../useCategoryStore";
+import useCategoryStore from "../useUserListStore";
 import type {
   CategoryDistributorTableItem,
   StoresTableItem,
-} from "../useCategoryStore.d";
+} from "../useUserLIstStore";
 import useModalStore from "@/stores/useModalStore";
 
 const categoryStore = useCategoryStore();
